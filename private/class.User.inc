@@ -1,8 +1,4 @@
 <?php
-// require_once(LIB_PATH.DS."oop".DS."local_db.php");
-// require_once(LIB_PATH.DS."oop".DS."branch.php");
-// require_once(LIB_PATH.DS."oop".DS."dept.php");
-
 class User {
 
 	public $id;
@@ -15,8 +11,8 @@ class User {
 	public $pwd;
 	public $hashed_pwd;
 	public $ddi;
-	public $admin = false;
-	public $su = false;
+	public $admin = "0";
+	public $su = "0";
 	public $table;
 	public $field;
 
@@ -62,16 +58,11 @@ class User {
 		return $object;
 	}
 
-	public function email_from_name() {
-
-	}
-
 	public static function find_by_sql($sql="") {
 		global $local_db;
 		$result_set = $local_db->query($sql);
 		$object_array = array();
 		while ($result = mysqli_fetch_assoc($result_set)) {
-			//make an instance for every result
 			$object_array[] = self::instantiate($result);
 		}
 		return $object_array;
@@ -86,22 +77,44 @@ class User {
 	}
 
 	public static function find_by_id($id=1) {
-		$result_array = self::find_by_sql("SELECT * FROM users WHERE id = {$id};");
-		return !empty($result_array) ? array_shift($result_array) : false ;
+		global $local_db;
+		$sql = 'SELECT * FROM users WHERE id = "';
+		$sql .= $local_db->escape_string($id);
+		$sql .= '" LIMIT 1';
+		$result = self::find_by_sql($sql);
+		return !empty($result) ? array_shift($result) : false ;
+		// $result_array = self::find_by_sql("SELECT * FROM users WHERE id = {$id};");
+		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
 	public static function find_by_full_name($full_name='') {
-		$result_array = self::find_by_sql("SELECT * FROM users WHERE full_name = '{$full_name}';");
-		return !empty($result_array) ? array_shift($result_array) : false ;
+		global $local_db;
+		$sql = 'SELECT * FROM users WHERE full_name = "';
+		$sql .= $local_db->escape_string($full_name);
+		$sql .= '" LIMIT 1';
+		$result = self::find_by_sql($sql);
+		return !empty($result) ? array_shift($result) : false ;
+		// $result_array = self::find_by_sql("SELECT * FROM users WHERE full_name = '{$full_name}';");
+		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
 	public static function find_by_email($email='') {
-		$result_array = self::find_by_sql("SELECT * FROM users WHERE email = '{$email}' LIMIT 1;");
-		return !empty($result_array) ? array_shift($result_array) : false ;
+		global $local_db;
+		$sql = 'SELECT * FROM users WHERE email = "';
+		$sql .= $local_db->escape_string($email);
+		$sql .= '" LIMIT 1';
+		$result = self::find_by_sql($sql);
+		return !empty($result) ? array_shift($result) : false ;
+		// $result_array = self::find_by_sql("SELECT * FROM users WHERE email = '{$email}' LIMIT 1;");
+		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
 	public static function find_by_dept_id($dept_id='1') {
-		return self::find_by_sql("SELECT * FROM users WHERE dept_id = '{$dept_id}';");
+		global $local_db;
+		$sql = 'SELECT * FROM users WHERE dept_id = ';
+		$sql .= $local_db->escape_string($dept_id);
+		return self::find_by_sql($sql);
+		// return self::find_by_sql("SELECT * FROM users WHERE dept_id = '{$dept_id}';");
 	}
 
 	protected function set_branch_from_branch_id() {
@@ -137,12 +150,12 @@ class User {
 		$sql = "INSERT INTO users (";
 		$sql .= "branch_id, dept_id, email, full_name, admin, su, hashed_pwd";
 		$sql .= ") VALUES ('";
-		$sql .= $local_db->escape_value($this->branch_id) ."', '";
-		$sql .= $local_db->escape_value($this->dept_id) ."', '";
-		$sql .= $local_db->escape_value($this->email) ."', '";
-		$sql .= $local_db->escape_value($this->full_name) ."', '";
-		$sql .= $local_db->escape_value($this->admin) ."', '";
-		$sql .= $local_db->escape_value($this->su) ."', '";
+		$sql .= $local_db->escape_string($this->branch_id) ."', '";
+		$sql .= $local_db->escape_string($this->dept_id) ."', '";
+		$sql .= $local_db->escape_string($this->email) ."', '";
+		$sql .= $local_db->escape_string($this->full_name) ."', '";
+		$sql .= $local_db->escape_string($this->admin) ."', '";
+		$sql .= $local_db->escape_string($this->su) ."', '";
 		$sql .= $this->hashed_pwd ."')";
 		if ($local_db->query($sql)) {
 			$this->id = $local_db->insert_id();
@@ -160,13 +173,13 @@ class User {
 		isset($this->dept) ? $this->set_dept_id_from_dept() : false ;
 
 		$sql = "UPDATE users SET ";
-		$sql .= "branch_id='". $local_db->escape_value($this->branch_id) . "', ";
-		$sql .= "dept_id='". $local_db->escape_value($this->dept_id) . "', ";
-		$sql .= "email='". $local_db->escape_value($this->email) . "', ";
-		$sql .= "full_name='". $local_db->escape_value($this->full_name) . "', ";
-		$sql .= "admin='". $local_db->escape_value($this->su) . "', ";
+		$sql .= "branch_id='". $local_db->escape_string($this->branch_id) . "', ";
+		$sql .= "dept_id='". $local_db->escape_string($this->dept_id) . "', ";
+		$sql .= "email='". $local_db->escape_string($this->email) . "', ";
+		$sql .= "full_name='". $local_db->escape_string($this->full_name) . "', ";
+		$sql .= "admin='". $local_db->escape_string($this->su) . "', ";
 		$sql .= "hashed_pwd='". $this->hashed_pwd . "' ";
-		$sql .= "WHERE id=". $local_db->escape_value($this->id);
+		$sql .= "WHERE id=". $local_db->escape_string($this->id);
 		$sql .= " LIMIT 1";
 		$local_db->query($sql);
 		return ($local_db->affected_rows() == 1) ? true : false ;
@@ -175,7 +188,7 @@ class User {
 	public function delete() {
 		global $local_db;
 		$sql = "DELETE FROM users ";
-		$sql .= "WHERE id = ". $local_db->escape_value($this->id);
+		$sql .= "WHERE id = ". $local_db->escape_string($this->id);
 		$sql .= " LIMIT 1";
 		$local_db->query($sql);
 		return ($local_db->affected_rows() == 1) ? true : false ;
@@ -215,8 +228,8 @@ class User {
 
 	public static function authenticate($email='', $password='') {
 		global $local_db;
-		$email = $local_db->escape_value($email);
-		$password = $local_db->escape_value($password);
+		$email = $local_db->escape_string($email);
+		$password = $local_db->escape_string($password);
 		$user = self::find_by_email($email);
 		if ($user) {
 			if ($user->password_check($password)) {

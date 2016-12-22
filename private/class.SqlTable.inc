@@ -1,8 +1,4 @@
 <?php
-// require_once(LIB_PATH.DS."oop".DS."local_db.php");
-// require_once(LIB_PATH.DS."oop".DS."branch.php");
-// require_once(LIB_PATH.DS."oop".DS."dept.php");
-
 class sqlTable {
 
 	public $name='';
@@ -29,7 +25,6 @@ class sqlTable {
 		$result_set = $local_db->query($sql);
 		$object_array = array();
 		while ($result = mysqli_fetch_assoc($result_set)) {
-			//make an instance for every result
 			$object_array[] = self::instantiate($result);
 		}
 		return $object_array;

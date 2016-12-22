@@ -1,6 +1,4 @@
 <?php
-//require_once(LIB_PATH.DS."oop".DS."local_db.php");
-
 class Branch {
 
 	public $id;
@@ -33,21 +31,32 @@ class Branch {
 	}
 
 	public static function find_by_id($id=1) {
-		$result = self::find_by_sql("SELECT * FROM branches WHERE id = {$id};");
+		global $local_db;
+		$sql = 'SELECT * FROM branches WHERE id = "';
+		$sql .= $local_db->escape_string($id);
+		$sql .= '" LIMIT 1';
+		$result = self::find_by_sql($sql);
 		return !empty($result) ? array_shift($result) : false ;
 	}
 
 	public static function find_by_filiale($filiale='') {
-		$result = self::find_by_sql("SELECT * FROM branches WHERE filiale = '{$filiale}' LIMIT 1");
-		return !empty($result) ? array_shift($result) : false ;
+		global $local_db;
+		$sql = 'SELECT * FROM branches WHERE filiale = "';
+		$sql .= $local_db->escape_string($filiale);
+		$sql .= '" LIMIT 1';
+		// $result = self::find_by_sql($sql);
+		// return !empty($result) ? array_shift($result) : false ;
+		return self::find_by_sql($sql);
 	}
 
 	public static function find_by_nb_number($nb_number='') {
-		return self::find_by_sql("SELECT * FROM branches WHERE nb_number = '{$nb_number}'");
-	}
-
-	public static function find_by_nb_number2($nb_number='') {
-		return self::find_by_sql("SELECT * FROM branches WHERE nb_number LIKE '%$nb_number%'");
+		global $local_db;
+		$sql = 'SELECT * FROM branches WHERE nb_number = "';
+		$sql .= $local_db->escape_string($nb_number);
+		$sql .= '" ';
+		// $result = self::find_by_sql($sql);
+		// return !empty($result) ? array_shift($result) : false ;
+		return self::find_by_sql($sql);
 	}
 
 	// create update delete methods will require instances to begin with and therefore will not be static functions
@@ -61,24 +70,24 @@ class Branch {
 		$sql = "INSERT INTO branches (";
 		$sql .= "id, filiale, nb_number";
 		$sql .= ") VALUES ('";
-		$sql .= $local_db->escape_value($this->id) ."', '";
-		$sql .= $local_db->escape_value($this->filiale) ."', '";
-		$sql .= $local_db->escape_value($this->nb_number) ."') ";
-           	if ($local_db->query($sql)) {
-                         $this->id = $local_db->insert_id();
-                         return true;
-           	} else {
-                         return false;
-                }
+		$sql .= $local_db->escape_string($this->id) ."', '";
+		$sql .= $local_db->escape_string($this->filiale) ."', '";
+		$sql .= $local_db->escape_string($this->nb_number) ."') ";
+   	if ($local_db->query($sql)) {
+         $this->id = $local_db->insert_id();
+         return true;
+   	} else {
+         return false;
+    }
 	}
 
 	protected function update() {
 		global $local_db;
 		$sql = "UPDATE branches SET ";
-		$sql .= "filiale='". $local_db->escape_value($this->filiale) . "', ";
-		$sql .= "nb_number='". $local_db->escape_value($this->nb_number) . "', ";
-		$sql .= "WHERE id=". $local_db->escape_value($this->id);
-		$sql .= "LIMIT 1";
+		$sql .= "filiale='". $local_db->escape_string($this->filiale) . "', ";
+		$sql .= "nb_number='". $local_db->escape_string($this->nb_number) . "', ";
+		$sql .= "WHERE id=". $local_db->escape_string($this->id);
+		$sql .= " LIMIT 1";
 		$local_db->query($sql);
 		return ($local_db->affected_rows() == 1) ? true : false ;
 	}
@@ -86,7 +95,7 @@ class Branch {
 	public function delete() {
 		global $local_db;
 		$sql = "DELETE FROM branches ";
-		$sql .= "WHERE id = ". $local_db->escape_value($this->id);
+		$sql .= "WHERE id = ". $local_db->escape_string($this->id);
 		$sql .= " LIMIT 1";
 		$local_db->query($sql);
 		return ($local_db->affected_rows() == 1) ? true : false ;

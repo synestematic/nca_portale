@@ -309,14 +309,14 @@ Al:
 
 				echo '<td style="text-align: center">';
 				// dqua non funziona per il +39
-				$branches = Branch::find_by_nb_number2($chiamata->numero_chiamato);
-				if ($branches) {
-				 foreach ($branches as $branch) {
-						echo $branch->filiale;
-				 }
-				} else {
+				// $branches = Branch::find_by_nb_number2($chiamata->numero_chiamato);
+				// if ($branches) {
+				//  foreach ($branches as $branch) {
+				// 		echo $branch->filiale;
+				//  }
+				// } else {
 					echo $chiamata->numero_chiamato;
-				}
+				// }
 				echo '</td>';
 
 				echo '<td style="text-align: center">'.$chiamata->numero_connesso.'</td>';

@@ -1,6 +1,4 @@
 <?php
-//require_once(LIB_PATH.DS."oop".DS."local_db.php");
-
 class Dept {
 
 	public $id;
@@ -20,7 +18,6 @@ class Dept {
 		$result_set = $local_db->query($sql);
 		$object_array = array();
 		while ($result = mysqli_fetch_assoc($result_set)) {
-			//make an instance for every result
 			$object_array[] = self::instantiate($result);
 		}
 		return $object_array;
@@ -35,18 +32,24 @@ class Dept {
 	}
 
 	public static function find_by_id($id=1) {
-		$result = self::find_by_sql("SELECT * FROM depts WHERE id = {$id};");
+		global $local_db;
+		$sql = 'SELECT * FROM depts WHERE id = "';
+		$sql .= $local_db->escape_string($id);
+		$sql .= '" LIMIT 1';
+		$result = self::find_by_sql($sql);
 		return !empty($result) ? array_shift($result) : false ;
-	}
+}
 
 	public static function find_by_reparto($reparto='') {
-		$result = self::find_by_sql("SELECT * FROM depts WHERE reparto = '{$reparto}' LIMIT 1;");
+		global $local_db;
+		$sql = 'SELECT * FROM depts WHERE reparto = "';
+		$sql .= $local_db->escape_string($reparto);
+		$sql .= '" LIMIT 1';
+		$result = self::find_by_sql($sql);
 		return !empty($result) ? array_shift($result) : false ;
 	}
 
-
 	// create update delete methods will require instances to begin with and therefore will not be static functions
-
 	public function save() {
 		return isset($this->id) ? $this->update() : $this->create() ;
 	}
@@ -56,21 +59,21 @@ class Dept {
 		$sql = "INSERT INTO depts (";
 		$sql .= "id, reparto";
 		$sql .= ") VALUES ('";
-		$sql .= $local_db->escape_value($this->id) ."', '";
-		$sql .= $local_db->escape_value($this->reparto) ."') ";
-	        if ($local_db->query($sql)) {
-                      $this->id = $local_db->insert_id();
-                      return true;
-                } else {
-                      return false;
-                }
+		$sql .= $local_db->escape_string($this->id) ."', '";
+		$sql .= $local_db->escape_string($this->reparto) ."') ";
+    if ($local_db->query($sql)) {
+        $this->id = $local_db->insert_id();
+        return true;
+    } else {
+        return false;
+          }
    	}
 
 	protected function update() {
 		global $local_db;
 		$sql = "UPDATE depts SET ";
-		$sql .= "reparto='". $local_db->escape_value($this->reparto) . "', ";
-		$sql .= "WHERE id=". $local_db->escape_value($this->id);
+		$sql .= "reparto='". $local_db->escape_string($this->reparto) . "', ";
+		$sql .= "WHERE id=". $local_db->escape_string($this->id);
 		$sql .= " LIMIT 1";
 		$local_db->query($sql);
 		return ($local_db->affected_rows() == 1) ? true : false ;
@@ -79,7 +82,7 @@ class Dept {
 	public function delete() {
 		global $local_db;
 		$sql = "DELETE FROM depts ";
-		$sql .= "WHERE id = ". $local_db->escape_value($this->id);
+		$sql .= "WHERE id = ". $local_db->escape_string($this->id);
 		$sql .= " LIMIT 1";
 		$local_db->query($sql);
 		return ($local_db->affected_rows() == 1) ? true : false ;

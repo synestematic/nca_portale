@@ -1,7 +1,4 @@
 <?php
-// require_once(LIB_PATH.DS."oop".DS."local_db.php");
-// require_once(LIB_PATH.DS."oop".DS."sql_table.php");
-
 class Chiamata {
 
 	public $id;
@@ -53,16 +50,40 @@ class Chiamata {
 	}
 
 	public static function find_by_id_from($id=1000, $table) {
-		$result_array = self::find_by_sql("SELECT * FROM ".$table." WHERE id = {$id};");
-		return !empty($result_array) ? array_shift($result_array) : false ;
+		global $local_db;
+		$sql = 'SELECT * FROM ';
+		$sql .= $local_db->escape_string($table);
+		$sql .= ' WHERE id = ';
+		$sql .= $local_db->escape_string($id);
+		$sql .= ' ';
+		$result = self::find_by_sql($sql);
+		return !empty($result) ? array_shift($result) : false ;
+		// $result_array = self::find_by_sql("SELECT * FROM ".$table." WHERE id = {$id};");
+		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
 	public static function select_records($table, $as, $bs, $cs, $ds, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_h, $da_m, $a_h, $a_m, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo) {
 		global $local_db;
-		$as = $local_db->escape_value($as);
-		$bs = $local_db->escape_value($bs);
-		$cs = $local_db->escape_value($cs);
-		$ds = $local_db->escape_value($ds);
+		$table = $local_db->escape_string($table);
+		$as = $local_db->escape_string($as);
+		$bs = $local_db->escape_string($bs);
+		$cs = $local_db->escape_string($cs);
+		$ds = $local_db->escape_string($ds);
+		$da_anno = $local_db->escape_string($da_anno);
+		$da_mese = $local_db->escape_string($da_mese);
+		$da_giorno = $local_db->escape_string($da_giorno);
+		$a_anno = $local_db->escape_string($a_anno);
+		$a_mese = $local_db->escape_string($a_mese);
+		$a_giorno = $local_db->escape_string($a_giorno);
+		$da_h = $local_db->escape_string($da_h);
+		$da_m = $local_db->escape_string($da_m);
+		$a_h = $local_db->escape_string($a_h);
+		$a_m = $local_db->escape_string($a_m);
+		$simbolo_connesso = $local_db->escape_string($simbolo_connesso);
+		$secs_connesso = $local_db->escape_string($secs_connesso);
+		$simbolo_squillo = $local_db->escape_string($simbolo_squillo);
+		$secs_squillo = $local_db->escape_string($secs_squillo);
+
 		$query = "SELECT * FROM $table ";
 		$query .= "WHERE $as LIKE '%$bs%' ";
 		$query .= "AND $cs LIKE '%$ds%' ";
@@ -75,11 +96,17 @@ class Chiamata {
 	}
 
 	public function check_for_duplicate_into($table) {
+		global $local_db;
+		$table = $local_db->escape_string($table);
+		$utente = $local_db->escape_string($this->utente);
+		$data_chiamata = $local_db->escape_string($this->data_chiamata);
+		$orario_chiamata = $local_db->escape_string($this->orario_chiamata);
+		$orario_hangup = $local_db->escape_string($this->orario_hangup);
 		$check_query = "SELECT id FROM $table ";
-		$check_query .= "WHERE utente = '$this->utente' ";
-		$check_query .= "AND data_chiamata = '$this->data_chiamata' ";
-		$check_query .= "AND orario_chiamata = '$this->orario_chiamata' ";
-		$check_query .= "AND orario_hangup = '$this->orario_hangup' ";
+		$check_query .= "WHERE utente = '$utente' ";
+		$check_query .= "AND data_chiamata = '$data_chiamata' ";
+		$check_query .= "AND orario_chiamata = '$orario_chiamata' ";
+		$check_query .= "AND orario_hangup = '$orario_hangup' ";
 		return self::find_by_sql($check_query);
 	}
 
@@ -88,19 +115,19 @@ class Chiamata {
 		$sql = "INSERT INTO $table ";
 		$sql .= "(data_chiamata, orario_chiamata, orario_hangup, tempo_squillo, tempo_connesso, estensione, utente, da_numero, numero_chiamato, numero_connesso, tipo_connessione, esito_chiamata, datetime_inserzione) ";
 		$sql .= "VALUES ('";
-		$sql .= $local_db->escape_value($this->data_chiamata) ."', '";
-		$sql .= $local_db->escape_value($this->orario_chiamata) ."', '";
-		$sql .= $local_db->escape_value($this->orario_hangup) ."', '";
-		$sql .= $local_db->escape_value($this->tempo_squillo) ."', '";
-		$sql .= $local_db->escape_value($this->tempo_connesso) ."', '";
-		$sql .= $local_db->escape_value($this->estensione) ."', '";
-		$sql .= $local_db->escape_value($this->utente) ."', '";
-		$sql .= $local_db->escape_value($this->da_numero) ."', '";
-		$sql .= $local_db->escape_value($this->numero_chiamato) ."', '";
-		$sql .= $local_db->escape_value($this->numero_connesso) ."', '";
-		$sql .= $local_db->escape_value($this->tipo_connessione) ."', '";
-		$sql .= $local_db->escape_value($this->esito_chiamata) ."', '";
-		$sql .= $local_db->escape_value($this->datetime_inserzione) . "')";
+		$sql .= $local_db->escape_string($this->data_chiamata) ."', '";
+		$sql .= $local_db->escape_string($this->orario_chiamata) ."', '";
+		$sql .= $local_db->escape_string($this->orario_hangup) ."', '";
+		$sql .= $local_db->escape_string($this->tempo_squillo) ."', '";
+		$sql .= $local_db->escape_string($this->tempo_connesso) ."', '";
+		$sql .= $local_db->escape_string($this->estensione) ."', '";
+		$sql .= $local_db->escape_string($this->utente) ."', '";
+		$sql .= $local_db->escape_string($this->da_numero) ."', '";
+		$sql .= $local_db->escape_string($this->numero_chiamato) ."', '";
+		$sql .= $local_db->escape_string($this->numero_connesso) ."', '";
+		$sql .= $local_db->escape_string($this->tipo_connessione) ."', '";
+		$sql .= $local_db->escape_string($this->esito_chiamata) ."', '";
+		$sql .= $local_db->escape_string($this->datetime_inserzione) . "')";
 		if ($local_db->query($sql)) {
 			$this->id = $local_db->insert_id();
 			return true;
@@ -108,7 +135,6 @@ class Chiamata {
 			return false;
 		}
 	}
-
 
 }
 

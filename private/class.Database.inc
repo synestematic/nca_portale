@@ -32,7 +32,6 @@ class Database {
 	}
 
 	public function query($sql) {
-//		$sql = $this->escape_value($sql);
 		$this->last_query = $sql;
 		$result = mysqli_query($this->conn, $sql);
 		if (!$result) {
@@ -41,7 +40,7 @@ class Database {
 		return $result;
 	}
 
-	public function escape_value($string) {
+	public function escape_string($string) {
 		$escaped_string = mysqli_real_escape_string($this->conn, $string);
 		return $escaped_string;
 	}
