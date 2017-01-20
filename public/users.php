@@ -30,7 +30,7 @@ include("../private/layouts/header.php");
       	if ($dept_users) {
         		foreach ($dept_users as $dept_user) {
           		echo '<tr><td>'.$dept_user->email.'</td>' ;
-          		echo '<td>'.$dept_user->branch.'</td>' ;
+          		echo '<td>'.$dept_user->dept.'</td>' ;
               echo '<td><a href="edit_user.php?id='.urlencode($dept_user->id).'">Modifica</a></td>';
               echo '<td>';
       	?>

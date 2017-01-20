@@ -4,7 +4,7 @@ require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login.php"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->admin == 0) { redirect("index.php"); }
+if ($logged_user->admin == 0) { redirect("admin.php"); }
 
 if (isset($_POST['submit'])) {
 

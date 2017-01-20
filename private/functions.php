@@ -12,8 +12,7 @@ function redirect($location) {
 }
 
 function __autoload($class) {
-  $filename = strtolower($class);
-  $path = LIB_PATH.DS."oop".DS."$filename.php";
+  $path = LIB_PATH.DS."class.".$class.".inc";
   if (file_exists($path)) {
     require_once($path);
   } else {
@@ -32,23 +31,23 @@ function minutes_menu($value, $select_name) {
   echo '</select>';
 }
 
-function symbol_menu($simbolo, $name) {
-//  global $simbolo;
-  echo '<select id="data" name="'.$name.'">';
-	echo ($simbolo == '*') ? '<option selected>' : '<option>';
-	echo '*';
-	echo '</option>';
-	echo ($simbolo == '>') ? '<option selected>' : '<option>';
-	echo '>';
-	echo '</option>';
-	echo ($simbolo == '=') ? '<option selected>' : '<option>';
-	echo '=';
-	echo '</option>';
-	echo ($simbolo == '<') ? '<option selected>' : '<option>';
-	echo '<';
-	echo '</option>';
-	echo '</select>';
-}
+// function symbol_menu($simbolo, $name) {
+// //  global $simbolo;
+//   echo '<select id="data" name="'.$name.'">';
+// 	echo ($simbolo == '*') ? '<option selected>' : '<option>';
+// 	echo '*';
+// 	echo '</option>';
+// 	echo ($simbolo == '>') ? '<option selected>' : '<option>';
+// 	echo '>';
+// 	echo '</option>';
+// 	echo ($simbolo == '=') ? '<option selected>' : '<option>';
+// 	echo '=';
+// 	echo '</option>';
+// 	echo ($simbolo == '<') ? '<option selected>' : '<option>';
+// 	echo '<';
+// 	echo '</option>';
+// 	echo '</select>';
+// }
 
 function secs_to_his($secs) {
   $i = ($secs / 60) % 60;

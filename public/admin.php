@@ -3,7 +3,6 @@ require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login.php"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->admin == 0) { redirect("index.php"); }
 ?>
 <?php include("../private/layouts/header.php"); ?>
     <div id="main">
@@ -17,16 +16,18 @@ if ($logged_user->admin == 0) { redirect("index.php"); }
         <h2>Area di Amministrazione</h2>
         <p>
           <?php echo $session->message(); ?>
+          <?php //echo $logged_user->dept_id; ?>
           <?php echo form_errors($errors); ?>
         </p>
         <p>Scegli una opzione:</p>
         <ul>
           <?php
-          echo ($logged_user->dept_id == 11) ? '<li><a href="fp.php">DB Finproget</a></li><br>' : '';
-          echo ($logged_user->dept_id) ? '<li><a href="chiamate.php">Visualizza le chiamate di Natterbox</a></li><br>' : '';
+          // LINKS to be displayed //
+          echo ($logged_user->admin) ? '<li><a href="chiamate.php">Visualizza le chiamate di Natterbox</a></li><br>' : '';
+          echo ($logged_user->dept_id === "6" || $logged_user->dept_id === "9" || $logged_user->su === "1") ? '<li><a href="upload.php">Carica un Documento</a></li><br>' : '';
           echo ($logged_user->su) ? '<li><a href="users.php">Gestisci gli altri utenti</a></li><br>' : '';
+          echo '<li><a href="edit_user.php?id='.urlencode($_SESSION["user_id"]).'">Modifica la tua utenza</a></li>';
            ?>
-          <li><a href="edit_user.php?id=<?php echo urlencode($_SESSION["user_id"]); ?>">Modifica la tua utenza</a></li>
         </ul>
       </div>
     </divo>

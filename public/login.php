@@ -1,6 +1,6 @@
 <?php
 require_once("../private/initialize.php");
-if ($session->is_logged_in()) { redirect("index.php"); }
+if ($session->is_logged_in()) { redirect("admin.php"); }
 
 if (isset($_POST['submit'])) {
   $required_fields = array("email", "password");
@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $found_user = User::authenticate($_POST["email"], $_POST["password"]);
 		if ($found_user) {
       $session->login($found_user);
-			redirect("index.php");
+			redirect("admin.php");
 		} else {
 			$_SESSION["message"] = "Credenziali non corrette.";
 		}

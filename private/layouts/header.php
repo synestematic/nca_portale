@@ -5,7 +5,7 @@
 	<?php //$page = $_SERVER['PHP_SELF']; ?>
 <!--makes the page reload every minute <meta http-equiv="refresh" content="60;URL='<?php // echo $page?>'"> -->
   <title>NCA.it - PORTALE</title>
-  <link href="css/public.css" media="all" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" media="all" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
  </head>

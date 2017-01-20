@@ -3,7 +3,7 @@ require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login.php"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->admin == 0) { redirect("index.php"); }
+if ($logged_user->admin == 0) { redirect("admin.php"); }
 
 if (isset($_POST["cerca"])) {
 	$stringa1 = $_POST["stringa1"];
@@ -120,37 +120,52 @@ if (isset($_POST["cerca"])) {
 				<tr><th></th><th></th><th></th></tr>
 				<tr>
 				<td>
-					<select name="da_giorno" id="data">
 					<?php
-		          for ($i = 1; $i <= 31; $i++) {
-		          	echo ($i == $da_giorno) ? "<option id='font' selected>" : "<option id='font'>";
-		            echo $i;
-		            echo "</option>";
-		          }
+					$yo = new DropdownDays();
+					$yo->selected = $da_giorno;
+					$yo->id = "data";
+					$yo->name = "da_giorno";
+					$yo->menu();
+							// echo '<select name="da_giorno" id="data">';
+		          // for ($i = 1; $i <= 31; $i++) {
+		          // 	echo ($i == $da_giorno) ? "<option id='font' selected>" : "<option id='font'>";
+		          //   echo $i;
+		          //   echo "</option>";
+		          // }
+							// echo '</select>';
 				  ?>
-			  		</select>
 				</td>
 				<td>
-					<select name="da_mese" id="data">
 					<?php
-		          for ($i = 1; $i <= 12; $i++) {
-		          	echo ($i == $da_mese) ? "<option id='font' selected>" : "<option id='font'>";
-		            echo $i;
-		            echo "</option>";
-		          }
+					$yo = new DropdownMonths();
+					$yo->selected = $da_mese;
+					$yo->id = "data";
+					$yo->name = "da_mese";
+					$yo->menu();
+							// echo '<select name="da_mese" id="data">';
+		          // for ($i = 1; $i <= 12; $i++) {
+		          // 	echo ($i == $da_mese) ? "<option id='font' selected>" : "<option id='font'>";
+		          //   echo $i;
+		          //   echo "</option>";
+		          // }
+							// echo '</select>';
 				  ?>
-			  		</select>
 				</td>
 				<td>
-					<select name="da_anno" id="anno">
 					<?php
-		          for ($i = 2016; $i <= 2020; $i++) {
-		          	echo ($i == $da_anno) ? "<option id='font' selected>" : "<option id='font'>";
-		            echo $i;
-		            echo "</option>";
-		          }
+					$yo = new DropdownYears();
+					$yo->selected = $da_anno;
+					$yo->id = "anno";
+					$yo->name = "da_anno";
+					$yo->menu();
+							// echo '<select name="da_anno" id="anno">';
+		          // for ($i = 2016; $i <= 2020; $i++) {
+		          // 	echo ($i == $da_anno) ? "<option id='font' selected>" : "<option id='font'>";
+		          //   echo $i;
+		          //   echo "</option>";
+		          // }
+							// echo '</select>';
 				  ?>
-			  		</select>
 				</td>
 				</tr>
 				</table>
@@ -159,37 +174,52 @@ Al:
 		<tr><th></th><th></th><th></th></tr>
 		<tr>
 		<td>
-			<select name="a_giorno" id="data">
 			<?php
-          for ($i = 1; $i <= 31; $i++) {
-          	echo ($i == $a_giorno) ? "<option id='font' selected>" : "<option id='font'>";
-            echo $i;
-            echo "</option>";
-          }
+			$yo = new DropdownDays();
+			$yo->selected = $a_giorno;
+			$yo->id = "data";
+			$yo->name = "a_giorno";
+			$yo->menu();
+					// echo '<select name="a_giorno" id="data">';
+          // for ($i = 1; $i <= 31; $i++) {
+          // 	echo ($i == $a_giorno) ? "<option id='font' selected>" : "<option id='font'>";
+          //   echo $i;
+          //   echo "</option>";
+          // }
+					// echo '</select>';
 		  ?>
-	  		</select>
 		</td>
 		<td>
-			<select name="a_mese" id="data">
 			<?php
-          for ($i = 1; $i <= 12; $i++) {
-          	echo ($i == $a_mese) ? "<option id='font' selected>" : "<option id='font'>";
-            echo $i;
-            echo "</option>";
-          }
+			$yo = new DropdownMonths();
+			$yo->selected = $a_mese;
+			$yo->id = "data";
+			$yo->name = "a_mese";
+			$yo->menu();
+					// echo '<select name="a_mese" id="data">';
+          // for ($i = 1; $i <= 12; $i++) {
+          // 	echo ($i == $a_mese) ? "<option id='font' selected>" : "<option id='font'>";
+          //   echo $i;
+          //   echo "</option>";
+          // }
+					// echo '</select>';
 		  ?>
-	  		</select>
 		</td>
 		<td>
-			<select name="a_anno" id="anno">
 			<?php
-          for ($i = 2016; $i <= 2020; $i++) {
-          	echo ($i == $a_anno) ? "<option id='font' selected>" : "<option id='font'>";
-            echo $i;
-            echo "</option>";
-          }
+			$yo = new DropdownYears();
+			$yo->selected = $a_anno;
+			$yo->id = "anno";
+			$yo->name = "a_anno";
+			$yo->menu();
+					// echo '<select name="a_anno" id="anno">';
+          // for ($i = 2016; $i <= 2020; $i++) {
+          // 	echo ($i == $a_anno) ? "<option id='font' selected>" : "<option id='font'>";
+          //   echo $i;
+          //   echo "</option>";
+          // }
+					// echo '</select>';
 		  ?>
-	  		</select>
 		</td>
 		</tr>
 		</table>
@@ -201,32 +231,60 @@ Al:
 			<td>Dalle:</td>
 		<td>
 		  <?php
-			echo '<select name="da_ora" id="data">';
-			for ($i = 8; $i <= 21; $i++) {
-	    	$i_padded = sprintf("%02d", $i);
-    	 	echo ($i_padded == $da_ora) ? "<option id='font' selected>" : "<option id='font'>";
-				echo $i_padded;
-		    echo "</option>";
-			}
-			echo '</select>';
+			$yo = new DropdownHours();
+			$yo->selected = $da_ora;
+			$yo->id = "data";
+			$yo->name = "da_ora";
+			$yo->menu();
+			// echo '<select name="da_ora" id="data">';
+			// for ($i = 8; $i <= 21; $i++) {
+	    // 	$i_padded = sprintf("%02d", $i);
+    	//  	echo ($i_padded == $da_ora) ? "<option id='font' selected>" : "<option id='font'>";
+			// 	echo $i_padded;
+		  //   echo "</option>";
+			// }
+			// echo '</select>';
 		  ?>
 		  </td>
-		<td> <?php	minutes_menu($da_min, "da_min"); ?> </td>
+		<td>
+			<?php
+			$yo = new DropdownMins();
+			$yo->selected = $da_min;
+			$yo->id = "data";
+			$yo->name = "da_min";
+			$yo->menu();
+			// minutes_menu($da_min, "da_min");
+			?>
+		</td>
 		</tr>
 		<tr> <td>Alle:</td>
 		<td>
 			<?php
-			echo '<select name="a_ora" id="data">';
-		  for ($i = 8; $i <= 21; $i++) {
-				$i_padded = sprintf("%02d", $i);
-				echo ($i_padded == $a_ora) ? "<option id='font' selected>" : "<option id='font'>";
-				echo $i_padded;
-				echo "</option>";
-		  }
-			echo '</select>';
+			$yo = new DropdownHours();
+			$yo->selected = $a_ora;
+			$yo->id = "data";
+			$yo->name = "a_ora";
+			$yo->menu();
+			// echo '<select name="a_ora" id="data">';
+		  // for ($i = 8; $i <= 21; $i++) {
+			// 	$i_padded = sprintf("%02d", $i);
+			// 	echo ($i_padded == $a_ora) ? "<option id='font' selected>" : "<option id='font'>";
+			// 	echo $i_padded;
+			// 	echo "</option>";
+		  // }
+			// echo '</select>';
 		  ?>
 		</td>
-		<td> <?php minutes_menu($a_min, "a_min"); ?> </td>
+		<td>
+			<?php
+			$yo = new DropdownMins();
+			$yo->selected = $a_min;
+			$yo->id = "data";
+			$yo->name = "a_min";
+			$yo->menu();
+			// minutes_menu($a_min, "a_min");
+			?>
+		</td>
 		</tr>
 </table>
 <br>
@@ -237,7 +295,15 @@ Al:
 		<table>
 		<tr><td> </td></tr>
 		<tr>
-			<td style="text-align: right"> <?php symbol_menu($simbolo_connesso, "simbolo_connesso"); ?>	</td>
+			<td style="text-align: right">
+				<?php
+				$yo = new DropdownSymbols();
+				$yo->selected = $simbolo_connesso;
+				$yo->name = "simbolo_connesso";
+				$yo->menu();
+				//symbol_menu($simbolo_connesso, "simbolo_connesso");
+ 				?>
+			</td>
 			<td>
 		<input id="secs" type="text" name="secs_connesso" value="<?php echo ($simbolo_connesso == '*') ? '' : $secs_connesso; ?>">
 		</td></tr>
@@ -248,7 +314,15 @@ Al:
 		<table>
 		<tr><td> </td></tr>
 		<tr>
-			<td style="text-align: right"> <?php symbol_menu($simbolo_squillo, "simbolo_squillo"); ?>	</td>
+			<td style="text-align: right">
+				<?php
+				$foo = new DropdownSymbols();
+				$foo->selected = $simbolo_squillo;
+				$foo->name = "simbolo_squillo";
+				$foo->menu();
+				// symbol_menu($simbolo_squillo, "simbolo_squillo");
+				?>
+			</td>
 			<td>
 		<input id="secs" type="text" name="secs_squillo" value="<?php echo ($simbolo_squillo == '*') ? '' : $secs_squillo; ?>">
 		</td></tr>

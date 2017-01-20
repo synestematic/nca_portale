@@ -3,7 +3,7 @@ require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login.php"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->admin == 0) { redirect("index.php"); }
+if ($logged_user->admin == 0) { redirect("admin.php"); }
 
 //echo '<pre>'; print_r($_GET); echo '</pre>';
 
@@ -33,16 +33,18 @@ header("Content-Type: application/xls");
 header("Content-Disposition: attachment; filename=export.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
-/*******Start of Formatting for Excel*******/
+
+/*******Excel Formatting*******/
 //define separator (defines columns in excel & tabs in word)
 $sep = "\t"; //tabbed character
-//start of printing column names as names of MySQL fields
+
+//Prints column names as MySQL fields
 while ($property = mysqli_fetch_field($result)) {
     echo $property->name . "\t";
 }
 print("\n");
-//end of printing column names
-//start while loop to get data
+
+//Prints values
 while($row = mysqli_fetch_row($result)) {
     $schema_insert = "";
     for($j=0; $j<mysqli_num_fields($result);$j++)
