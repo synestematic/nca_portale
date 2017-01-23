@@ -4,7 +4,7 @@ header("content-type: application/xml; charset=UTF-8");
 require_once("../../private/initialize.php");
 
 $ora_inserzione = strftime("%H");
-if (($ora_inserzione >= 07) && ($ora_inserzione <= 21) && isset($_GET['a'])) {
+if (($ora_inserzione >= 09) && ($ora_inserzione <= 18) && isset($_GET['a'])) {
 
 	$call = new Chiamata();
 
