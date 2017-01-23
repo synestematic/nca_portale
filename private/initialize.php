@@ -14,6 +14,7 @@ require_once(LIB_PATH.DS."class.Database.inc");
 require_once(LIB_PATH.DS."class.User.inc");
 require_once(LIB_PATH.DS."class.Branch.inc");
 require_once(LIB_PATH.DS."class.Chiamata.inc");
+require_once(LIB_PATH.DS."class.Piva.inc");
 require_once(LIB_PATH.DS."class.Dept.inc");
 require_once(LIB_PATH.DS."class.Session.inc");
 

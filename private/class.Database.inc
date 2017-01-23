@@ -60,4 +60,8 @@ $local_db = new Database();
 $local_db->set_attributes(DB_SERVER, DB_USER, DB_PASS, DB_DB);
 $local_db->open_connection();
 
+$fp_db = new Database();
+$fp_db->set_attributes(FP_SERVER, FP_USER, FP_PASS, FP_DB);
+//$fp_db->open_connection();
+
 ?>
