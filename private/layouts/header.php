@@ -4,7 +4,7 @@
  <head>
 	<?php //$page = $_SERVER['PHP_SELF']; ?>
 <!--makes the page reload every minute <meta http-equiv="refresh" content="60;URL='<?php // echo $page?>'"> -->
-  <title>NCA.it - PORTALE</title>
+  <title>NCA.it | PORTALE</title>
   <link href="css/style.css" media="all" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -12,7 +12,7 @@
  <body>
   <div id="header">
    <h1>
-	<i>Portale - Noi Compriamo Auto.it
+	<i>Portale | Noi Compriamo Auto.it
 	<?php // $date = date('H:i:s'); echo $date; ?> </i>
    </h1>
    <img src='../../public/images/auto0.png' align='right'>
