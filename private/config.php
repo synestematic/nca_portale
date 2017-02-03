@@ -11,11 +11,11 @@ defined("FP_DB") ? null : define("FP_DB", "migrazione3");
 
 $upload_errors = array(
 	// http://www.php.net/manual/en/features.file-upload.errors.php
-	UPLOAD_ERR_OK 				=> "Documento caricato correttamente.",
+	UPLOAD_ERR_OK 				=> "This should NOT display as only errors should be treated",
 	UPLOAD_ERR_INI_SIZE  	=> "File troppo pesante (upload_max_filesize).",
-  UPLOAD_ERR_FORM_SIZE 	=> "Form troppo pesante (MAX_FILE_SIZE).",
-  UPLOAD_ERR_PARTIAL 		=> "Caricamento parziale.",
-  UPLOAD_ERR_NO_FILE 		=> "Selezionare un file prima di caricare.",
+  UPLOAD_ERR_FORM_SIZE 	=> "File troppo pesante (MAX_FILE_SIZE impostato del form).",
+  UPLOAD_ERR_PARTIAL 		=> "Invio parziale.",
+  UPLOAD_ERR_NO_FILE 		=> "Selezionare un file prima di inviare.",
   UPLOAD_ERR_NO_TMP_DIR => "Temp directory mancante.",
   UPLOAD_ERR_CANT_WRITE => "Impossibile scrivere il FS.",
   UPLOAD_ERR_EXTENSION 	=> "Errore di estensione."
