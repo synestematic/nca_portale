@@ -20,25 +20,28 @@ include("../private/layouts/header.php");
     <h2>Gestisci gli altri utenti: </h2>
       <table>
         <tr>
-          <th style="text-align: left; width: 200px;">Utente:</th>
+          <th style="text-align: left; width: 200px;">Nome Completo:</th>
+          <th style="text-align: left; width: 200px;">E-mail:</th>
           <th style="text-align: left; width: 200px;">Filiale:</th>
-          <th colspan="2" style="text-align: left;"></th>
+          <th style="text-align: left; width: 200px;">Dipartimento:</th>
+          <th colspan="2" style="text-align: left;">Azione:</th>
         </tr>
         <?php
 //        $dept_users = User::find_by_dept_id($logged_user->dept_id);
         $dept_users = User::find_all();
       	if ($dept_users) {
         		foreach ($dept_users as $dept_user) {
-          		echo '<tr><td>'.$dept_user->email.'</td>' ;
-          		echo '<td>'.$dept_user->dept.'</td>' ;
-              echo '<td><a href="edit_user.php?id='.urlencode($dept_user->id).'">Modifica</a></td>';
-              echo '<td>';
-      	?>
-              <a href="delete_user.php?id=<?php echo urlencode($dept_user->id); ?>" onclick="return confirm('Sei sicuro di voler eliminare <?php echo htmlentities($dept_user->email); ?> ?');">Elimina</a></td>
-        <?php // sistemare questo schifo
+            		echo '<tr><td>'.$dept_user->full_name.'</td>' ;
+                echo '<td>'.$dept_user->email.'</td>' ;
+                echo '<td>'.$dept_user->branch.'</td>' ;
+                echo '<td>'.$dept_user->dept.'</td>' ;
+                echo '<td><a href="edit_user.php?id='.urlencode($dept_user->id).'">Modifica</a></td>';
+                echo '<td>';
+                echo '<a href="delete_user.php?id='.urlencode($dept_user->id).'" onclick="return confirm(\'Sei sicuro di voler eliminare '.htmlentities($dept_user->email).' ?\');">Elimina</a></td>';
             }
-      	}
+        }
       	?>
+
      </table> <br><br><br><br><br>
   </div>
 </div>
