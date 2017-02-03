@@ -15,8 +15,11 @@ class Chiamata {
 	public $tipo_connessione = "";
 	public $esito_chiamata = "";
 	public $datetime_inserzione = "";
+	public $comment = "";
+	public $gruppo = "";
+	public $last_sql = "";
 
-	private static function instantiate($result) {
+	private static function instantiate($result, $requested_query) {
 		$object = new self;
 		isset($result["id"]) ? $object->id = $result["id"] : false ;
 		isset($result["data_chiamata"]) ? $object->data_chiamata = $result["data_chiamata"] : false ;
@@ -32,6 +35,7 @@ class Chiamata {
 		isset($result["tipo_connessione"]) ? $object->tipo_connessione = $result["tipo_connessione"] : false ;
 		isset($result["esito_chiamata"]) ? $object->esito_chiamata = $result["esito_chiamata"] : false ;
 		isset($result["datetime_inserzione"]) ? $object->datetime_inserzione = $result["datetime_inserzione"] : false ;
+		$object->last_sql = $requested_query ;
 		return $object;
 	}
 
@@ -40,7 +44,7 @@ class Chiamata {
 		$result_set = $local_db->query($sql);
 		$object_array = array();
 		while ($result = mysqli_fetch_assoc($result_set)) {
-			$object_array[] = self::instantiate($result);
+			$object_array[] = self::instantiate($result , $sql);
 		}
 		return $object_array;
 	}
@@ -62,7 +66,7 @@ class Chiamata {
 		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
-	public static function select_records($table, $as, $bs, $cs, $ds, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_h, $da_m, $a_h, $a_m, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo) {
+	public function select_records($table, $as, $bs, $cs, $ds, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_h, $da_m, $a_h, $a_m, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo) {
 		global $local_db;
 		$table = $local_db->escape_string($table);
 		$as = $local_db->escape_string($as);
@@ -89,8 +93,8 @@ class Chiamata {
 		$query .= "AND $cs LIKE '%$ds%' ";
 		$query .= "AND orario_chiamata BETWEEN '$da_h:$da_m:00' AND '$a_h:$a_m:00' ";
 		$query .= "AND data_chiamata BETWEEN '$da_anno-$da_mese-$da_giorno' AND '$a_anno-$a_mese-$a_giorno' ";
-		$query .= ($simbolo_connesso == '*') ? " " : "AND tempo_connesso $simbolo_connesso $secs_connesso " ;
-		$query .= ($simbolo_squillo == '*') ? " " : "AND tempo_squillo $simbolo_squillo $secs_squillo " ;
+		$query .= ($simbolo_connesso == '*') ? "" : "AND tempo_connesso $simbolo_connesso $secs_connesso " ;
+		$query .= ($simbolo_squillo == '*') ? "" : "AND tempo_squillo $simbolo_squillo $secs_squillo " ;
 		$query .= "ORDER BY id DESC ";
 		return self::find_by_sql($query);
 	}
@@ -134,6 +138,31 @@ class Chiamata {
 		} else {
 			return false;
 		}
+	}
+
+	public function return_XML() {
+		echo "<records>\n";
+		echo "  <record>\n";
+		//echo "    <field>"."false"."</field>\n";
+		echo "    <CallStartEpoch>".$this->data_chiamata." ".$this->orario_chiamata."</CallStartEpoch>\n";
+		echo "    <CallEndEpoch>".$this->data_chiamata." ".$this->orario_hangup."</CallEndEpoch>\n";
+		echo "    <CallRingSeconds>".$this->tempo_squillo."</CallRingSeconds>\n";
+		echo "    <CallTalkSeconds>".$this->tempo_connesso."</CallTalkSeconds>\n";
+		echo "    <CallerUserAgent>".$this->utente."</CallerUserAgent>\n";
+		echo "    <CallerNumber>".$this->da_numero."</CallerNumber>\n";
+		echo "    <DialledNumber>".$this->numero_chiamato."</DialledNumber>\n";
+		echo "    <ConnectedNumber>".$this->numero_connesso."</ConnectedNumber>\n";
+
+		// if tipo conessione inclues inbound
+		// echo "    <ConnectedGroup>".$this->gruppo."</ConnectedGroup>\n";
+		// echo "    <CallerGroup>".$this->gruppo."</CallerGroup>\n";
+
+		echo "    <ConnectedType>".$this->tipo_connessione."</ConnectedType>\n";
+		echo "    <HangupCause>".$this->esito_chiamata."</HangupCause>\n";
+		echo "    <Comment>".$this->comment."</Comment>\n"; //make attribute for this
+		echo "    <Extension>".$this->estensione."</Extension>\n";
+		echo "  </record>\n";
+		echo "</records>\n";
 	}
 
 }

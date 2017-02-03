@@ -48,12 +48,15 @@ if (isset($_POST["cerca"])) {
 ?>
 <?php include("../private/layouts/header.php"); ?>
 <div id="main">
+
+
+
  <div id="navigation">
   <?php include("../private/layouts/logout_link.php"); ?>
      <a href="admin.php">&laquo; Torna indietro</a><br><br>
     <fieldset>
       <legend>Ricerca:</legend>
-      <form action="chiamate.php" method="post">
+      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 			<table><tr>
 			<td style="text-align: center; height:10px">
 			  <input id="stringa" type="text" name="stringa1" value="<?php echo $stringa1; ?>"> </td>   </tr>
@@ -88,13 +91,6 @@ if (isset($_POST["cerca"])) {
 			</tr>
 			<tr>
 			<td>
-
-
-
-
-
-
-
 			  <select id="field" name="field2" value="" ><br><br>
 				<?php echo ($field2 == '') ? '<option selected>' : '<option>'; ?>
 				</option>
@@ -126,13 +122,6 @@ if (isset($_POST["cerca"])) {
 					$yo->id = "data";
 					$yo->name = "da_giorno";
 					$yo->menu();
-							// echo '<select name="da_giorno" id="data">';
-		          // for ($i = 1; $i <= 31; $i++) {
-		          // 	echo ($i == $da_giorno) ? "<option id='font' selected>" : "<option id='font'>";
-		          //   echo $i;
-		          //   echo "</option>";
-		          // }
-							// echo '</select>';
 				  ?>
 				</td>
 				<td>
@@ -142,13 +131,6 @@ if (isset($_POST["cerca"])) {
 					$yo->id = "data";
 					$yo->name = "da_mese";
 					$yo->menu();
-							// echo '<select name="da_mese" id="data">';
-		          // for ($i = 1; $i <= 12; $i++) {
-		          // 	echo ($i == $da_mese) ? "<option id='font' selected>" : "<option id='font'>";
-		          //   echo $i;
-		          //   echo "</option>";
-		          // }
-							// echo '</select>';
 				  ?>
 				</td>
 				<td>
@@ -158,13 +140,6 @@ if (isset($_POST["cerca"])) {
 					$yo->id = "anno";
 					$yo->name = "da_anno";
 					$yo->menu();
-							// echo '<select name="da_anno" id="anno">';
-		          // for ($i = 2016; $i <= 2020; $i++) {
-		          // 	echo ($i == $da_anno) ? "<option id='font' selected>" : "<option id='font'>";
-		          //   echo $i;
-		          //   echo "</option>";
-		          // }
-							// echo '</select>';
 				  ?>
 				</td>
 				</tr>
@@ -180,13 +155,6 @@ Al:
 			$yo->id = "data";
 			$yo->name = "a_giorno";
 			$yo->menu();
-					// echo '<select name="a_giorno" id="data">';
-          // for ($i = 1; $i <= 31; $i++) {
-          // 	echo ($i == $a_giorno) ? "<option id='font' selected>" : "<option id='font'>";
-          //   echo $i;
-          //   echo "</option>";
-          // }
-					// echo '</select>';
 		  ?>
 		</td>
 		<td>
@@ -196,13 +164,6 @@ Al:
 			$yo->id = "data";
 			$yo->name = "a_mese";
 			$yo->menu();
-					// echo '<select name="a_mese" id="data">';
-          // for ($i = 1; $i <= 12; $i++) {
-          // 	echo ($i == $a_mese) ? "<option id='font' selected>" : "<option id='font'>";
-          //   echo $i;
-          //   echo "</option>";
-          // }
-					// echo '</select>';
 		  ?>
 		</td>
 		<td>
@@ -212,13 +173,6 @@ Al:
 			$yo->id = "anno";
 			$yo->name = "a_anno";
 			$yo->menu();
-					// echo '<select name="a_anno" id="anno">';
-          // for ($i = 2016; $i <= 2020; $i++) {
-          // 	echo ($i == $a_anno) ? "<option id='font' selected>" : "<option id='font'>";
-          //   echo $i;
-          //   echo "</option>";
-          // }
-					// echo '</select>';
 		  ?>
 		</td>
 		</tr>
@@ -236,14 +190,6 @@ Al:
 			$yo->id = "data";
 			$yo->name = "da_ora";
 			$yo->menu();
-			// echo '<select name="da_ora" id="data">';
-			// for ($i = 8; $i <= 21; $i++) {
-	    // 	$i_padded = sprintf("%02d", $i);
-    	//  	echo ($i_padded == $da_ora) ? "<option id='font' selected>" : "<option id='font'>";
-			// 	echo $i_padded;
-		  //   echo "</option>";
-			// }
-			// echo '</select>';
 		  ?>
 		  </td>
 		<td>
@@ -253,7 +199,6 @@ Al:
 			$yo->id = "data";
 			$yo->name = "da_min";
 			$yo->menu();
-			// minutes_menu($da_min, "da_min");
 			?>
 		</td>
 		</tr>
@@ -265,14 +210,6 @@ Al:
 			$yo->id = "data";
 			$yo->name = "a_ora";
 			$yo->menu();
-			// echo '<select name="a_ora" id="data">';
-		  // for ($i = 8; $i <= 21; $i++) {
-			// 	$i_padded = sprintf("%02d", $i);
-			// 	echo ($i_padded == $a_ora) ? "<option id='font' selected>" : "<option id='font'>";
-			// 	echo $i_padded;
-			// 	echo "</option>";
-		  // }
-			// echo '</select>';
 		  ?>
 		</td>
 		<td>
@@ -282,7 +219,6 @@ Al:
 			$yo->id = "data";
 			$yo->name = "a_min";
 			$yo->menu();
-			// minutes_menu($a_min, "a_min");
 			?>
 		</td>
 		</tr>
@@ -301,7 +237,6 @@ Al:
 				$yo->selected = $simbolo_connesso;
 				$yo->name = "simbolo_connesso";
 				$yo->menu();
-				//symbol_menu($simbolo_connesso, "simbolo_connesso");
  				?>
 			</td>
 			<td>
@@ -320,7 +255,6 @@ Al:
 				$foo->selected = $simbolo_squillo;
 				$foo->name = "simbolo_squillo";
 				$foo->menu();
-				// symbol_menu($simbolo_squillo, "simbolo_squillo");
 				?>
 			</td>
 			<td>
@@ -333,47 +267,47 @@ Al:
     </fieldset>
 	<?php	if ($field2 == '') { $field2 = $field1;	$stringa2 = $stringa1; } ?>
   <ul class="pages">
- 		<li><a href="chiamate.php">Ricarica</a></li>
-     <li><a href="export.php?field1=<?php echo urlencode($field1); ?>&stringa1=<?php echo urlencode($stringa1); ?>&field2=<?php echo urlencode($field2); ?>&stringa2=<?php echo urlencode($stringa2); ?>&da_anno=<?php echo urlencode($da_anno); ?>&da_mese=<?php echo urlencode($da_mese); ?>&da_giorno=<?php echo urlencode($da_giorno); ?>&a_anno=<?php echo urlencode($a_anno); ?>&a_mese=<?php echo urlencode($a_mese); ?>&a_giorno=<?php echo urlencode($a_giorno); ?>&da_ora=<?php echo urlencode($da_ora); ?>&da_min=<?php echo urlencode($da_min); ?>&a_ora=<?php echo urlencode($a_ora); ?>&a_min=<?php echo urlencode($a_min); ?>&simbolo_connesso=<?php echo urlencode($simbolo_connesso); ?>&secs_connesso=<?php echo urlencode($secs_connesso); ?>&simbolo_squillo=<?php echo urlencode($simbolo_squillo); ?>&secs_squillo=<?php echo urlencode($secs_squillo); ?>">Esporta in Excel</a></li>
+		<?php
+			// call this statically?? Chiamata::select_records()
+			 $chiamata =	new Chiamata();
+			 $chiamata_set = $chiamata->select_records($logged_user->table, $field1, $stringa1, $field2, $stringa2, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_ora, $da_min, $a_ora, $a_min, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo);
+		?>
+ 		<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Ricarica</a></li>
+    <li><a target="_blank" href="export.php?a=<?php echo (isset($chiamata_set[0])) ? base64_encode($chiamata_set[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
 	</ul>
  </div>
  <div id="page">
-	  <?php
-       $chiamata_set = Chiamata::select_records($logged_user->table, $field1, $stringa1, $field2, $stringa2, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_ora, $da_min, $a_ora, $a_min, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo);
-		?>
-  <h2>Risultati: <?php echo count($chiamata_set); ?> </h2>
+  <h2>Chiamate Natterbox: <?php echo count($chiamata_set); ?> </h2>
    <table id="tavola">
     <tr>
-     <th style="text-align: center; width:40px">ID</th>
-     <th style="text-align: center; width:80px">Tipo<br>connessione</th>
-		 <?php echo ($logged_user->table == "chiamate_ops") ? '<th style="text-align: center; width:80px">Estensione</th>' : '' ; ?>
-     <th style="text-align: center; width:80px">Utente</th>
-     <th style="text-align: center; width:80px">Data<br>chiamata</th>
-     <th style="text-align: center; width:60px">Orario<br>chiamata</th>
-     <th style="text-align: center; width:60px">Orario<br>hangup</th>
-     <th style="text-align: center; width:60px">Tempo<br>squillo</th>
-     <th style="text-align: center; width:60px">Tempo<br>connesso</th>
-     <th style="text-align: center; width:100px">da<br>Numero</th>
-     <th style="text-align: center; width:100px">Numero<br>chiamato</th>
-     <th style="text-align: center; width:100px">Numero<br>connesso</th>
-     <th style="text-align: center; width:140px">Esito<br>chiamata</th>
+     <th style="width:40px">ID</th>
+     <th style="width:80px">Tipo<br>connessione</th>
+		 <?php echo ($logged_user->table == "chiamate_ops") ? '<th style="width:80px">Estensione</th>' : '' ; ?>
+     <th style="width:80px">Utente</th>
+     <th style="width:80px">Data<br>chiamata</th>
+     <th style="width:60px">Orario<br>chiamata</th>
+     <th style="width:60px">Orario<br>hangup</th>
+     <th style="width:60px">Tempo<br>squillo</th>
+     <th style="width:60px">Tempo<br>connesso</th>
+     <th style="width:100px">da<br>Numero</th>
+     <th style="width:100px">Numero<br>chiamato</th>
+     <th style="width:100px">Numero<br>connesso</th>
+     <th style="width:140px">Esito<br>chiamata</th>
     </tr>
 		<?php
 		foreach ($chiamata_set as $chiamata) {
 			echo (strpos($chiamata->tipo_connessione, 'inbound') !== false) ? '<tr bgcolor="#f2f2f2">' : '<tr bgcolor="#cccccc">';
-				echo '<td style="text-align: center">'.$chiamata->id.'</td>';
-				echo '<td style="text-align: center">'.$chiamata->tipo_connessione.'</td>';
+				echo '<td>'.$chiamata->id.'</td>';
+				echo '<td>'.$chiamata->tipo_connessione.'</td>';
+				echo ($logged_user->table == "chiamate_ops") ? '<td>'.$chiamata->estensione.'</td>' : '' ;
+				echo '<td>'.$chiamata->utente.'</td>';
+				echo '<td>'.$chiamata->data_chiamata.'</td>';
+				echo '<td>'.$chiamata->orario_chiamata.'</td>';
+				echo '<td>'.$chiamata->orario_hangup.'</td>';
+				echo '<td>'; Time::secs_to_his($chiamata->tempo_squillo); echo '</td>';
+				echo '<td>'; Time::secs_to_his($chiamata->tempo_connesso); echo '</td>';
 
-				echo ($logged_user->table == "chiamate_ops") ? '<td style="text-align: center">'.$chiamata->estensione.'</td>' : '' ;
-
-				echo '<td style="text-align: center">'.$chiamata->utente.'</td>';
-				echo '<td style="text-align: center">'.$chiamata->data_chiamata.'</td>';
-				echo '<td style="text-align: center">'.$chiamata->orario_chiamata.'</td>';
-				echo '<td style="text-align: center">'.$chiamata->orario_hangup.'</td>';
-				echo '<td style="text-align: center">'; secs_to_his($chiamata->tempo_squillo); echo '</td>';
-				echo '<td style="text-align: center">'; secs_to_his($chiamata->tempo_connesso); echo '</td>';
-
-				echo '<td style="text-align: center">';
+				echo '<td>';
 				// displays branch->filiale instead of number if found
 				$branches = Branch::find_by_nb_number($chiamata->da_numero);
 				if ($branches) {
@@ -381,7 +315,7 @@ Al:
 				} else { echo $chiamata->da_numero; }
 				echo '</td>';
 
-				echo '<td style="text-align: center">';
+				echo '<td>';
 				// dqua non funziona per il +39
 				// $branches = Branch::find_by_nb_number2($chiamata->numero_chiamato);
 				// if ($branches) {
@@ -393,12 +327,13 @@ Al:
 				// }
 				echo '</td>';
 
-				echo '<td style="text-align: center">'.$chiamata->numero_connesso.'</td>';
-				echo '<td style="text-align: center">'.$chiamata->esito_chiamata.'</td>';
+				echo '<td>'.$chiamata->numero_connesso.'</td>';
+				echo '<td>'.$chiamata->esito_chiamata.'</td>';
 			echo '</tr>';
 		}
 		?>
    </table>
+	 <?php //echo $chiamata->last_sql; ?>
   <br><br><br><br><br><br>
  </div>
 </div>
