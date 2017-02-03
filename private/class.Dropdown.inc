@@ -40,4 +40,54 @@ class Dropdown {
 
 }
 
+class DropdownMins extends Dropdown {
+	function __construct() {
+		for ($i = 0; $i <= 59; $i++) {
+			$i_padded = sprintf("%02d", $i);
+			$this->options[$i] =  $i_padded;
+		}
+	}
+}
+
+class DropdownHours extends Dropdown {
+	function __construct() {
+		for ($i = 0; $i <= 23; $i++) {
+			$i_padded = sprintf("%02d", $i);
+			$this->options[$i] =  $i_padded;
+		}
+	}
+}
+
+class DropdownDays extends Dropdown {
+	function __construct() {
+		for ($i = 1; $i <= 31; $i++) {
+			$i_padded = sprintf("%02d", $i);
+			$this->options[$i] =  $i_padded;
+		}
+	}
+}
+
+class DropdownMonths extends Dropdown {
+	function __construct() {
+		for ($i = 1; $i <= 12; $i++) {
+			$i_padded = sprintf("%02d", $i);
+			$this->options[$i] =  $i_padded;
+		}
+	}
+}
+
+class DropdownYears extends Dropdown {
+	function __construct() {
+		for ($i = 2016; $i <= 2017; $i++) {
+			$this->options[$i] =  $i;
+		}
+	}
+}
+
+class DropdownSymbols extends Dropdown {
+	function __construct() {
+		$this->options = array('*','>','=','<');
+	}
+}
+
 ?>
