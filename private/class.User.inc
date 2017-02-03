@@ -4,6 +4,13 @@ class User {
 	public $id;
 	public $branch_id;
 	public $branch;
+
+	public $is_branch = false;
+	public $is_agency = false;
+	public $nas_share = "";
+	public $main_share = "";
+	public $upload_file = "";
+
 	public $dept_id;
 	public $dept;
 	public $email;
@@ -47,7 +54,24 @@ class User {
 			$object->dept = '';
 		}
 
-		isset($result["email"]) ? $object->email = $result["email"] : false ;
+		if (isset($result["email"])) {
+			$object->email = $result["email"];
+
+			$email_section = explode(".", $object->email);
+			if ($email_section[1] === 'branch@auto1') {
+				$object->is_branch = true;
+				$object->nas_share = $email_section[0];
+				// $object->main_share = 'PROVA_BRANCHES'.DS.'BRCH_'.$object->nas_share.DS.strftime("%Y").DS ;
+				$object->main_share = 'BRCH_'.$object->nas_share.DS.strftime("%Y").DS ;
+				$object->upload_file = 'BRCH_'.$object->nas_share.DS.strftime("%Y").DS ;
+			}
+			if ($email_section[1] === 'agency@auto1') {
+				$object->is_agency = true;
+				$object->nas_share = $email_section[0];
+				$object->main_share = 'PROVA_AGENZIE'.DS.'AG_'.$object->nas_share.DS.strftime("%Y").DS ;
+			}
+		}
+
 		isset($result["full_name"]) ? $object->full_name = $result["full_name"] : false ;
 		isset($result["hashed_pwd"]) ? $object->hashed_pwd = $result["hashed_pwd"] : false ;
 		//get password from hash?
@@ -109,6 +133,11 @@ class User {
 		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
+	public function set_branch($branch='') {
+		$this->branch === $branch;
+		$this->set_branch_id_from_branch();
+	}
+
 	public static function find_by_dept_id($dept_id='1') {
 		global $local_db;
 		$sql = 'SELECT * FROM users WHERE dept_id = ';
@@ -135,6 +164,15 @@ class User {
 		isset($user_dept->id) ? $this->dept_id = $user_dept->id : false ;
 	}
 
+	public function set_upload_file($stock_id="", $targa="") {
+			if ($this->is_branch) {
+					$this->upload_file = basename($stock_id)."_".basename($targa).".pdf";
+			}
+			if ($this->is_agency) {
+					$this->upload_file = basename($targa).".pdf";
+			}
+	}
+
 	//CRUD
 	public function save() {
 		return isset($this->id) ? $this->update() : $this->create() ;
@@ -154,7 +192,7 @@ class User {
 		$sql .= $local_db->escape_string($this->dept_id) ."', '";
 		$sql .= $local_db->escape_string($this->email) ."', '";
 		$sql .= $local_db->escape_string($this->full_name) ."', '";
-		$sql .= $local_db->escape_string($this->admin) ."', '";
+		$sql .= " 0 ', '";
 		$sql .= $local_db->escape_string($this->su) ."', '";
 		$sql .= $this->hashed_pwd ."')";
 		if ($local_db->query($sql)) {
@@ -177,7 +215,8 @@ class User {
 		$sql .= "dept_id='". $local_db->escape_string($this->dept_id) . "', ";
 		$sql .= "email='". $local_db->escape_string($this->email) . "', ";
 		$sql .= "full_name='". $local_db->escape_string($this->full_name) . "', ";
-		$sql .= "admin='". $local_db->escape_string($this->su) . "', ";
+		$sql .= "admin='". $local_db->escape_string($this->admin) . "', ";
+		$sql .= "su='". $local_db->escape_string($this->su) . "', ";
 		$sql .= "hashed_pwd='". $this->hashed_pwd . "' ";
 		$sql .= "WHERE id=". $local_db->escape_string($this->id);
 		$sql .= " LIMIT 1";
