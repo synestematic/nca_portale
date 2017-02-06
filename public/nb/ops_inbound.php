@@ -24,39 +24,22 @@ if (($ora_inserzione >= 09) && ($ora_inserzione <= 18) && isset($_GET['a'])) {
 	$call->da_numero = $_GET['g'];
 	$call->numero_chiamato = $_GET['h'];
 	$call->numero_connesso = $_GET['i'];
-	//$ConnectedGroup = $_GET['j'];
+	$call->gruppo = $_GET['j'];
 	$call->tipo_connessione = "inbound " . $_GET['k']; // works only for inbounds
 	$call->esito_chiamata = $_GET['l'];
 	$call->datetime_inserzione = strftime("%Y-%m-%d %H:%M:%S");
 
 	$duplicate_entry = $call->check_for_duplicate_into("chiamate_ops");
 	if (count($duplicate_entry) != 0) {
+		// $comment = ' - duplicate entry - ';
+		$call->comment = ' - duplicate entry - ';
 	  $call->create_into("extra_ops");
-		$comment = ' - duplicate entry - ';
 	} else {
-	  $call->create_into("chiamate_ops");
-		$comment =  ' - new entry - ';
+		// $comment =  ' - new entry - ';
+		$call->comment =  ' - new entry - ';
+		$call->create_into("chiamate_ops");
 	}
-
 }
-
-echo "<records>\n";
-echo "  <record>\n";
-//echo "    <field>"."false"."</field>\n";
-echo "    <CallStartEpoch>".$_GET['a']."</CallStartEpoch>\n";
-echo "    <CallEndEpoch>".$_GET['c']."</CallEndEpoch>\n";
-echo "    <CallRingSeconds>".$_GET['d']."</CallRingSeconds>\n";
-echo "    <CallTalkSeconds>".$_GET['e']."</CallTalkSeconds>\n";
-echo "    <CallerUserAgent>".$_GET['f']."</CallerUserAgent>\n";
-echo "    <CallerNumber>".$_GET['g']."</CallerNumber>\n";
-echo "    <DialledNumber>".$_GET['h']."</DialledNumber>\n";
-echo "    <ConnectedNumber>".$_GET['i']."</ConnectedNumber>\n";
-echo "    <ConnectedGroup>".$_GET['j']."</ConnectedGroup>\n";
-echo "    <ConnectedType>".$_GET['k']."</ConnectedType>\n";
-echo "    <HangupCause>".$_GET['l']."</HangupCause>\n";
-echo "    <Comment>".$comment."</Comment>\n";
-echo "  </record>\n";
-echo "</records>\n";
-//print_r($_GET);
+$call->return_XML();
 
 ?>

@@ -152,12 +152,15 @@ class Chiamata {
 		echo "    <CallerNumber>".$this->da_numero."</CallerNumber>\n";
 		echo "    <DialledNumber>".$this->numero_chiamato."</DialledNumber>\n";
 		echo "    <ConnectedNumber>".$this->numero_connesso."</ConnectedNumber>\n";
-
-		// if tipo conessione inclues inbound
-		// echo "    <ConnectedGroup>".$this->gruppo."</ConnectedGroup>\n";
-		// echo "    <CallerGroup>".$this->gruppo."</CallerGroup>\n";
-
 		echo "    <ConnectedType>".$this->tipo_connessione."</ConnectedType>\n";
+
+		if (strpos($this->tipo_connessione, 'inbound') !== false) {
+			echo "    <ConnectedGroup>".$this->gruppo."</ConnectedGroup>\n";
+		}
+		if (strpos($this->tipo_connessione, 'outbound') !== false) {
+			echo "    <CallerGroup>".$this->gruppo."</CallerGroup>\n";
+		}
+
 		echo "    <HangupCause>".$this->esito_chiamata."</HangupCause>\n";
 		echo "    <Comment>".$this->comment."</Comment>\n"; //make attribute for this
 		echo "    <Extension>".$this->estensione."</Extension>\n";
