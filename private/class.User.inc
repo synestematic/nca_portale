@@ -100,6 +100,10 @@ class User {
 		return self::find_by_sql("SELECT * FROM users");
 	}
 
+	public static function find_all_order_by($field = "id") {
+		return self::find_by_sql("SELECT * FROM users ORDER BY $field ASC");
+	}
+
 	public static function find_by_id($id=1) {
 		global $local_db;
 		$sql = 'SELECT * FROM users WHERE id = "';
