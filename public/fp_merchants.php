@@ -9,8 +9,8 @@ if (!$logged_user->dept_id === 11 || !$logged_user->su === 0) { redirect("admin.
 if (isset($_POST["cerca"])) {
 	$piva = $_POST["piva"];
 } else {
-	// $piva = "";
-	$piva = "14056331003";
+	$piva = "";
+	// $piva = "14056331003";
 }
 ?>
 <?php include("../private/layouts/header.php"); ?>
@@ -43,7 +43,7 @@ if (isset($_POST["cerca"])) {
  </div>
  <div id="page">
   <h2>Merchants: <?php echo count($merchant_results); ?> </h2>
-   <table id="tavola">
+   <table id="tavol">
     <tr>
      <th style="text-align: center; width:120px">Partita IVA</th>
      <th style="text-align: center; width:120px">Denominazione Cliente</th>

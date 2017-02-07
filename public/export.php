@@ -3,16 +3,20 @@ require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login.php"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->admin == 0) { redirect("admin.php"); }
+// if ($logged_user->admin == 0) { redirect("admin.php"); }
 
 if (!$_GET["a"] ) { redirect("chiamate.php"); }
-if ( $_GET["a"] === "") { echo "" ;}
-  
-if ( $_SERVER["HTTP_REFERER"] === 'http://portale.nca.cloud/merchants.php' ) {
+if ( $_GET["a"] === "") {
+  echo "Richiesta non riconosciuta." ;
+  exit ;
+}
+
+if ( strpos($_SERVER["HTTP_REFERER"] , 'fp') !== false ) {
   $fp_db->open_connection();
   $result = $fp_db->query(base64_decode($_GET["a"]));
 }
-if ( $_SERVER["HTTP_REFERER"] === 'http://portale.nca.cloud/chiamate.php' ) {
+if ( strpos($_SERVER["HTTP_REFERER"] , 'chiamate') !== false ) {
+// if ( $_SERVER["HTTP_REFERER"] === 'http://portale.nca.cloud/chiamate.php' ) {
   $result = $local_db->query(base64_decode($_GET["a"]));
 }
 //the problem with this is that i cant escape the values

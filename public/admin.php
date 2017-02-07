@@ -24,12 +24,12 @@ $logged_user = User::find_by_id($_SESSION["user_id"]);
         <p>Scegli una opzione:</p>
         <ul>
           <?php
-          echo ($logged_user->admin ) ? '<li><a href="chiamate.php">Visualizza le chiamate di Natterbox</a></li><br>' : '';
-          echo ($logged_user->dept_id === "11" || $logged_user->su === "1") ? '<li><a href="merchants.php">Ricerca Merchants</a></li><br>' : '';
-          echo ($logged_user->dept_id === "1" || $logged_user->su === "1") ? '<li><a href="report_fp.php">Visualizza il Report Veicoli Finproget</a></li><br>' : '';
-          echo ($logged_user->dept_id === "6" || $logged_user->dept_id === "9" || $logged_user->su === "1") ? '<li><a href="upload.php">Gestisci la Documentazione</a></li><br>' : '';
-          echo ($logged_user->su) ? '<li><a href="users.php">Gestisci gli altri utenti</a></li><br>' : '';
-          echo ($logged_user->su) ? '<li><a href="edit_user.php?id='.urlencode($_SESSION["user_id"]).'">Modifica la tua utenza</a></li>' : '' ;
+          echo ($logged_user->admin || $logged_user->dept_id === "11" ) ? '<li><a href="chiamate.php">Chiamate Natterbox</a></li><br>' : '';
+          echo ($logged_user->dept_id === "11" || $logged_user->dept_id === "4" || $logged_user->su === "1") ? '<li><a href="fp_merchants.php">Ricerca Merchants</a></li><br>' : '';
+          echo ($logged_user->dept_id === "11" || $logged_user->dept_id === "4" || $logged_user->su === "1") ? '<li><a href="fp_vehicles.php">Report Veicoli Finproget</a></li><br>' : '';
+          echo ($logged_user->dept_id === "6" || $logged_user->dept_id === "9" || $logged_user->su === "1") ? '<li><a href="upload.php">Gestione Documentazione</a></li><br>' : '';
+          echo ($logged_user->su) ? '<li><a href="users.php">Gestione Utenti</a></li><br>' : '';
+          echo ($logged_user->su) ? '<li><a href="edit_user.php?id='.urlencode($_SESSION["user_id"]).'">Impostazioni di profilo</a></li>' : '' ;
            ?>
         </ul>
       </div>
