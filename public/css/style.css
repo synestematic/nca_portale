@@ -17,6 +17,9 @@ body {
 img { border: none; }
 a { color: #8D0D19; }
 a:hover { color: #094e7a; }
+iframe {
+  border:0px;
+}
 
 #header {
 	height: 60px; width: 100%; position:fixed; z-index: 5;
@@ -57,10 +60,13 @@ ul.pages { padding-left: 2em; list-style: square; font-weight: normal; }
 .selected { font-weight: bold; }
 
 #page {
+  width:80%;
 	position:relative;
 	top: 60px; left:195px;
-	float: left; height: 300px;
-	padding-left: 2em; vertical-align: top;
+	float: left;
+  height: 100%;
+	padding-left: 2em;
+  vertical-align: top;
 	background: #EEE4B9;
 	//display: table;
 }
@@ -88,8 +94,24 @@ table
 }
 
 #targa {
-    width:96%;
-    height:95%;
+    width:70%;
+    height:100%;
+}
+
+#giornata {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 20%;
+    float:left;
+}
+#filedim {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 40%;
+    float:center;
+    /*padding: 1px;
+    padding-top: 3px;
+    padding-bottom: 3px;*/
 }
 
 #tavola {
@@ -98,7 +120,7 @@ table
     width: 100%;
 }
 
-#tavola th {
+#tavola th, #giornata th, #filedim th  {
     border: 2px solid #000000;
 /*  width:80px; */
     padding: 1px;
@@ -110,21 +132,28 @@ table
     color: white;
 }
 
-#tavola td {
+#tavola td, #giornata td, #filedim td {
+    text-align: center;
     border: 2px solid #000000;
  /* width:80px; */
     height:100%;
-    padding: 0px;
+    padding: 2px;
 }
 
 /*#tavola tr:nth-child(even){background-color: #f2f2f2;}
 #tavola tr:nth-child(odd) {background-color: #ddd;}*/
 
-#tavola tr {
-/*height:33px;*/
+#filedim tr {
+  background-color: #f2f2f2;
+  /*height:20px;*/
 }
 
-#tavola tr:hover {
+#giornata tr {
+  background-color: #cccccc;
+  /*height:20px;*/
+}
+
+#tavola tr:hover, #giornata tr:hover, #filedim tr:hover {
 background-color: #e6eeff;
 /*height:33px;*/
 }
