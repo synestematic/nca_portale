@@ -16,8 +16,8 @@ if (isset($_GET['day'])) {
   $giorno_normale = Time::inverse_date($giorno_richiesto);
 }
 
-$nas = new Server('10.4.4.250', 'portale', '76837683');
-$share = $nas->getShare('FTP_BRANCHES');
+$nas = new Server(NAS_SERVER, NAS_USER, NAS_PASS);
+$share = $nas->getShare(NAS_SHARE);
 
 $main_contents = $share->dir($logged_user->main_share);
 $day_contents = $share->dir($logged_user->main_share.$giorno_richiesto.DS);

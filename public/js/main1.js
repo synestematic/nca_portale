@@ -56,7 +56,7 @@ function validateBR() {
     var length = stockidInserito.length;
 
     if ( stockidInserito.length !== 7 || !/^[a-zA-Z]*$/g.test(ab) || isNaN(num) ) {
-      alert('Lo Stock ID deve essere composto da 2 lettere seguiti da 5 numeri.');
+      alert('Lo Stock ID dev\'essere composto da 2 lettere seguiti da 5 numeri.');
       return false;
     } else {
       var bar = "Confermi i seguenti dati?\n\n Stock ID = "+stockidInserito+"\n Targa = "+targaInserita+"\n Data = "+giornoInserito+"/"+meseInserito+"/"+annoInserito;

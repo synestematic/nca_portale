@@ -50,12 +50,22 @@ function validateBR() {
     alert(messaggio);
     return false;
   } else {
-    var bar = "Confermi i seguenti dati?\n\n Stock ID = "+stockidInserito+"\n Targa = "+targaInserita+"\n Data = "+giornoInserito+"/"+meseInserito+"/"+annoInserito;
-    var foo = confirm(bar);
-    if (foo == false) {
-     return false;
+
+    var ab = stockidInserito.substr(0, 2);
+    var num = stockidInserito.substr(2, 5);
+    var length = stockidInserito.length;
+
+    if ( stockidInserito.length !== 7 || !/^[a-zA-Z]*$/g.test(ab) || isNaN(num) ) {
+      alert('Lo Stock ID dev\'essere composto da 2 lettere seguiti da 5 numeri.');
+      return false;
     } else {
-     return true;
+      var bar = "Confermi i seguenti dati?\n\n Stock ID = "+stockidInserito+"\n Targa = "+targaInserita+"\n Data = "+giornoInserito+"/"+meseInserito+"/"+annoInserito;
+      var foo = confirm(bar);
+      if (foo == false) {
+       return false;
+      } else {
+       return true;
+      }
     }
   }
 }
@@ -83,4 +93,9 @@ function validateAG() {
      return true;
     }
   }
+}
+//////////////////////////////////////////////////////////
+function validateExport() {
+    alert('Nessun dato da esportare.');
+    return false;
 }

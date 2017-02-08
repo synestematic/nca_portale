@@ -12,6 +12,7 @@ $giorno = strftime("%d");
 $mese = strftime("%m");
 $anno = strftime("%Y");
 $correct_stockid = true;
+$correct_date = true;
 $targa = 'Targa';
 $stockid = 'Stock ID';
 
@@ -30,6 +31,19 @@ if ( isset($_POST['submit']) ) {
       }
     }
     if ( $correct_stockid === true ) {
+        $correct_date = false;
+
+        $nas = new Server(NAS_SERVER, NAS_USER, NAS_PASS);
+        $share = $nas->getShare(NAS_SHARE);
+        $main_contents = $share->dir($logged_user->main_share);
+        foreach ($main_contents as $item) {
+            if ($item->getName() === $_POST['anno'] . '-' . $_POST['mese']. '-' . $_POST['giorno'] ) {
+              $correct_date = true;
+            }
+        }
+    }
+
+    if ( $correct_stockid === true && $correct_date === true ) {
 
           $giorno = $_POST['giorno'];
           $mese = $_POST['mese'];
@@ -42,28 +56,19 @@ if ( isset($_POST['submit']) ) {
               if ($_FILES['file_upload']['type'] !== 'application/pdf') {
                   $_SESSION["message"] = 'Selezionare un Documento PDF.';
               } else {
-                  // THIS CONFIGURATION COULD GO INTO CONFIG file
-                  $nas = new Server('10.4.4.250', 'portale', '76837683');
-                  $share = $nas->getShare('FTP_BRANCHES');
                   $tmp_file = $_FILES['file_upload']['tmp_name'];
                   $upload_dir = $logged_user->main_share.$anno.'-'.$mese.'-'.$giorno.DS;
 
                   $logged_user->set_upload_file($stockid, $targa);
-                  // if ($logged_user->is_branch) {
-                  //   $target_file = basename($stockid)."_".basename($targa).".pdf";
-                  // }
-                  // if ($logged_user->is_agency) {
-                  //   $target_file = basename($targa).".pdf";
-                  // }
                   $share->put($tmp_file, $upload_dir.$logged_user->upload_file);
                   // You will probably want to first use file_exists() to make sure
                   // there isn't already a file by the same name.
                   $_SESSION["message"] = "Documento inviato.";
               }
           }
-          $_SESSION["message"] .= ' Richiesta _POST eseguita.';
+          $_SESSION["message"] .= ' Richiesta POST eseguita.';
     } else {
-      $_SESSION["message"] .= ( isset($_SESSION["message"]) ) ? '' : 'Richiesta _POST non eseguita.' ;
+      $_SESSION["message"] .= ( isset($_SESSION["message"]) ) ? '' : 'Richiesta POST non eseguita.' ;
     }
 }
 ?>
@@ -129,8 +134,11 @@ if ( isset($_POST['submit']) ) {
 </div>
 <?php include("../private/layouts/footer.php"); ?>
 <?php
-if ( $correct_stockid === false ) {
-  // this if statement will rarely get used as validation is also done client side thru main.js
-  echo '<script>alert("Lo Stock ID deve essere composto da 2 lettere seguiti da 5 numeri.");</script>';
-}
+    if ( $correct_stockid === false ) {
+        // this if statement will rarely get used as validation is also done client side thru main.js
+        echo '<script>alert("Lo Stock ID dev\'essere composto da 2 lettere seguiti da 5 numeri.");</script>';
+    }
+    if ( $correct_date === false ) {
+        echo '<script>alert("La data '. $_POST['giorno'] . ' / ' . $_POST['mese']. ' / ' . $_POST['anno']. ' non è presente nel sistema.");</script>';
+    }
 ?>

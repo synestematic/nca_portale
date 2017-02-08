@@ -8,8 +8,8 @@ $logged_user = User::find_by_id($_SESSION["user_id"]);
 if (!$logged_user->is_branch && !$logged_user->is_agency) { redirect("admin.php"); }
 // or any other necessary validations
 
-$nas = new Server('10.4.4.250', 'portale', '76837683');
-$share = $nas->getShare('FTP_BRANCHES');
+$nas = new Server(NAS_SERVER, NAS_USER, NAS_PASS);
+$share = $nas->getShare(NAS_SHARE);
 
 if ( isset($_GET['foo']) && isset($_GET['bar']) ) {
 
