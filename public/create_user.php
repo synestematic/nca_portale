@@ -23,13 +23,13 @@ if (isset($_POST['submit'])) {
     $to_be_created_user->dept = $_POST["dept"];
     $to_be_created_user->email = $_POST["email"];
     $to_be_created_user->full_name = $_POST["full_name"];
-    $to_be_created_user->admin = false;
-    $to_be_created_user->su = false;
+    $to_be_created_user->admin = 'false';
+    $to_be_created_user->su = 'false';
     $to_be_created_user->pwd = $_POST["password"];
-    $result = $to_be_created_user->save();
+    $user_created = $to_be_created_user->save();
 
-    if ($result) {
-      $_SESSION["message"] = "Creato nuovo utente: $to_be_created_user->dept";
+    if ($user_created) {
+      $_SESSION["message"] = "Creato nuovo utente: $to_be_created_user->email";
       redirect("users.php");
     } else {
       $_SESSION["message"] = "Operazione Fallita.";

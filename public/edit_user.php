@@ -20,13 +20,12 @@ if (isset($_POST['submit'])) {
 
   if (empty($errors)) {
 
-//      $to_be_edited_user = new User();
       $to_be_edited_user->branch = $_POST["branch"];
       $to_be_edited_user->dept = $_POST["dept"];
       $to_be_edited_user->email = $_POST["email"];
       $to_be_edited_user->full_name = $_POST["full_name"];
-      // $to_be_edited_user->admin = false;
-      // $to_be_edited_user->su = false;
+      $to_be_edited_user->admin = "false";
+      $to_be_edited_user->su = "false";
       $to_be_edited_user->pwd = $_POST["password"];
       $result = $to_be_edited_user->save();
 

@@ -4,6 +4,8 @@ class User {
 	public $id;
 	public $branch_id;
 	public $branch;
+	public $dept_id;
+	public $dept;
 
 	public $is_branch = false;
 	public $is_agency = false;
@@ -11,8 +13,6 @@ class User {
 	public $main_share = "";
 	public $upload_file = "";
 
-	public $dept_id;
-	public $dept;
 	public $email;
 	public $full_name;
 	public $pwd;
@@ -22,6 +22,7 @@ class User {
 	public $su = "0";
 	public $table;
 	public $field;
+	public $last_sql = "";
 
 	private static function instantiate($result) {
 		$object = new self;
@@ -58,14 +59,12 @@ class User {
 			$object->email = $result["email"];
 
 			$email_section = explode(".", $object->email);
-			if ($email_section[1] === 'branch@auto1') {
+			if (isset($email_section[1]) && $email_section[1] === 'branch@auto1') {
 				$object->is_branch = true;
 				$object->nas_share = $email_section[0];
-				// $object->main_share = 'PROVA_BRANCHES'.DS.'BRCH_'.$object->nas_share.DS.strftime("%Y").DS ;
 				$object->main_share = 'BRCH_'.$object->nas_share.DS.strftime("%Y").DS ;
-				$object->upload_file = 'BRCH_'.$object->nas_share.DS.strftime("%Y").DS ;
 			}
-			if ($email_section[1] === 'agency@auto1') {
+			if (isset($email_section[1]) && $email_section[1] === 'agency@auto1') {
 				$object->is_agency = true;
 				$object->nas_share = $email_section[0];
 				$object->main_share = 'PROVA_AGENZIE'.DS.'AG_'.$object->nas_share.DS.strftime("%Y").DS ;
@@ -111,8 +110,6 @@ class User {
 		$sql .= '" LIMIT 1';
 		$result = self::find_by_sql($sql);
 		return !empty($result) ? array_shift($result) : false ;
-		// $result_array = self::find_by_sql("SELECT * FROM users WHERE id = {$id};");
-		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
 	public static function find_by_full_name($full_name='') {
@@ -122,8 +119,6 @@ class User {
 		$sql .= '" LIMIT 1';
 		$result = self::find_by_sql($sql);
 		return !empty($result) ? array_shift($result) : false ;
-		// $result_array = self::find_by_sql("SELECT * FROM users WHERE full_name = '{$full_name}';");
-		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
 	public static function find_by_email($email='') {
@@ -133,8 +128,6 @@ class User {
 		$sql .= '" LIMIT 1';
 		$result = self::find_by_sql($sql);
 		return !empty($result) ? array_shift($result) : false ;
-		// $result_array = self::find_by_sql("SELECT * FROM users WHERE email = '{$email}' LIMIT 1;");
-		// return !empty($result_array) ? array_shift($result_array) : false ;
 	}
 
 	public function set_branch($branch='') {
@@ -147,7 +140,6 @@ class User {
 		$sql = 'SELECT * FROM users WHERE dept_id = ';
 		$sql .= $local_db->escape_string($dept_id);
 		return self::find_by_sql($sql);
-		// return self::find_by_sql("SELECT * FROM users WHERE dept_id = '{$dept_id}';");
 	}
 
 	protected function set_branch_from_branch_id() {
@@ -189,18 +181,20 @@ class User {
 		isset($this->branch) ? $this->set_branch_id_from_branch() : false ;
 		isset($this->dept) ? $this->set_dept_id_from_dept() : false ;
 
-		$sql = "INSERT INTO users (";
-		$sql .= "branch_id, dept_id, email, full_name, admin, su, hashed_pwd";
-		$sql .= ") VALUES ('";
-		$sql .= $local_db->escape_string($this->branch_id) ."', '";
-		$sql .= $local_db->escape_string($this->dept_id) ."', '";
-		$sql .= $local_db->escape_string($this->email) ."', '";
-		$sql .= $local_db->escape_string($this->full_name) ."', '";
-		$sql .= " 0 ', '";
-		$sql .= $local_db->escape_string($this->su) ."', '";
-		$sql .= $this->hashed_pwd ."')";
+		$sql =  "INSERT INTO users (";
+		$sql .= "branch_id,dept_id,email,full_name,admin,su,hashed_pwd";
+		$sql .= ") VALUES (";
+		$sql .= "'".$local_db->escape_string($this->branch_id) ."',";
+		$sql .= "'".$local_db->escape_string($this->dept_id) ."',";
+		$sql .= "'".$local_db->escape_string($this->email) ."',";
+		$sql .= "'".$local_db->escape_string($this->full_name) ."',";
+		$sql .= $local_db->escape_string($this->admin) .",";
+		$sql .= $local_db->escape_string($this->su) .",";
+		$sql .= "'".$this->hashed_pwd ."'";
+		$sql .= ")";
 		if ($local_db->query($sql)) {
 			$this->id = $local_db->insert_id();
+			$this->last_sql = $sql;
 			return true;
 		} else {
 			return false;
@@ -215,12 +209,12 @@ class User {
 		isset($this->dept) ? $this->set_dept_id_from_dept() : false ;
 
 		$sql = "UPDATE users SET ";
-		$sql .= "branch_id='". $local_db->escape_string($this->branch_id) . "', ";
-		$sql .= "dept_id='". $local_db->escape_string($this->dept_id) . "', ";
-		$sql .= "email='". $local_db->escape_string($this->email) . "', ";
-		$sql .= "full_name='". $local_db->escape_string($this->full_name) . "', ";
-		$sql .= "admin='". $local_db->escape_string($this->admin) . "', ";
-		$sql .= "su='". $local_db->escape_string($this->su) . "', ";
+		$sql .= "branch_id='". $local_db->escape_string($this->branch_id) . "',";
+		$sql .= "dept_id='". $local_db->escape_string($this->dept_id) . "',";
+		$sql .= "email='". $local_db->escape_string($this->email) . "',";
+		$sql .= "full_name='". $local_db->escape_string($this->full_name) . "',";
+		$sql .= "admin=". $local_db->escape_string($this->admin) . ",";
+		$sql .= "su=". $local_db->escape_string($this->su) . ", ";
 		$sql .= "hashed_pwd='". $this->hashed_pwd . "' ";
 		$sql .= "WHERE id=". $local_db->escape_string($this->id);
 		$sql .= " LIMIT 1";

@@ -27,7 +27,7 @@ class Branch {
 	}
 
 	public static function find_all() {
-		return self::find_by_sql("SELECT * FROM branches");
+		return self::find_by_sql("SELECT * FROM branches ORDER BY filiale ASC");
 	}
 
 	public static function find_by_id($id=1) {
@@ -44,9 +44,8 @@ class Branch {
 		$sql = 'SELECT * FROM branches WHERE filiale = "';
 		$sql .= $local_db->escape_string($filiale);
 		$sql .= '" LIMIT 1';
-		// $result = self::find_by_sql($sql);
-		// return !empty($result) ? array_shift($result) : false ;
-		return self::find_by_sql($sql);
+		$result = self::find_by_sql($sql);
+		return !empty($result) ? array_shift($result) : false ;
 	}
 
 	public static function find_by_nb_number($nb_number='') {
@@ -54,51 +53,8 @@ class Branch {
 		$sql = 'SELECT * FROM branches WHERE nb_number = "';
 		$sql .= $local_db->escape_string($nb_number);
 		$sql .= '" ';
-		// $result = self::find_by_sql($sql);
-		// return !empty($result) ? array_shift($result) : false ;
-		return self::find_by_sql($sql);
-	}
-
-	// create update delete methods will require instances to begin with and therefore will not be static functions
-
-	public function save() {
-		return isset($this->id) ? $this->update() : $this->create() ;
-	}
-
-	protected function create() {
-		global $local_db;
-		$sql = "INSERT INTO branches (";
-		$sql .= "id, filiale, nb_number";
-		$sql .= ") VALUES ('";
-		$sql .= $local_db->escape_string($this->id) ."', '";
-		$sql .= $local_db->escape_string($this->filiale) ."', '";
-		$sql .= $local_db->escape_string($this->nb_number) ."') ";
-   	if ($local_db->query($sql)) {
-         $this->id = $local_db->insert_id();
-         return true;
-   	} else {
-         return false;
-    }
-	}
-
-	protected function update() {
-		global $local_db;
-		$sql = "UPDATE branches SET ";
-		$sql .= "filiale='". $local_db->escape_string($this->filiale) . "', ";
-		$sql .= "nb_number='". $local_db->escape_string($this->nb_number) . "', ";
-		$sql .= "WHERE id=". $local_db->escape_string($this->id);
-		$sql .= " LIMIT 1";
-		$local_db->query($sql);
-		return ($local_db->affected_rows() == 1) ? true : false ;
-	}
-
-	public function delete() {
-		global $local_db;
-		$sql = "DELETE FROM branches ";
-		$sql .= "WHERE id = ". $local_db->escape_string($this->id);
-		$sql .= " LIMIT 1";
-		$local_db->query($sql);
-		return ($local_db->affected_rows() == 1) ? true : false ;
+		$result = self::find_by_sql($sql);
+		return !empty($result) ? array_shift($result) : false ;
 	}
 
 	public static function branch_dropdown($name) {
