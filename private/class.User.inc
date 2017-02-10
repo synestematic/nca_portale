@@ -24,7 +24,7 @@ class User {
 	public $field;
 	public $last_sql = "";
 
-	private static function instantiate($result) {
+	private static function instantiate($result, $sql) {
 		$object = new self;
 		// use describe_table() to cycle thru fields
 		isset($result["id"]) ? $object->id = $result["id"] : false ;
@@ -78,6 +78,7 @@ class User {
 		isset($result["admin"]) ? $object->admin = $result["admin"] : false ;
 		isset($result["su"]) ? $object->su = $result["su"] : false ;
 		isset($result["Field"]) ? $object->field = $result["Field"] : false ;
+		$object->last_sql = $sql;
 		return $object;
 	}
 
@@ -86,7 +87,7 @@ class User {
 		$result_set = $local_db->query($sql);
 		$object_array = array();
 		while ($result = mysqli_fetch_assoc($result_set)) {
-			$object_array[] = self::instantiate($result);
+			$object_array[] = self::instantiate($result , $sql);
 		}
 		return $object_array;
 	}
@@ -99,8 +100,23 @@ class User {
 		return self::find_by_sql("SELECT * FROM users");
 	}
 
-	public static function find_all_order_by($field = "id") {
-		return self::find_by_sql("SELECT * FROM users ORDER BY $field ASC");
+	public static function find_all_order_by($requested_field="id", $order="ASC") {
+		return self::find_by_sql("SELECT * FROM users ORDER BY $requested_field $order");
+	}
+
+	public static function set_order($requested_field, $order, $existing_field) {
+			$foo = false ;
+			if ( $existing_field !== $requested_field ) {
+					$order = 'ASC';
+			}
+			if ( $existing_field === $requested_field && $order === 'ASC') {
+				  $order = 'DESC';
+				  $foo = true;
+			}
+			if ( $existing_field === $requested_field && $order === 'DESC' && $foo !== true ) {
+				  $order = 'ASC';
+			}
+			return $order ;
 	}
 
 	public static function find_by_id($id=1) {

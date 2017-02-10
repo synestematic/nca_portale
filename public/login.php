@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
           <input type="password" style="width:98%" name="password" value="" />
         </p>
         <input type="submit" name="submit" value="Accedi" />
-      </form><br>
+      </form>
 	</fieldset>
   </div>
   <div id="page">

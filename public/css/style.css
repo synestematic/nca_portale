@@ -34,7 +34,7 @@ iframe {
 }
 
 #footer {
-	height: 20px; margin: 0px; padding: 2em;
+	height: 5px; margin: 0px; padding: 2em;
 	position:fixed;
  	bottom:0; width: 100%;
 	text-align: left;
@@ -75,6 +75,9 @@ ul.pages { padding-left: 2em; list-style: square; font-weight: normal; }
 .view-content {
 	margin: 1em; padding: 1em; border: 1px solid #999;
 }
+/*#page a { color: #8D0D19; text-decoration: none; }*/
+/*#page a:hover { color: #689DC1; }*/
+
 
 div.message {
 	border: 2px solid #8D0D19;
@@ -88,8 +91,7 @@ div.message {
 }
 .error ul { padding-left: 2em; }
 
-table
-{
+table {
     width:100%;
 }
 
@@ -190,6 +192,41 @@ height:33px;
 #tavol tr:hover {
 background-color: #e6eeff;
 /*height:33px;*/
+}
+
+#usertable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+#usertable th {
+    font-size: 105%;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    height:30px;
+    border: 2px solid #000000;
+    background-color: #cccccc;
+    /*background-color: #8D0D19;*/
+    /*color: white;*/
+}
+
+#usertable td {
+    border: 2px solid #000000;
+    padding: 1px;
+}
+
+#usertable tr {
+  height:25px;
+  /*background-color: #f2f2f2;*/
+}
+
+/*#usertable tr:nth-child(even){background-color: #f2f2f2;}
+#usertable tr:nth-child(odd) {background-color: #dddddd;}*/
+#usertable tr:hover {
+background-color: #e6eeff;
+height:30px;
 }
 
 #field{
