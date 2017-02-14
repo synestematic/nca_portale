@@ -13,7 +13,7 @@ defined("FP_DB") ? null : define("FP_DB", "migrazione3");
 defined("NAS_SERVER") ? null : define("NAS_SERVER", "10.4.4.250");
 defined("NAS_USER") ? null : define("NAS_USER", "portale");
 defined("NAS_PASS") ? null : define("NAS_PASS", "76837683");
-defined("NAS_SHARE") ? null : define("NAS_SHARE", "FTP_BRANCHES");
+defined("NAS_SHARE") ? null : define("NAS_SHARE", "DEPT_OPS");
 
 $upload_errors = array(
 	// http://www.php.net/manual/en/features.file-upload.errors.php
