@@ -34,9 +34,11 @@ function validateBR() {
   var stockidInserito = document.forms["manda_doc"]["stockid"].value;
   var stockidInserito = stockidInserito.toUpperCase();
 
-  var giornoInserito = document.forms["manda_doc"]["giorno"].value;
-  var meseInserito = document.forms["manda_doc"]["mese"].value;
-  var annoInserito = document.forms["manda_doc"]["anno"].value;
+  var urlParams = new URLSearchParams(window.location.search);
+  var dataInserita = atob(urlParams.get('d'));
+  var y = dataInserita.substr(0,4);
+  var m = dataInserita.substr(5,2);
+  var d = dataInserita.substr(8,2);
 
   var messaggio = "Dati mancanti:\n\n";
 
@@ -59,7 +61,7 @@ function validateBR() {
       alert('Lo Stock ID dev\'essere composto da 2 lettere seguiti da 5 numeri.');
       return false;
     } else {
-      var bar = "Confermi i seguenti dati?\n\n Stock ID = "+stockidInserito+"\n Targa = "+targaInserita+"\n Data = "+giornoInserito+"/"+meseInserito+"/"+annoInserito;
+      var bar = "Confermi i seguenti dati?\n\n Stock ID = "+stockidInserito+"\n Targa = "+targaInserita+"\n Data = "+d+" / "+m+" / "+y;
       var foo = confirm(bar);
       if (foo == false) {
        return false;
@@ -74,9 +76,11 @@ function validateAG() {
   var targaInserita = document.forms["manda_doc"]["targa"].value;
   var targaInserita = targaInserita.toUpperCase();
 
-  var giornoInserito = document.forms["manda_doc"]["giorno"].value;
-  var meseInserito = document.forms["manda_doc"]["mese"].value;
-  var annoInserito = document.forms["manda_doc"]["anno"].value;
+  var urlParams = new URLSearchParams(window.location.search);
+  var dataInserita = urlParams.get('day');
+  var y = dataInserita.substr(0,4);
+  var m = dataInserita.substr(5,2);
+  var d = dataInserita.substr(8,2);
 
   var messaggio = "";
 
@@ -85,7 +89,7 @@ function validateAG() {
     alert(messaggio);
     return false;
   } else {
-    var bar = "Confermi i seguenti dati?\n\n Targa = "+targaInserita+"\n Data = "+giornoInserito+"/"+meseInserito+"/"+annoInserito;
+    var bar = "Confermi i seguenti dati?\n\n Targa = "+targaInserita+"\n Data = "+d+" / "+m+" / "+y;
     var foo = confirm(bar);
     if (foo == false) {
      return false;

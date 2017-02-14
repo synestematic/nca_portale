@@ -3,7 +3,7 @@ require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login.php"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->admin == 0) { redirect("admin.php"); }
+// if ($logged_user->admin == 0) { redirect("admin.php"); }
 
 if (isset($_POST["cerca"])) {
 	$stringa1 = $_POST["stringa1"];
@@ -311,7 +311,9 @@ Al:
 				// displays branch->filiale instead of number if found
 				$branches = Branch::find_by_nb_number($chiamata->da_numero);
 				if ($branches) {
-					foreach ($branches as $branch) { echo $branch->filiale; }
+					// foreach ($branches as $branch) {
+						echo $branches->filiale;
+					// }
 				} else { echo $chiamata->da_numero; }
 				echo '</td>';
 

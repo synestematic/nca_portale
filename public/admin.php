@@ -17,9 +17,10 @@ $logged_user = User::find_by_id($_SESSION["user_id"]);
         ?>
         <h2>Area di Amministrazione</h2>
         <p>
-          <?php echo $session->message(); ?>
-          <?php //echo $logged_user->dept_id; ?>
-          <?php echo form_errors($errors); ?>
+          <?php
+              echo $session->message();
+              echo form_errors($errors);
+          ?>
         </p>
         <p>Scegli una opzione:</p>
         <ul>
@@ -27,7 +28,10 @@ $logged_user = User::find_by_id($_SESSION["user_id"]);
           echo ($logged_user->admin || $logged_user->dept_id === "11" ) ? '<li><a href="chiamate.php">Chiamate Natterbox</a></li><br>' : '';
           echo ($logged_user->dept_id === "11" || $logged_user->dept_id === "4" || $logged_user->su === "1") ? '<li><a href="fp_merchants.php">Ricerca Merchants</a></li><br>' : '';
           echo ($logged_user->dept_id === "11" || $logged_user->dept_id === "4" || $logged_user->su === "1") ? '<li><a href="fp_vehicles.php">Report Veicoli Finproget</a></li><br>' : '';
-          echo ($logged_user->dept_id === "6" || $logged_user->dept_id === "9" || $logged_user->su === "1") ? '<li><a href="upload.php">Gestione Documentazione</a></li><br>' : '';
+
+          // echo ($logged_user->dept_id === "6" || $logged_user->dept_id === "9" || $logged_user->su === "1") ? '<li><a href="upload.php?day='.strftime("%Y-%m-%d").'">Gestione Documenti</a></li><br>' : '';
+          echo ($logged_user->dept_id === "6" || $logged_user->dept_id === "9" || $logged_user->su === "1") ? '<li><a href="upload.php?d='.base64_encode(strftime("%Y-%m-%d")).'">Gestione Documenti</a></li><br>' : '';
+
           echo ($logged_user->su) ? '<li><a href="users.php">Gestione Utenti</a></li><br>' : '';
           echo ($logged_user->su) ? '<li><a href="edit_user.php?id='.urlencode($_SESSION["user_id"]).'">Impostazioni di profilo</a></li>' : '' ;
            ?>

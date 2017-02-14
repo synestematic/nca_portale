@@ -62,12 +62,12 @@ class User {
 			if (isset($email_section[1]) && $email_section[1] === 'branch@auto1') {
 				$object->is_branch = true;
 				$object->nas_share = $email_section[0];
-				$object->main_share = 'BRCH_'.$object->nas_share.DS.strftime("%Y").DS ;
+				$object->main_share = 'BRANCHES'.DS.'BRCH_'.$object->nas_share.DS.strftime("%Y").DS ;
 			}
 			if (isset($email_section[1]) && $email_section[1] === 'agency@auto1') {
 				$object->is_agency = true;
 				$object->nas_share = $email_section[0];
-				$object->main_share = 'PROVA_AGENZIE'.DS.'AG_'.$object->nas_share.DS.strftime("%Y").DS ;
+				$object->main_share = 'AGENZIE'.DS.'AG_'.$object->nas_share.DS.strftime("%Y").DS ;
 			}
 		}
 
@@ -176,14 +176,31 @@ class User {
 		isset($user_dept->id) ? $this->dept_id = $user_dept->id : false ;
 	}
 
-	public function set_upload_file($stock_id="", $targa="") {
+	public function set_upload_filename($stock_id="", $targa="", $day_contents) {
+			// SET FILENAME FORMAT (branch vs agency)
 			if ($this->is_branch) {
-					$this->upload_file = basename($stock_id)."_".basename($targa).".pdf";
+					$this->upload_file = basename($stock_id)."_".basename($targa);
 			}
 			if ($this->is_agency) {
-					$this->upload_file = basename($targa).".pdf";
+					$this->upload_file = basename($targa);
 			}
-	}
+			// CHECK dir if exits already
+			foreach ($day_contents as $item) {
+			    if ( $item->getName() === $this->upload_file . '.pdf' ) {
+			      $this->upload_file = $this->upload_file . '_copia';
+			      // $this->upload_file = this->check_exists_or_rename($this->upload_file);
+			    }
+			}
+			$this->upload_file = $this->upload_file . '.pdf';
+			}
+
+			public function check_exists_or_rename($filename) {
+				if ( $filename === $this->upload_file . '.pdf' ) {
+					return $filename ;
+				} else {
+					check_exists_or_rename($filename.'_copia');
+				}
+			}
 
 	//CRUD
 	public function save() {

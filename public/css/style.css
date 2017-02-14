@@ -1,8 +1,13 @@
 /* Site Colors:
-  #094e7a - noicompriamoauto blue
+  #094e7a - nca blue
+
+  #083b69 - nca blue2
+  #e55d11 - nca2 orange
+
   #689DC1 - light blue
   #D4E6F4 - very light blue
-  #EEE4B9 - light tan
+
+  EEE4B9 - light tan
   #8D0D19 - burgundy
 */
 
@@ -16,7 +21,7 @@ body {
 }
 img { border: none; }
 a { color: #8D0D19; }
-a:hover { color: #094e7a; }
+a:hover { color: #083b69; }
 iframe {
   border:0px;
 }
@@ -24,9 +29,10 @@ iframe {
 #header {
 	height: 60px; width: 100%; position:fixed; z-index: 5;
 	margin: 0px; padding: 0; text-align: left;
-  background: #094e7a; color: #D4E6F4;
+  background: #083b69; color: #D4E6F4;
+  display: inline;
 }
-#header h1 { font-size: 24px; padding: 1em; margin: 0px;}
+#header h1 { font-size: 24px; padding: 0px; margin: 0px;}
 #main {
 	height: 600px; width: 100%;
 	margin: 0px; padding: 0;
@@ -40,13 +46,13 @@ iframe {
 	text-align: left;
 	font-size: 12px;
 	z-index: 5;
-  background: #094e7a;  color: #D4E6F4;
+  background: #083b69;  color: #D4E6F4;
 }
 
 #navigation {
 	float: left; position:fixed;
 	top: 60px;
-	width: 180px; height: 100%;
+	width: 185px; height: 100%;
 	margin: 0px; padding: 1em;
 	color: #D4E6F4; background: #8D0D19;
 	z-index: 4;
@@ -111,9 +117,7 @@ table {
     border-collapse: collapse;
     width: 40%;
     float:center;
-    /*padding: 1px;
-    padding-top: 3px;
-    padding-bottom: 3px;*/
+    padding-left: 3px;
 }
 
 #tavola {
@@ -151,7 +155,7 @@ table {
 }
 
 #giornata tr {
-  background-color: #cccccc;
+  background-color: #e6e6e6;
   /*height:20px;*/
 }
 
@@ -255,3 +259,8 @@ height:30px;
 #font{
  font-size: 12px;
 }
+
+/*#nca_logo{
+  display:inline-block;;
+  align:right;
+}*/
