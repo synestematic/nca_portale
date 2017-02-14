@@ -11,9 +11,6 @@
  </head>
  <body>
   <div id="header">
-   <h1>
-	<i>Portale | Noi Compriamo Auto.it
-	<?php // $date = date('H:i:s'); echo $date; ?> </i>
-   </h1>
-   <img src='../../public/images/auto0.png' align='right'>
-  </div>
+    <img id="nca_logo" src='images/nca1.png'  style='display: inline' align='left';>
+    <!-- <h1 align='center'><i>Portale NCA.it</i></h1> -->
+    </div>
