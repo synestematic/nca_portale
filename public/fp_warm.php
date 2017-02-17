@@ -7,13 +7,6 @@ if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logg
 	 redirect("admin.php");
  }
 
-// if (isset($_POST["cerca"])) {
-// 	$stringa1 = $_POST["stringa1"];
-// 	$field1 = $_POST["field1"];
-// } else {
-// 	$stringa1 = "";
-// 	$field1 = "utente";
-// }
 ?>
 <?php include("../private/layouts/header.php"); ?>
 <div id="main">
@@ -22,18 +15,19 @@ if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logg
 	<a href="admin.php">&laquo; Torna indietro</a><br>
   <ul class="pages">
 		<?php
-			$veicolo_set = Veicolo::find_by_sql('SELECT * FROM warm_vehicles');
+			$requested_fields = array('*');
+			$veicolo_set = Veicolo::find_columns_from_table($requested_fields, 'warm_vehicles');
 		?>
  		<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Ricarica</a></li>
         <li><a target="_blank" href="export.php?a=<?php echo (isset($veicolo_set[0])) ? base64_encode($veicolo_set[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
 	</ul>
  </div>
  <div id="page">
-  <h2>Risultati: <?php echo count($veicolo_set); ?> </h2>
+  <h2>Veicoli: <?php echo count($veicolo_set); ?> </h2>
    <table id="tavol">
 			<?php
 			echo '<tr>';
-			$column_names = Veicolo::return_sql_fields();
+			$column_names = Veicolo::return_column_names($requested_fields, 'warm_vehicles');
 			foreach ($column_names as $column_name) {
 			  echo '<th style="width:40px">'.$column_name.'</th>';
 			}
@@ -43,7 +37,10 @@ if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logg
 			foreach ($veicolo_set as $veicolo) {
 				echo '<tr>';
 				foreach ($veicolo->sql_fields as $value) {
-					echo '<td style="text-align: center;">'.$value.'</td>';
+					echo '<td style="text-align: center;">' ;
+					$value = Time::check_for_date($value);
+					echo $value ;
+					echo '</td>' ;
 				}
 				echo '</tr>';
 			}

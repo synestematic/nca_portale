@@ -16,5 +16,15 @@ class Time {
 			// return $output;
 	}
 
+	public static function check_for_date($value) {
+			$year = substr($value, '0', '4');
+			$month = substr($value, '5', '2');
+			$day = substr($value, '8', '2');
+			if (checkdate((int)$month, (int)$day, (int)$year)) {
+					$value = $day . '/' . $month . '/' . $year ;
+			}
+			return $value;
+	}
+
 }
 ?>
