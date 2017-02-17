@@ -3,7 +3,7 @@ require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login.php"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-// if ($logged_user->admin == 0) { redirect("admin.php"); }
+if ($logged_user->su == 0) { redirect("users.php"); }
 
 if (!$_GET["id"]) { redirect("users.php"); }
 $to_be_edited_user = User::find_by_id($_GET["id"]);
