@@ -184,23 +184,23 @@ class User {
 			if ($this->is_agency) {
 					$this->upload_file = basename($targa);
 			}
-			// CHECK dir if exits already
-			foreach ($day_contents as $item) {
-			    if ( $item->getName() === $this->upload_file . '.pdf' ) {
-			      $this->upload_file = $this->upload_file . '_copia';
-			      // $this->upload_file = this->check_exists_or_rename($this->upload_file);
-			    }
-			}
+			// CHECK if dir exists NOT NEEDED ATM
+			// foreach ($day_contents as $item) {
+			//     if ( $item->getName() === $this->upload_file . '.pdf' ) {
+			//       $this->upload_file = $this->upload_file . '_copia';
+			//     }
+			// }
 			$this->upload_file = $this->upload_file . '.pdf';
 			}
 
-			public function check_exists_or_rename($filename) {
-				if ( $filename === $this->upload_file . '.pdf' ) {
-					return $filename ;
-				} else {
-					check_exists_or_rename($filename.'_copia');
-				}
-			}
+			// public function check_exists_or_rename($filename) {
+			// 	// RECURSIVE FUNCTION Where would this go ???
+			// 	if ( $filename === $this->upload_file . '.pdf' ) {
+			// 		return $filename ;
+			// 	} else {
+			// 		check_exists_or_rename($filename.'_copia');
+			// 	}
+			// }
 
 	//CRUD
 	public function save() {

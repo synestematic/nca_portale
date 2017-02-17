@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
 	<fieldset>
     <legend>Autenticazione:</legend>
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        <p>E-mail:<br>
+        <p>Username:<br>
           <input type="text" style="width:98%" name="email" value="<?php echo isset($_POST['submit']) ? htmlentities($_POST["email"]) : "" ; ?>" />
         </p>
         <p>Password:<br>
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
 	</fieldset>
   </div>
   <div id="page">
-    <h2>Benvenuto</h2>
+    <h2>Portale NCA.it</h2>
    <p>
     <?php echo $session->message(); ?>
     <?php echo form_errors($errors); ?>

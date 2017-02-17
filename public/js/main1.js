@@ -1,18 +1,22 @@
 var inputStockId = document.getElementById('jsstockid');
-var defaultStockIdValue = inputStockId.value;
+if (inputStockId !== null) {
+// THIS IF IS HERE IN CASE LOGGED USER IS AN AGENCY
+  var defaultStockIdValue = inputStockId.value;
 
-inputStockId.onfocus = function() {
-  // if ( inputStockId.value === defaultStockIdValue ) {
-  if ( inputStockId.value === "Stock ID" ) {
-    inputStockId.setAttribute("value", "");
-  }
-};
-inputStockId.onblur = function() {
-  if ( inputStockId.value === "" ) {
-    // inputStockId.setAttribute("value", defaultStockIdValue);
-    inputStockId.setAttribute("value", "Stock ID");
-  }
-};
+  inputStockId.onfocus = function() {
+    // if ( inputStockId.value === defaultStockIdValue ) {
+    if ( inputStockId.value === "Stock ID" ) {
+      inputStockId.setAttribute("value", "");
+    }
+  };
+  inputStockId.onblur = function() {
+    if ( inputStockId.value === "" ) {
+      // inputStockId.setAttribute("value", defaultStockIdValue);
+      inputStockId.setAttribute("value", "Stock ID");
+    }
+  };
+}
+
 //////////////////////////////////////////////////////////
 var inputTarga = document.getElementById('jstarga');
 var defaultTargaValue = inputTarga.value;
@@ -77,7 +81,7 @@ function validateAG() {
   var targaInserita = targaInserita.toUpperCase();
 
   var urlParams = new URLSearchParams(window.location.search);
-  var dataInserita = urlParams.get('day');
+  var dataInserita = atob(urlParams.get('d'));
   var y = dataInserita.substr(0,4);
   var m = dataInserita.substr(5,2);
   var d = dataInserita.substr(8,2);
@@ -85,7 +89,7 @@ function validateAG() {
   var messaggio = "";
 
   if (targaInserita === "") {
-    messaggio += "Inserisci la Targa.\n";
+    messaggio += "Inserisci una Targa.\n";
     alert(messaggio);
     return false;
   } else {
@@ -102,4 +106,9 @@ function validateAG() {
 function validateExport() {
     alert('Nessun dato da esportare.');
     return false;
+}
+//////////////////////////////////////////////////////////
+function trafficWarning() {
+    $foo = confirm('Questa funzione genera un\'elevata quantità di traffico...\nUsare con discrezione, grazie!');
+    return $foo;
 }

@@ -35,7 +35,7 @@ $main_contents = $share->dir($logged_user->main_share);
 if ( isset($_POST['submit']) ) {
 // FILE SUBMITTED
     $targa = strtoupper($_POST['targa']);
-    $stockid = strtoupper($_POST['stockid']);
+    $stockid = (isset($_POST['stockid'])) ? strtoupper($_POST['stockid']) : $stockid ;
 
     if ($logged_user->is_branch === true) {
       // this if statement will rarely evaluate as validation is also done client side thru main.js
@@ -102,9 +102,6 @@ if ( isset($_POST['submit']) ) {
     <?php echo $session->message(); ?>
     <?php echo form_errors($errors); ?>
     <h2>Documentazione <?php echo '<i><small>'.$data_normale.'</small></i>'; ?></h2>
-
-    <?php echo $session->message(); ?>
-    <?php echo form_errors($errors); ?>
     <table id="giornata">
       <tr><th>Data</th></tr>
       <?php
