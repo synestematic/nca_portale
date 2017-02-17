@@ -37,7 +37,8 @@ while ( $row = mysqli_fetch_row($result) ) {
     $schema_insert = "";
     for ( $j=0 ; $j<mysqli_num_fields($result) ; $j++ ) {
         if ( !isset( $row[$j] ) )
-            $schema_insert .= "NULL"."\t";
+            // $schema_insert .= "NULL"."\t";
+            $schema_insert .= ""."\t";
         elseif ( $row[$j] != "" )
             $schema_insert .= "$row[$j]"."\t";
         else
