@@ -1,6 +1,13 @@
 <?php
 class Time {
 
+	public $sec;
+	public $min;
+	public $hour;
+	public $day;
+	public $month;
+	public $year;
+
 	public static function inverse_date($date) {
 			$date_sections = explode("-", $date);
 			$inversed_date = $date_sections[2]."/".$date_sections[1]."/".$date_sections[0];
@@ -24,6 +31,22 @@ class Time {
 					$value = $day . '/' . $month . '/' . $year ;
 			}
 			return $value;
+	}
+
+	public static function check_for_sunday($weekday_no) {
+		if ($weekday_no === '7') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static function if_sunday_go_to($url) {
+		$its_sunday = self::check_for_sunday(strftime("%u")); // 7 is sunday
+		if ($its_sunday) {
+		  $_SESSION["message"] = "La piattaforma non è disponibile di domenica.";
+		  redirect($url);
+		}
 	}
 
 }

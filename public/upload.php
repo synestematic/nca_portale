@@ -7,6 +7,7 @@ if (!$session->is_logged_in()) { redirect("login.php"); }
 $logged_user = User::find_by_id($_SESSION["user_id"]);
 if (!$logged_user->is_branch && !$logged_user->is_agency) { redirect("admin.php"); }
 if (!isset($_GET['d'])) { redirect("admin.php"); }
+Time::if_sunday_go_to('admin.php');
 
 $targa = 'Targa';
 $stockid = 'Stock ID';
