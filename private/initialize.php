@@ -21,6 +21,8 @@ require_once(LIB_PATH.DS."class.Veicolo.inc");
 
 require_once(LIB_PATH.DS."class.SqlTable.inc");
 require_once(LIB_PATH.DS."class.Dropdown.inc");
+require_once(LIB_PATH.DS."class.Validation.inc");
 require_once(LIB_PATH.DS."class.Time.inc");
+require_once(LIB_PATH.DS."class.String.inc");
 
 ?>

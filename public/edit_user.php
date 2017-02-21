@@ -10,20 +10,20 @@ $to_be_edited_user = User::find_by_id($_GET["id"]);
 if (!$to_be_edited_user) { redirect("users.php"); }
 
 if (isset($_POST['submit'])) {
-  $required_fields = array("email", "password", "conferma");
-  validate_presences($required_fields);
+  $required_fields = array("email", "nome", "password", "conferma_password", "branch", "dept");
+  $validation->check_presence($required_fields);
 
-  $fields_with_max_lengths = array("email" => 30);
-  validate_max_lengths($fields_with_max_lengths);
+  $fields_with_max_length = array("email" => 30);
+  $validation->check_max_length($fields_with_max_length);
 
-  is_equal($_POST["password"], $_POST["conferma"]);
+  $validation->is_equal($_POST["password"], $_POST["conferma_password"]);
 
-  if (empty($errors)) {
+  if ($validation->error_message() === null) {
 
       $to_be_edited_user->branch = $_POST["branch"];
       $to_be_edited_user->dept = $_POST["dept"];
       $to_be_edited_user->email = $_POST["email"];
-      $to_be_edited_user->full_name = $_POST["full_name"];
+      $to_be_edited_user->full_name = $_POST["nome"];
       $to_be_edited_user->admin = "false";
       $to_be_edited_user->su = "false";
       $to_be_edited_user->pwd = $_POST["password"];
@@ -53,8 +53,10 @@ include("../private/layouts/header.php");
     </ul>
   </div>
   <div id="page">
-    <?php echo $session->message(); ?>
-    <?php echo form_errors($errors); ?>
+    <?php
+      echo $session->message();
+      echo $validation->error_message();
+    ?>
     <h2>Modifica Utente:</h2>
     <form action="edit_user.php?id=<?php echo urlencode($to_be_edited_user->id); ?>" method="post">
       <table id="tavola"><tr><th></th><th></th></tr>
@@ -74,22 +76,20 @@ include("../private/layouts/header.php");
         </tr>
          <tr>
            <td>Nome e Cognome:</td>
-           <td><input type="text" name="full_name" value="<?php echo $to_be_edited_user->full_name; ?>" /></td>
+           <td><input type="text" name="nome" value="<?php echo $to_be_edited_user->full_name; ?>" /></td>
          </tr>
          <tr>
            <td>Password:</td>
            <td><input type="password" name="password" value="" /></td>
          </tr>
          <tr>
-           <td>Conferma:</td>
-           <td><input type="password" name="conferma" value="" /></td>
+           <td>Conferma Password:</td>
+           <td><input type="password" name="conferma_password" value="" /></td>
          </tr>
       </table>
       <br>
       <input type="submit" name="submit" value="Modifica" />
     </form>
-
   </div>
 </div>
-
 <?php include("../private/layouts/footer.php"); ?>

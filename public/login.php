@@ -3,10 +3,12 @@ require_once("../private/initialize.php");
 if ($session->is_logged_in()) { redirect("admin.php"); }
 
 if (isset($_POST['submit'])) {
-  $required_fields = array("email", "password");
-  validate_presences($required_fields);
-  if (empty($errors)) {
-    $found_user = User::authenticate($_POST["email"], $_POST["password"]);
+
+  $required_fields = array("username", "password");
+  $validation->check_presence($required_fields);
+
+  if ($validation->error_message() === null) {
+    $found_user = User::authenticate($_POST["username"], $_POST["password"]);
 		if ($found_user) {
       $session->login($found_user);
 			redirect("admin.php");
@@ -23,7 +25,7 @@ if (isset($_POST['submit'])) {
     <legend>Autenticazione:</legend>
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <p>Username:<br>
-          <input type="text" style="width:98%" name="email" value="<?php echo isset($_POST['submit']) ? htmlentities($_POST["email"]) : "" ; ?>" />
+          <input type="text" style="width:98%" name="username" value="<?php echo isset($_POST['submit']) ? htmlentities($_POST["username"]) : "" ; ?>" />
         </p>
         <p>Password:<br>
           <input type="password" style="width:98%" name="password" value="" />
@@ -34,11 +36,13 @@ if (isset($_POST['submit'])) {
   </div>
   <div id="page">
     <h2>Portale NCA.it</h2>
-   <p>
-    <?php echo $session->message(); ?>
-    <?php echo form_errors($errors); ?>
-   </p>
-      <p> Effettua il login per accedere.</p>
+    <p> Effettua il login per accedere.</p>
+    <p>
+      <?php
+        echo $session->message();
+        echo $validation->error_message();
+      ?>
+    </p>
   </div>
 </div>
 <?php include("../private/layouts/footer.php"); ?>

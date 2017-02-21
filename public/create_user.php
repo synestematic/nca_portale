@@ -1,6 +1,5 @@
 <?php
 require_once("../private/initialize.php");
-
 if (!$session->is_logged_in()) { redirect("login.php"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
@@ -8,21 +7,21 @@ if ($logged_user->su == 0) { redirect("users.php"); }
 
 if (isset($_POST['submit'])) {
 
-  $required_fields = array("email", "password", "conferma", "branch", "dept", "full_name");
-  validate_presences($required_fields);
+  $required_fields = array("email", "nome", "password", "conferma_password", "branch", "dept");
+  $validation->check_presence($required_fields);
 
-  $fields_with_max_lengths = array("email" => 30);
-  validate_max_lengths($fields_with_max_lengths);
+  $fields_with_max_length = array("email" => 30);
+  $validation->check_max_length($fields_with_max_length);
 
-  is_equal($_POST["password"], $_POST["conferma"]);
+  $validation->is_equal($_POST["password"], $_POST["conferma_password"]);
 
-  if (empty($errors)) {
+  if ($validation->error_message() === null) {
 
     $to_be_created_user = new User();
     $to_be_created_user->branch = $_POST["branch"];
     $to_be_created_user->dept = $_POST["dept"];
     $to_be_created_user->email = $_POST["email"];
-    $to_be_created_user->full_name = $_POST["full_name"];
+    $to_be_created_user->full_name = $_POST["nome"];
     $to_be_created_user->admin = 'false';
     $to_be_created_user->su = 'false';
     $to_be_created_user->pwd = $_POST["password"];
@@ -45,9 +44,10 @@ include("../private/layouts/header.php");
     <a href="users.php">&laquo; Torna indietro</a><br>
   </div>
   <div id="page">
-    <?php echo $session->message(); ?>
-    <?php echo form_errors($errors); ?>
-
+    <?php
+      echo $session->message();
+      echo $validation->error_message();
+    ?>
     <h2>Crea un nuovo Utente:</h2>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
       <table id="tavola"><tr><th></th><th></th></tr>
@@ -64,16 +64,16 @@ include("../private/layouts/header.php");
            <td><input type="text" name="email" value="<?php echo isset($_POST["email"]) ? htmlentities($_POST["email"]) : ''; ?>" /></td>
         </tr>
          <tr>
-           <td>Nome e Cognome:</td>
-           <td><input type="text" name="full_name" value="<?php echo isset($_POST["full_name"]) ? htmlentities($_POST["full_name"]) : ''; ?>" /></td>
+           <td>Nome Completo:</td>
+           <td><input type="text" name="nome" value="<?php echo isset($_POST["nome"]) ? htmlentities($_POST["nome"]) : ''; ?>" /></td>
          </tr>
          <tr>
            <td>Password:</td>
            <td><input type="password" name="password" value="" /></td>
          </tr>
          <tr>
-           <td>Conferma:</td>
-           <td><input type="password" name="conferma" value="" /></td>
+           <td>Conferma Password:</td>
+           <td><input type="password" name="conferma_password" value="" /></td>
          </tr>
       </table>
       <br>

@@ -101,7 +101,6 @@ if ( isset($_POST['submit']) ) {
   </div>
   <div id="page">
     <?php echo $session->message(); ?>
-    <?php echo form_errors($errors); ?>
     <h2>Documentazione <?php echo '<i><small>'.$data_normale.'</small></i>'; ?></h2>
     <table id="giornata">
       <tr><th>Data</th></tr>
