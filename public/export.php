@@ -11,18 +11,31 @@ if ( $_GET["a"] === "") {
   exit ;
 }
 
+$filename = 'export';
 if ( strpos($_SERVER["HTTP_REFERER"] , 'fp') !== false ) {
-  $fp_db->open_connection();
-  $result = $fp_db->query(base64_decode($_GET["a"]));
+    $fp_db->open_connection();
+    $result = $fp_db->query(base64_decode($_GET["a"]));
+    if ( strpos($_SERVER["HTTP_REFERER"] , 'all') !== false ) {
+        $filename = 'Finproget_rawdata';
+    }
+    if ( strpos($_SERVER["HTTP_REFERER"] , 'warm') !== false ) {
+        $filename = 'Warm_vehicles_'.strftime("%F_%H%M");
+    }
+    if ( strpos($_SERVER["HTTP_REFERER"] , 'atti') !== false ) {
+        $filename = 'Atti_ricevuti_'.strftime("%F_%H%M");
+    }
+    if ( strpos($_SERVER["HTTP_REFERER"] , 'merchants') !== false ) {
+        $filename = 'Indirizzi_merchants_'.strftime("%F_%H%M");
+    }
 }
 if ( strpos($_SERVER["HTTP_REFERER"] , 'chiamate') !== false ) {
-// if ( $_SERVER["HTTP_REFERER"] === 'http://portale.nca.cloud/chiamate.php' ) {
-  $result = $local_db->query(base64_decode($_GET["a"]));
+    $result = $local_db->query(base64_decode($_GET["a"]));
+    $filename = 'Chiamate_bc_'.strftime("%F_%H%M");
 }
 //the problem with this is that i cant escape the values
 
 header("Content-Type: application/xls");
-header("Content-Disposition: attachment; filename=export.xls");
+header("Content-Disposition: attachment; filename=".$filename.".xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 
