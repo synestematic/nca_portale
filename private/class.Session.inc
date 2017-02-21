@@ -3,6 +3,7 @@ class Session {
 
   private $logged_in=false;
   public $user_id;
+  private $message = '';
 
   function __construct($data = array()) {
     session_start();
@@ -44,11 +45,11 @@ class Session {
 
   function message() {
     if (isset($_SESSION["message"])) {
-      $output = "<div class=\"message\">";
-      $output .= htmlentities($_SESSION["message"]);
-      $output .= "</div>";
+      $this->message = "<div class=\"message\">";
+      $this->message .= htmlentities($_SESSION["message"]);
+      $this->message .= "</div>";
       $_SESSION["message"] = null;
-      return $output;
+      return $this->message;
     }
   }
 
