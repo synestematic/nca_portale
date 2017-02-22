@@ -15,7 +15,7 @@ if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logg
 	<a href="admin.php">&laquo; Torna indietro</a><br>
   <ul class="pages">
 		<?php
-			$requested_fields = array('Targa', 'StockID', 'EventoConclusivo', 'Data_Evento', 'TT2120', 'DataCdc');
+			$requested_fields = array('Targa', 'StockID', 'EventoConclusivo', 'Data_Evento', 'TT2120', 'DataCdc', 'DataTarghe');
 			$veicolo_set = Veicolo::find_columns_from_table($requested_fields, 'all_vehicles');
 		?>
  		<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Ricarica</a></li>
