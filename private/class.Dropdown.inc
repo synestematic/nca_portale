@@ -90,4 +90,16 @@ class DropdownSymbols extends Dropdown {
 	}
 }
 
+class DropdownFields extends Dropdown {
+	function __construct() {
+		$this->options = array('', 'id','tipo_connessione','estensione','utente', 'da_numero', 'numero_chiamato' ,'numero_connesso', 'esito_chiamata');
+	}
+}
+
+class DropdownCustom extends Dropdown {
+	function __construct($option_array) {
+		$this->options = $option_array;
+	}
+}
+
 ?>

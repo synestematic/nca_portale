@@ -24,10 +24,16 @@ class Time {
 	}
 
 	public static function check_for_date($value) {
+			// 0123456789
+			// 2017-11-31
 			$year = substr($value, '0', '4');
 			$month = substr($value, '5', '2');
 			$day = substr($value, '8', '2');
-			if (checkdate((int)$month, (int)$day, (int)$year)) {
+			$space = substr($value, '10', '1');
+			$d1 = substr($value, '4', '1');
+			$d2 = substr($value, '7', '1');
+
+			if ( checkdate((int)$month, (int)$day, (int)$year) && ($space === ' '||$space == null) && ($d1 === '-'&&$d2 == '-') ) {
 					$value = $day . '/' . $month . '/' . $year ;
 			}
 			return $value;

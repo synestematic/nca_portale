@@ -6,6 +6,7 @@ $logged_user = User::find_by_id($_SESSION["user_id"]);
 if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logged_user->su === "1" ) {
 	 redirect("admin.php");
  }
+$requested_fields = ( $logged_user->full_name === "Emilia Monita" ) ? array('Targa', 'StockID', 'EventoConclusivo', 'DataCdP', 'DataCdC') : array('Targa', 'StockID', 'EventoConclusivo', 'Data_Evento', 'TT2120', 'DataCdc', 'DataTarghe') ;
 
 ?>
 <?php include("../private/layouts/header.php"); ?>
@@ -15,7 +16,6 @@ if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logg
 	<a href="admin.php">&laquo; Torna indietro</a><br>
   <ul class="pages">
 		<?php
-			$requested_fields = array('Targa', 'StockID', 'EventoConclusivo', 'Data_Evento', 'TT2120', 'DataCdc', 'DataTarghe');
 			$veicolo_set = Veicolo::find_columns_from_table($requested_fields, 'all_vehicles');
 		?>
  		<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Ricarica</a></li>
@@ -29,7 +29,7 @@ if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logg
 			echo '<tr>';
 			$column_names = Veicolo::return_column_names($requested_fields, 'all_vehicles');
 			foreach ($column_names as $column_name) {
-			  echo '<th style="width:40px">'.$column_name.'</th>';
+			  echo '<th style="width:40px">'.String::ucfirst_rmunderscores($column_name).'</th>';
 			}
 			echo '</tr>';
 			?>
