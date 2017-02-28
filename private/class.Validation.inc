@@ -30,7 +30,20 @@ class Validation {
 	  }
 	}
 
+	public function check_for_allowed_get_values($key, $values = array()) {
+		$allowed_value_found = false ;
+		$_SESSION["message"] = "Parametro ".String::ucfirst_rmunderscores($key)." non riconosciuto.";
+		foreach ($values as $value) {
+			if ($_GET["$key"] === $value) {
+				$allowed_value_found = true ;
+				$_SESSION["message"] = "";
+			}
+		}
+		return $allowed_value_found;
+	}
+
 	public function error_message() {
+		// this message is only valid within same pages
 		if (!empty($this->errors)) {
 			$this->message = '';
 		  $this->message .= "<div class=\"error\">";
