@@ -1,9 +1,9 @@
 <?php
 require_once("../private/initialize.php");
-if (!$session->is_logged_in()) { redirect("login.php"); }
+if (!$session->is_logged_in()) { redirect("login"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->admin == 0) { redirect("admin.php"); }
+if ($logged_user->admin == 0) { redirect("admin"); }
 
 $requested_field = ( isset($_GET['rf']) ) ? $_GET['rf'] : 'full_name' ;
 $existing_field = ( isset($_GET['ef']) ) ? $_GET['ef'] : '' ;
@@ -16,10 +16,10 @@ include("../private/layouts/header.php");
 <div id="main">
   <div id="navigation">
     <?php include("../private/layouts/logout_link.php"); ?>
-    <a href="admin.php">&laquo; Torna indietro</a><br>
+    <a href="admin">&laquo; Torna indietro</a><br>
     <ul class="pages">
-        <li><a href="create_user.php">Crea nuovo utente</a></li>
-        <li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Ricarica</a></li>
+        <li><a href="create_user">Crea nuovo utente</a></li>
+        <li><a href="">Ricarica</a></li>
     </ul>
   </div>
   <div id="page">
@@ -32,12 +32,12 @@ include("../private/layouts/header.php");
       <table id="usertable">
           <?php
           echo '<tr>';
-          echo '<th style="width: 200px;"><a href="'.$_SERVER['PHP_SELF'].'?rf=full_name&ef='.$requested_field.'&o='.$order.'">UTENTE<a/></th>';
-          echo '<th style="width: 200px;"><a href="'.$_SERVER['PHP_SELF'].'?rf=email&ef='.$requested_field.'&o='.$order.'">E-MAIL<a/></th>';
-          echo '<th style="width: 200px;"><a href="'.$_SERVER['PHP_SELF'].'?rf=branch_id&ef='.$requested_field.'&o='.$order.'">FILIALE<a/></th>';
-          echo '<th style="width: 200px;"><a href="'.$_SERVER['PHP_SELF'].'?rf=dept_id&ef='.$requested_field.'&o='.$order.'">DIPARTIMENTO<a/></th>';
-          echo '<th style="width: 80px;"><a href="'.$_SERVER['PHP_SELF'].'?rf=admin&ef='.$requested_field.'&o='.$order.'">ADMIN<a/></th>';
-          echo '<th style="width: 80px;"><a href="'.$_SERVER['PHP_SELF'].'?rf=su&ef='.$requested_field.'&o='.$order.'">SUPER<a/></th>';
+          echo '<th style="width: 200px;"><a href="?rf=full_name&ef='.$requested_field.'&o='.$order.'">UTENTE<a/></th>';
+          echo '<th style="width: 200px;"><a href="?rf=email&ef='.$requested_field.'&o='.$order.'">E-MAIL<a/></th>';
+          echo '<th style="width: 200px;"><a href="?rf=branch_id&ef='.$requested_field.'&o='.$order.'">FILIALE<a/></th>';
+          echo '<th style="width: 200px;"><a href="?rf=dept_id&ef='.$requested_field.'&o='.$order.'">DIPARTIMENTO<a/></th>';
+          echo '<th style="width: 80px;"><a href="?rf=admin&ef='.$requested_field.'&o='.$order.'">ADMIN<a/></th>';
+          echo '<th style="width: 80px;"><a href="?rf=su&ef='.$requested_field.'&o='.$order.'">SUPER<a/></th>';
           echo '<th colspan="2" style="width: 50px;">AZIONE</th>';
           echo '</tr>';
         	if ($dept_users) {
@@ -50,9 +50,9 @@ include("../private/layouts/header.php");
                   echo ucfirst($dept_user->dept).'</td>' ;
                   echo (strpos($dept_user->admin, '0') === false) ? '<td bgcolor="#dddddd">'.'Si'.'</td>' : '<td bgcolor="#f2f2f2">'.''.'</td>';
                   echo (strpos($dept_user->su, '0') === false) ? '<td bgcolor="#dddddd">'.'Si'.'</td>' : '<td bgcolor="#f2f2f2">'.''.'</td>';
-                  echo '<td><a href="edit_user.php?id='.urlencode($dept_user->id).'">Modifica</a></td>';
+                  echo '<td><a href="edit_user?id='.urlencode($dept_user->id).'">Modifica</a></td>';
                   echo '<td>';
-                  echo '<a href="delete_user.php?id='.urlencode($dept_user->id).'" onclick="return confirm(\'Sei sicuro di voler eliminare '.htmlentities($dept_user->email).' ?\');">Elimina</a></td>';
+                  echo '<a href="delete_user?id='.urlencode($dept_user->id).'" onclick="return confirm(\'Sei sicuro di voler eliminare '.htmlentities($dept_user->email).' ?\');">Elimina</a></td>';
                   echo '</tr>';
             }
         }

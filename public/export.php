@@ -1,17 +1,14 @@
 <?php
 require_once("../private/initialize.php");
-if (!$session->is_logged_in()) { redirect("login.php"); }
-
+if (!$session->is_logged_in()) { redirect("login"); }
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-// if ($logged_user->admin == 0) { redirect("admin.php"); }
 
-if (!$_GET["a"] ) { redirect("chiamate.php"); }
-if ( $_GET["a"] === "") {
+if ( $_GET["a"] === "" || !$_GET["a"] ) {
   echo "Richiesta non riconosciuta." ;
   exit ;
 }
 
-$filename = 'export';
+//$filename = 'export';
 if ( strpos($_SERVER["HTTP_REFERER"] , 'fp') !== false ) {
     $fp_db->open_connection();
     $result = $fp_db->query(base64_decode($_GET["a"]));

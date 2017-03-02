@@ -1,10 +1,10 @@
 <?php
 require_once("../private/initialize.php");
-if (!$session->is_logged_in()) { redirect("login.php"); }
+if (!$session->is_logged_in()) { redirect("login"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
 if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logged_user->su === "1" ) {
-	 redirect("admin.php");
+	 redirect("admin");
  }
 $requested_fields = ( $logged_user->full_name === "Emilia Monita" ) ? array('Targa', 'StockID', 'EventoConclusivo', 'DataCdP', 'DataCdC') : array('Targa', 'StockID', 'EventoConclusivo', 'Data_Evento', 'TT2120', 'DataCdc', 'DataTarghe') ;
 
@@ -13,13 +13,13 @@ $requested_fields = ( $logged_user->full_name === "Emilia Monita" ) ? array('Tar
 <div id="main">
  <div id="navigation">
   <?php include("../private/layouts/logout_link.php"); ?>
-	<a href="admin.php">&laquo; Torna indietro</a><br>
+	<a href="admin">&laquo; Torna indietro</a><br>
   <ul class="pages">
 		<?php
 			$veicolo_set = Veicolo::find_columns_from_table($requested_fields, 'all_vehicles');
 		?>
- 		<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Ricarica</a></li>
-        <li><a target="_blank" href="export.php?a=<?php echo (isset($veicolo_set[0])) ? base64_encode($veicolo_set[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
+ 		<li><a href="">Ricarica</a></li>
+        <li><a target="_blank" href="export?a=<?php echo (isset($veicolo_set[0])) ? base64_encode($veicolo_set[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
 	</ul>
  </div>
  <div id="page">

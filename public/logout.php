@@ -1,6 +1,6 @@
 <?php
 require_once("../private/initialize.php");
-if (!$session->is_logged_in()) { redirect("login.php"); }
+if (!$session->is_logged_in()) { redirect("login"); }
 $session->logout();
 
 // v1: simple logout
@@ -18,5 +18,5 @@ $session->logout();
 	//  }
 	//  session_destroy();
 
-//redirect("login.php");
+//redirect("login");
 ?>

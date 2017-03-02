@@ -40,7 +40,7 @@ class Session {
       setcookie(session_name(), '', time()-42000, '/');
     }
     session_destroy();
-    redirect("login.php");
+    redirect("login");
   }
 
   function message() {

@@ -1,9 +1,9 @@
 <?php
 require_once("../private/initialize.php");
-if (!$session->is_logged_in()) { redirect("login.php"); }
+if (!$session->is_logged_in()) { redirect("login"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->su == 0) { redirect("users.php"); }
+if ($logged_user->su == 0) { redirect("users"); }
 
 if (isset($_POST['submit'])) {
 
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
 
     if ($user_created) {
       $_SESSION["message"] = "Creato nuovo utente: $to_be_created_user->email";
-      redirect("users.php");
+      redirect("users");
     } else {
       $_SESSION["message"] = "Operazione Fallita.";
     }
@@ -41,7 +41,7 @@ include("../private/layouts/header.php");
 <div id="main">
   <div id="navigation">
     <?php include("../private/layouts/logout_link.php"); ?>
-    <a href="users.php">&laquo; Torna indietro</a><br>
+    <a href="users">&laquo; Torna indietro</a>
   </div>
   <div id="page">
     <?php
@@ -49,7 +49,7 @@ include("../private/layouts/header.php");
       echo $validation->error_message();
     ?>
     <h2>Crea un nuovo Utente:</h2>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <form action="" method="post">
       <table id="tavola"><tr><th></th><th></th></tr>
         <tr>
           <td>Filiale:</td>

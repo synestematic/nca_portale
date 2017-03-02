@@ -1,10 +1,10 @@
 <?php
 require_once("../private/initialize.php");
-if (!$session->is_logged_in()) { redirect("login.php"); }
+if (!$session->is_logged_in()) { redirect("login"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if ($logged_user->admin === 0) { redirect("admin.php"); }
-if (!$logged_user->dept_id === 11 || !$logged_user->su === 0) { redirect("admin.php"); }
+if ($logged_user->admin === 0) { redirect("admin"); }
+if (!$logged_user->dept_id === 11 || !$logged_user->su === 0) { redirect("admin"); }
 
 if (isset($_POST["cerca"])) {
 	$piva = $_POST["piva"];
@@ -17,10 +17,10 @@ if (isset($_POST["cerca"])) {
 <div id="main">
  <div id="navigation">
   <?php include("../private/layouts/logout_link.php"); ?>
-     <a href="admin.php">&laquo; Torna indietro</a><br><br>
+     <a href="admin">&laquo; Torna indietro</a><br><br>
     <fieldset>
       <legend>Ricerca Partita IVA:</legend>
-      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+      <form action="" method="post">
 			<table><tr>
 			<td style="text-align: center; height:10px">
 			  <input id="stringa" type="text" name="piva" value="<?php echo $piva; ?>"> </td>   </tr>
@@ -37,8 +37,8 @@ if (isset($_POST["cerca"])) {
 				$merchant_results = $merchant->find_by('Partita_IVA', $piva);
 				// $merchant_results = $merchant->find_all();
 		?>
- 		<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Ricarica</a></li>
-    <li><a target="_blank" href="export.php?a=<?php echo (isset($merchant_results[0])) ? base64_encode($merchant_results[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
+		<li><a href="">Ricarica</a></li>
+    <li><a target="_blank" href="export?a=<?php echo (isset($merchant_results[0])) ? base64_encode($merchant_results[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
 	</ul>
  </div>
  <div id="page">

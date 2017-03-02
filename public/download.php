@@ -3,9 +3,9 @@ require_once("../private/initialize.php");
 use Icewind\SMB\Server;
 require('/var/www/html/private/SMB-master/vendor/autoload.php');
 
-if (!$session->is_logged_in()) { redirect("login.php"); }
+if (!$session->is_logged_in()) { redirect("login"); }
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if (!$logged_user->is_branch && !$logged_user->is_agency) { redirect("admin.php"); }
+if (!$logged_user->is_branch && !$logged_user->is_agency) { redirect("admin"); }
 // or any other necessary validations
 
 $nas = new Server(NAS_SERVER, NAS_USER, NAS_PASS);

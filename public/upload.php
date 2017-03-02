@@ -3,11 +3,11 @@ require_once("../private/initialize.php");
 use Icewind\SMB\Server;
 require('/var/www/html/private/SMB-master/vendor/autoload.php');
 
-if (!$session->is_logged_in()) { redirect("login.php"); }
+if (!$session->is_logged_in()) { redirect("login"); }
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-if (!$logged_user->is_branch && !$logged_user->is_agency) { redirect("admin.php"); }
-if (!isset($_GET['d'])) { redirect("admin.php"); }
-Time::if_sunday_go_to('admin.php');
+if (!$logged_user->is_branch && !$logged_user->is_agency) { redirect("admin"); }
+if (!isset($_GET['d'])) { redirect("admin"); }
+Time::if_sunday_go_to('admin');
 
 $targa = 'Targa';
 $stockid = 'Stock ID';
@@ -78,10 +78,10 @@ if ( isset($_POST['submit']) ) {
 <div id="main">
   <div id="navigation">
     <?php include("../private/layouts/logout_link.php"); ?>
-    <a href="admin.php">&laquo; Torna indietro</a><br><br>
+    <a href="admin">&laquo; Torna indietro</a><br><br>
     <fieldset>
       <legend>Invia Documento:</legend>
-      <form name="manda_doc" <?php echo ($logged_user->is_branch === true) ? 'onsubmit="return validateBR()"' : 'onsubmit="return validateAG()"'; ?> action="<?php echo $_SERVER['PHP_SELF'].'?d='.base64_encode($data_richiesta); ?>" enctype="multipart/form-data" method="POST">
+      <form name="manda_doc" <?php echo ($logged_user->is_branch === true) ? 'onsubmit="return validateBR()"' : 'onsubmit="return validateAG()"'; ?> action=?d="<?php echo base64_encode($data_richiesta); ?>" enctype="multipart/form-data" method="POST">
       <table><tr><td>
         <input type="hidden" name="MAX_FILE_SIZE" value="80000000" />
         <input style="width:95%" type="file" name="file_upload"/>
@@ -96,7 +96,7 @@ if ( isset($_POST['submit']) ) {
       </form>
     </fieldset>
     <ul class="pages">
-     		<li><a href="<?php echo $_SERVER['PHP_SELF'].'?d='.base64_encode($data_richiesta); ?>">Ricarica</a></li>
+     		<li><a href="?d=<?php echo base64_encode($data_richiesta); ?>">Ricarica</a></li>
     </ul>
   </div>
   <div id="page">
@@ -112,7 +112,7 @@ if ( isset($_POST['submit']) ) {
               } else {
                   echo '<tr>' ;
               }
-              echo '<td><a href="'.$_SERVER['PHP_SELF'].'?d='.base64_encode($item->getName()).'">'.Time::inverse_date($item->getName()).'</a></td>';
+              echo '<td><a href="?d='.base64_encode($item->getName()).'">'.Time::inverse_date($item->getName()).'</a></td>';
               echo '<tr>';
           }
       ?>
@@ -125,7 +125,7 @@ if ( isset($_POST['submit']) ) {
             // SHOWS ONLY .pdf EXTENSIONS
             if (strpos($item->getName(), '.pdf') !== false) {
               echo '<tr>';
-              echo '<td><a target="_blank" href="download.php?foo='.base64_encode($item->getName()).'&bar='.base64_encode($data_richiesta).'">'.$item->getName().'</a></td>';
+              echo '<td><a target="_blank" href="download?foo='.base64_encode($item->getName()).'&bar='.base64_encode($data_richiesta).'">'.$item->getName().'</a></td>';
               // CONVERTS TO KB
               $size = ($item->getSize() / 1024 );
               $size = number_format((float)$size, 1, '.', '');

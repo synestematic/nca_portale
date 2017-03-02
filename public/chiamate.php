@@ -1,9 +1,9 @@
 <?php
 require_once("../private/initialize.php");
-if (!$session->is_logged_in()) { redirect("login.php"); }
+if (!$session->is_logged_in()) { redirect("login"); }
 
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-// if ($logged_user->admin == 0) { redirect("admin.php"); }
+// if ($logged_user->admin == 0) { redirect("admin"); }
 
 if (isset($_POST["cerca"])) {
 	$stringa1 = $_POST["stringa1"];
@@ -48,15 +48,12 @@ if (isset($_POST["cerca"])) {
 ?>
 <?php include("../private/layouts/header.php"); ?>
 <div id="main">
-
-
-
  <div id="navigation">
   <?php include("../private/layouts/logout_link.php"); ?>
-     <a href="admin.php">&laquo; Torna indietro</a><br><br>
-    <fieldset>
+	<a href="admin">&laquo; Torna indietro</a><br><br>
+	<fieldset>
       <legend>Ricerca:</legend>
-      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+      <form action="" method="post">
 			<table><tr>
 			<td style="text-align: center; height:10px">
 			  <input id="stringa" type="text" name="stringa1" value="<?php echo $stringa1; ?>"> </td>   </tr>
@@ -272,8 +269,8 @@ Al:
 			 $chiamata =	new Chiamata();
 			 $chiamata_set = $chiamata->select_records($logged_user->table, $field1, $stringa1, $field2, $stringa2, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_ora, $da_min, $a_ora, $a_min, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo);
 		?>
- 		<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Ricarica</a></li>
-    <li><a target="_blank" href="export.php?a=<?php echo (isset($chiamata_set[0])) ? base64_encode($chiamata_set[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
+ 		<li><a href="">Ricarica</a></li>
+    <li><a target="_blank" href="export?a=<?php echo (isset($chiamata_set[0])) ? base64_encode($chiamata_set[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
 	</ul>
  </div>
  <div id="page">
