@@ -12,5 +12,6 @@
  <body>
   <div id="header">
     <img id="nca_logo" src='images/nca1.png'  style='display: inline' align='left';>
+    <img id="spinner" src='images/spinner_blu.gif' align='center';>
     <!-- <h1 align='center'><i>Portale NCA.it</i></h1> -->
     </div>

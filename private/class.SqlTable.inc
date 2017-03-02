@@ -6,10 +6,8 @@ class SqlTable {
 
 	public $sql_fields = array();
 	public $last_sql = "";
-	// private $sql_limit = 'LIMIT 7500';
 	private $sql_limit = '';
-	private $wheres = '';
-
+	protected $wheres = '';
 	protected $database;
 
 	private static function instantiate($sql_data, $requested_query) {
@@ -38,6 +36,7 @@ class SqlTable {
 		}
 		if (isset($object_array)) { return $object_array ;}
 	}
+
 	public function show_fields_from($field_array, $table) {
 		$temp = $this->sql_limit;
 		$this->sql_limit = 'LIMIT 1';
@@ -45,6 +44,7 @@ class SqlTable {
 		$this->sql_limit = $temp;
 		return array_keys($object_array[0]->sql_fields);
 	}
+
 	public function select_from($field_array, $table) {
 		// global $local_db;
 		$table = $this->database->escape_string($table);
@@ -57,6 +57,15 @@ class SqlTable {
 		$field_string = substr($field_string, 0, -2);
 		$object_array = $this->find_by_sql("SELECT $field_string FROM $table $this->wheres $this->sql_limit");
 		return $object_array;
+	}
+
+}
+
+class DbTable extends SqlTable {
+
+	function __construct() {
+		global $local_db;
+		$this->database = $local_db;
 	}
 
 	public function select_from_where($field_array, $table, $field1, $value1, $field2, $value2, $id, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_h, $da_m, $a_h, $a_m, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo) {
@@ -96,15 +105,6 @@ class SqlTable {
 
 }
 
-class DbTable extends SqlTable {
-
-	function __construct() {
-		global $local_db;
-		$this->database = $local_db;
-	}
-
-}
-
 class FpTable extends SqlTable {
 
 		function __construct() {
@@ -113,8 +113,25 @@ class FpTable extends SqlTable {
 			$this->database = $fp_db;
 		}
 
+		public function select_from_where($column_array, $table, $cons) {
+			$this->wheres .= "WHERE ";
+			foreach ($cons as $key => $value) {
+				$this->set_where($key, $value);
+			//	$this->wheres .= "$key LIKE '%".$this->database->escape_string($value)."%' AND ";
+			}
+			$this->wheres = substr($this->wheres, 0, -4);
+			$object_array = $this->select_from($column_array, $table);
+			return $object_array;
+		}
+
+		protected function set_where($key, $value) {
+			if ($value === '') {
+				// $this->wheres .= "$key IS NULL AND ";
+				$this->wheres .= "";
+			} else {
+				$this->wheres .= "$key LIKE '%".$this->database->escape_string($value)."%' AND ";
+			}
+		}
 }
-
-
 
 ?>

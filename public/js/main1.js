@@ -1,10 +1,19 @@
+/////////////////////////// Spinner display functions ///////////////////////////
+var spinner = document.getElementById('spinner');
+function showSpinner() {
+  spinner.style.display = 'inline-block';
+}
+function hideSpinner() {
+  spinner.style.display = 'none';
+}
+/////////////////////////// Reset StockID input ///////////////////////////
 var inputStockId = document.getElementById('jsstockid');
 if (inputStockId !== null) {
 // THIS IF IS HERE IN CASE LOGGED USER IS AN AGENCY
   var defaultStockIdValue = inputStockId.value;
 
   inputStockId.onfocus = function() {
-    // if ( inputStockId.value === defaultStockIdValue ) {
+    // if ( inputStockId.value === defaultStockIdValue )
     if ( inputStockId.value === "Stock ID" ) {
       inputStockId.setAttribute("value", "");
     }
@@ -16,22 +25,23 @@ if (inputStockId !== null) {
     }
   };
 }
-
-//////////////////////////////////////////////////////////
+/////////////////////////// Reset Targa input ///////////////////////////
 var inputTarga = document.getElementById('jstarga');
-var defaultTargaValue = inputTarga.value;
+if (inputTarga !== null) {
+  var defaultTargaValue = inputTarga.value;
 
-inputTarga.onfocus = function() {
-  if ( inputTarga.value == "Targa" ) {
-    inputTarga.setAttribute("value", "");
-  }
-};
-inputTarga.onblur = function() {
-  if ( inputTarga.value == "" ) {
-    inputTarga.setAttribute("value", "Targa");
-  }
-};
-//////////////////////////////////////////////////////////
+  inputTarga.onfocus = function() {
+    if ( inputTarga.value == "Targa" ) {
+      inputTarga.setAttribute("value", "");
+    }
+  };
+  inputTarga.onblur = function() {
+    if ( inputTarga.value == "" ) {
+      inputTarga.setAttribute("value", "Targa");
+    }
+  };
+}
+/////////////////////////// Validate Branch file submit ///////////////////////////
 function validateBR() {
   var targaInserita = document.forms["manda_doc"]["targa"].value;
   var targaInserita = targaInserita.toUpperCase();
@@ -75,7 +85,7 @@ function validateBR() {
     }
   }
 }
-//////////////////////////////////////////////////////////
+/////////////////////////// Validate Agency file submit ///////////////////////////
 function validateAG() {
   var targaInserita = document.forms["manda_doc"]["targa"].value;
   var targaInserita = targaInserita.toUpperCase();
@@ -102,12 +112,12 @@ function validateAG() {
     }
   }
 }
-//////////////////////////////////////////////////////////
+/////////////////////////// Validate Export submit ///////////////////////////
 function validateExport() {
     alert('Nessun dato da esportare.');
     return false;
 }
-//////////////////////////////////////////////////////////
+/////////////////////////// Traffic Warning ///////////////////////////
 function trafficWarning() {
     $foo = confirm('Questa funzione genera un\'elevata quantità di traffico...\nUsare con discrezione, grazie!');
     return $foo;
