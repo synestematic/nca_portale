@@ -33,8 +33,12 @@ class Time {
 			$d1 = substr($value, '4', '1');
 			$d2 = substr($value, '7', '1');
 
-			if ( checkdate((int)$month, (int)$day, (int)$year) && ($space === ' '||$space == null) && ($d1 === '-'&&$d2 == '-') ) {
+			if ( preg_match("/[0-9]{4}([-\/][0-9]{2}){2} /", $value ) && checkdate((int)$month, (int)$day, (int)$year) ) { 
+				if (preg_match("/[0-9]{4}([-\/][0-9]{2}){2} 00:00:00/", $value))  {
 					$value = $day . '/' . $month . '/' . $year ;
+				} else {
+					$value = $day . '/' . $month . '/' . $year . substr($value,10,6);
+				}
 			}
 			return $value;
 	}
