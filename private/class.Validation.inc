@@ -32,12 +32,13 @@ class Validation {
 
 	public function check_for_allowed_get_values($key, $values = array()) {
 		$allowed_value_found = false ;
-		$_SESSION["message"] = "Parametro ".String::ucfirst_rmunderscores($key)." non riconosciuto.";
 		foreach ($values as $value) {
 			if ($_GET["$key"] === $value) {
 				$allowed_value_found = true ;
-				$_SESSION["message"] = "";
 			}
+		}
+		if ( $allowed_value_found === false ) {
+			$_SESSION["message"] = "Parametro ".$key." non valido.";
 		}
 		return $allowed_value_found;
 	}
@@ -46,11 +47,11 @@ class Validation {
 		// this message is only valid within same pages
 		if (!empty($this->errors)) {
 			$this->message = '';
-		  $this->message .= "<div class=\"error\">";
-		  $this->message .= "<b>Sono stati rilevati degli errori:</b>";
-		  $this->message .= "<ul>";
+			$this->message .= "<div class=\"error\">";
+			$this->message .= "<b>Sono stati rilevati degli errori:</b>";
+			$this->message .= "<ul>";
 		  foreach ($this->errors as $key => $error) {
-		    $this->message .= "<li>" . htmlentities($error) . "</li>";
+				$this->message .= "<li>" . htmlentities($error) . "</li>";
 		  }
 		  $this->message .= "</ul>";
 		  $this->message .= "</div>";
