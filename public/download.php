@@ -42,15 +42,10 @@ if ( isset($_GET['foo']) && isset($_GET['bar']) ) {
         if ( $messaggio === 'Risorsa[f] non trovata.' ) { echo $messaggio; }
         if ( $messaggio === 'Risorsa[f] trovata.') {
           // IF FILE EXISTS THEN DOWNLOAD IT
-          $target = TMP_PATH . DS . $resource_name;
+          $target = TMP_PATH . DS . $logged_user->id . DS . $resource_name;
           $share->get($logged_user->main_share. $giorno_richiesto . DS . $resource_name, $target);
           sleep(1);
-          redirect( 'tmp/'.$resource_name );
-          // echo $resource_name;
-          // echo '<br>';
-          // echo $logged_user->main_share. $giorno_richiesto . DS . $resource_name;
-          // echo '<br>';
-          // echo $target;
+          redirect( $logged_user->tmp_dir.$resource_name );
         }
     }
 }
