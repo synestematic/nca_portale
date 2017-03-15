@@ -60,7 +60,7 @@ include("../private/layouts/header.php");
     ?>
     <h2>Modifica Utente:</h2>
     <form action="edit_user?id=<?php echo urlencode($to_be_edited_user->id); ?>" method="post">
-      <table id="tavola"><tr><th></th><th></th></tr>
+      <table id="tavol"><tr><th></th><th></th></tr>
         <tr>
           <td>Filiale:</td>
           <td> <?php

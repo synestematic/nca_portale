@@ -7,7 +7,7 @@
   #689DC1 - light blue
   #D4E6F4 - very light blue
 
-  EEE4B9 - light tan
+  #EEE4B9 - light tan
   #8D0D19 - burgundy
 */
 
@@ -15,7 +15,7 @@ html { height: 100%; width: 100%; }
 body {
   width: 100%; height: 100%;
   margin: 0px; padding: 0; border: 0;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size: 13px; line-height: 15px;
   background: #EEE4B9;
 }
@@ -24,6 +24,22 @@ a { color: #8D0D19; }
 a:hover { color: #083b69; }
 iframe {
   border:0px;
+}
+table {
+    width:100%;
+}
+button {
+    height:25px;
+}
+fieldset {
+    width:90%;
+}
+
+
+#spinner {
+  display: none;
+  padding-top: 1em;
+  padding-left: 1em;
 }
 
 #header {
@@ -34,8 +50,9 @@ iframe {
 }
 #header h1 { font-size: 24px; padding: 0px; margin: 0px;}
 #main {
-	height: 600px; width: 100%;
-	margin: 0px; padding: 0;
+  /*height: 800px;*/
+  height: 100%;
+  width: 100%;
 	background: #EEE4B9;
 }
 
@@ -65,25 +82,34 @@ ul.subjects {
 ul.pages { padding-left: 2em; list-style: square; font-weight: normal; }
 .selected { font-weight: bold; }
 
+/*#title {
+  height: 50px; width: 100%; position:fixed; z-index: 8;
+	margin: 0px; padding: 0; text-align: left;
+  background: #EEE4B9;
+  color: #D4E6F4;
+  display: inline;
+}*/
+
 #page {
-  width:80%;
+  height:86%;
+  width:86%;
 	position:relative;
 	top: 60px; left:195px;
 	float: left;
-  height: 100%;
 	padding-left: 2em;
   vertical-align: top;
 	background: #EEE4B9;
-	//display: table;
 }
-#page h2 { color: #8D0D19; margin-top: 1em;}
+#page h2 {
+  color: #8D0D19;
+  margin-top: 1em;
+}
 #page h3 { color: #8D0D19; }
 .view-content {
 	margin: 1em; padding: 1em; border: 1px solid #999;
 }
 /*#page a { color: #8D0D19; text-decoration: none; }*/
 /*#page a:hover { color: #689DC1; }*/
-
 
 div.message {
 	border: 2px solid #8D0D19;
@@ -97,38 +123,19 @@ div.message {
 }
 .error ul { padding-left: 2em; }
 
-table {
-    width:100%;
-}
-
-#targa {
-    width:70%;
-    height:100%;
-}
-
 #giornata {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 20%;
     float:left;
 }
 #filedim {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 40%;
-    float:center;
     padding-left: 3px;
 }
 
-#tavola {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#tavola th, #giornata th, #filedim th  {
+#giornata th, #filedim th  {
     border: 2px solid #000000;
-/*  width:80px; */
     padding: 1px;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -138,35 +145,26 @@ table {
     color: white;
 }
 
-#tavola td, #giornata td, #filedim td {
+#giornata td, #filedim td {
     text-align: center;
     border: 2px solid #000000;
- /* width:80px; */
     height:100%;
     padding: 2px;
 }
 
-/*#tavola tr:nth-child(even){background-color: #f2f2f2;}
-#tavola tr:nth-child(odd) {background-color: #ddd;}*/
-
 #filedim tr {
   background-color: #f2f2f2;
-  /*height:20px;*/
 }
 
 #giornata tr {
   background-color: #e6e6e6;
-  /*height:20px;*/
 }
 
-#tavola tr:hover, #giornata tr:hover, #filedim tr:hover {
+#giornata tr:hover, #filedim tr:hover {
 background-color: #e6eeff;
-/*height:33px;*/
 }
-
 
 #tavol {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
@@ -182,7 +180,6 @@ background-color: #e6eeff;
 
 #tavol td, #tavol th {
     border: 2px solid #000000;
- /* width:80px; */
     padding: 1px;
 }
 
@@ -195,11 +192,9 @@ height:33px;
 
 #tavol tr:hover {
 background-color: #e6eeff;
-/*height:33px;*/
 }
 
 #usertable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
     text-align: center;
@@ -212,8 +207,6 @@ background-color: #e6eeff;
     height:30px;
     border: 2px solid #000000;
     background-color: #cccccc;
-    /*background-color: #8D0D19;*/
-    /*color: white;*/
 }
 
 #usertable td {
@@ -223,11 +216,8 @@ background-color: #e6eeff;
 
 #usertable tr {
   height:25px;
-  /*background-color: #f2f2f2;*/
 }
 
-/*#usertable tr:nth-child(even){background-color: #f2f2f2;}
-#usertable tr:nth-child(odd) {background-color: #dddddd;}*/
 #usertable tr:hover {
 background-color: #e6eeff;
 height:30px;
@@ -260,7 +250,77 @@ height:30px;
  font-size: 12px;
 }
 
-/*#nca_logo{
-  display:inline-block;;
-  align:right;
-}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.search_input_class {
+  color: grey;
+}
+.block_input_class {
+  color: grey;
+}
+.sblock_input_class {
+    width:40%;
+    text-align: center;
+    color: grey;
+}
+
+
+#table_div {
+    /*border: 1px solid #000000;*/
+    /*margin-top:50px;*/
+    position:absolute;
+    overflow: auto;
+    height: 94%;
+    width: 96%;
+}
+#fp_table th {
+    text-align: center;
+    background-color: #8D0D19;
+    color: white;
+}
+#fp_table td, #fp_table th {
+    border: 0px solid #000000;
+    padding: 8px;
+}
+#fp_table tr {
+    height:33px;
+}
+#fp_table tr:hover {
+    background-color: #e6eeff;
+}
+#fp_table tr:nth-child(even){background-color: #f2f2f2;}
+#fp_table tr:nth-child(odd) {background-color: #ddd;}
+
+#table_header_row {
+    z-index: 5;
+}
+#fp_table_data_row {
+    z-index: 2;
+}
+
+#search_button{
+    width: 80%;
+}

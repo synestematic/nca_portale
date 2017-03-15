@@ -50,7 +50,7 @@ include("../private/layouts/header.php");
     ?>
     <h2>Crea un nuovo Utente:</h2>
     <form action="" method="post">
-      <table id="tavola"><tr><th></th><th></th></tr>
+      <table id="tavol"><tr><th></th><th></th></tr>
         <tr>
           <td>Filiale:</td>
           <td> <?php Branch::branch_dropdown("branch"); ?> </td>
