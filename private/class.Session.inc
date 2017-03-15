@@ -27,7 +27,14 @@ class Session {
     if ($user) {
       $this->user_id = $_SESSION["user_id"] = $user->id;
       $this->logged_in = true;
+      $this->create_user_dir($user);
     }
+  }
+
+  private function create_user_dir($user) {
+      if (!is_dir($user->tmp_dir)) {
+          mkdir($user->tmp_dir, 0700);
+      }
   }
 
   public function logout() {
