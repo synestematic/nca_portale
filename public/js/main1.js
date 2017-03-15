@@ -1,10 +1,87 @@
+/////////////////////////// clear input fields on focus and change color ///////////////////////////
+// function setButtonBehaviour(buttonId) {
+//   var sblockButton = document.getElementById(buttonId);
+//   sblockButton.addEventListener("click", function(){
+//     sblockPrac(buttonId); // MUST use anon function in order to pass parameters to listener function !!!
+//   });
+//   // console.log(buttonId + ' is listening for sblock.');
+// }
+// function setButtonClassBehaviour(className) {
+//   var inputs = document.getElementsByClassName(className);
+//   for (n = 0; inputs[n]; n++) {
+//       input = inputs[n];
+//       setButtonBehaviour(input.id);
+//   }
+// }
+/////////////////////////// clear input fields on focus and change color ///////////////////////////
+function setInputBehaviour(id) {
+  var input = document.getElementById(id);
+  var defaultValue = input.value;
+  var defaultTextAlign = input.style.textAlign;
+  var defaultColor = input.style.color;
+
+  input.onfocus = function clearValue() {
+     if ( input.value === defaultValue) {
+         input.value = '';
+       input.style.textAlign = 'center';
+       input.style.color = '#094e7a';
+     }
+  };
+  input.onblur = function restoreValue() {
+     if ( input.value === "") {
+         input.value = defaultValue;
+        // input.style.textAlign = defaultTextAlign;
+        // input.style.color = defaultColor;
+        input.style.textAlign = 'left';
+        input.style.color = 'grey';
+     }
+  };
+  console.log('#' + id + ' behaviour has been initialized.');
+}
+
+function setInputClassBehaviour(className) {
+  // var inputs = document.getElementsByTagName('input');
+  var inputs = document.getElementsByClassName(className);
+  for (n = 0; inputs[n]; n++) {
+      input = inputs[n];
+      setInputBehaviour(input.id);
+  }
+}
+
+/////////////////////////// Reset inputs to name value ///////////////////////////
+function resetFormInputs(form) {
+  var inputs = form.getElementsByTagName('input');
+  for (n = 0; inputs[n]; n++) {
+    input = inputs[n];
+    console.log(input.name);
+    input.value = input.name;
+    input.style.textAlign = 'left';
+    input.style.color = 'grey';
+  }
+}
+/////////////////////////// Keep headerRow visible ///////////////////////////
+// Thank this guy for this !!! >>> http://stackoverflow.com/posts/25902860/revisions
+var tableDiv = document.getElementById("table_div");
+    if (tableDiv !== null) {
+        tableDiv.addEventListener("scroll",function(){
+            var translate = "translate(0,"+(this.scrollTop - 4)+"px)";
+            this.querySelector('#table_header_row').style.transform = translate;
+            //  this.headerRow.style.transform = translate; // this does NOT work
+        });
+    }
 /////////////////////////// Spinner display functions ///////////////////////////
+var searchButton = document.getElementById("search_button");
 var spinner = document.getElementById('spinner');
+
 function showSpinner() {
   spinner.style.display = 'inline-block';
+  searchButton.disabled = true;
+  searchButton.value = 'Attendi...';
 }
 function hideSpinner() {
   spinner.style.display = 'none';
+  searchButton.disabled = false;
+  searchButton.value = 'Cerca';
 }
 /////////////////////////// Reset StockID input ///////////////////////////
 var inputStockId = document.getElementById('jsstockid');
@@ -112,6 +189,7 @@ function validateAG() {
     }
   }
 }
+
 /////////////////////////// Validate Export submit ///////////////////////////
 function validateExport() {
     alert('Nessun dato da esportare.');
@@ -121,4 +199,69 @@ function validateExport() {
 function trafficWarning() {
     $foo = confirm('Questa funzione genera un\'elevata quantità di traffico...\nUsare con discrezione, grazie!');
     return $foo;
+}
+
+setInputClassBehaviour('search_input_class');
+setInputClassBehaviour('block_input_class');
+
+/////////////////////////// Validate StockId ///////////////////////////
+function validateStockId(stockId) {
+  var regex = /[a-zA-Z]{2}[0-9]{5}/g;
+  var result = regex.test(stockId);
+  return result;
+}
+/////////////////////////// Validate Targa ///////////////////////////
+function validateTarga(targa) {
+  var regex = /[a-zA-Z]{2}[0-9]{3}[a-zA-Z0-9]{2}[0-9]?/g;
+  var result = regex.test(targa);
+  return result;
+}
+/////////////////////////// Validate FormData for Targa & StockID ///////////////////////////
+function validateFormData(formData) {
+    var correctTarga = false;
+    var correctStockId = false;
+    var errorMessage = '';
+    for ([key, value] of formData.entries()) {
+      //   confirm(key + '=' + value);
+      if (key === 'Targa') {
+          correctTarga = validateTarga(value);
+      }
+      if (key === 'StockID') {
+          correctStockId = validateStockId(value);
+      }
+    }
+    if (correctTarga === false) {
+        errorMessage += '\t- La Targa inserita non è corretta.\n';
+    }
+    if (correctStockId === false) {
+        errorMessage += '\t- Lo StockID inserito non è corretto.\n';
+    }
+    if (errorMessage !== '') {
+        hideSpinner();
+        alert(errorMessage);
+        return false;
+    } else {
+        return true;
+    }
+}
+/////////////////////////// Validate Data di rilasciato ///////////////////////////
+function verifyDate(date) {
+  var errorMessage = '';
+  if (isNaN(date)) {
+    errorMessage += '- La data inserita dev\'essere composta da 8 numeri.\n';
+  } else {
+    if (date.length < 8) {
+      errorMessage += '- La data inserita è troppo corta.\n';
+    }
+    if (date.length > 8) {
+      errorMessage += '- La data inserita è troppo lunga.\n';
+    }
+  }
+  if (errorMessage !== '') {
+    hideSpinner();
+    alert(errorMessage);
+    return false;
+  } else {
+    return true;
+  }
 }

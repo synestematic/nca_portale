@@ -24,10 +24,13 @@ class User {
 	public $field;
 	public $last_sql = "";
 
+	public $tmp_dir ;
+
 	private static function instantiate($result, $sql) {
 		$object = new self;
 		// use describe_table() to cycle thru fields
 		isset($result["id"]) ? $object->id = $result["id"] : false ;
+		$object->tmp_dir = 'tmp'.DS.$object->id.DS;
 
 		$object->table = 'chiamate_bc';
 

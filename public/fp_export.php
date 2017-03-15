@@ -15,19 +15,18 @@ $wheres = json_decode($_POST["where"]);
 $sql_table = new FpTable();
 $result_array = $sql_table->select_from_where($requested_fields, $table, $wheres);
 
-if (!empty($result_array)) {
-    foreach ($result_array as $result) {
-        echo '<tr id="fp_table_data_row">';
-        foreach ($result->sql_fields as $key => $value) {
-            echo '<td>';
-            // echo $result->last_sql;
-            echo Time::check_for_date($value) ;
-            echo '</td>' ;
-        }
-        echo '</tr>';
-    }
-} else {
-    echo '';
+$filename = $table.'_'.strftime("%F_%H%M");
+if ( $table === 'all_vehicles' ) {
+    $filename = 'finproget_rawdata_'.strftime("%F_%H%M");
+}
+
+$complete_path = $logged_user->tmp_dir.$filename.'.xls';
+$contents = $sql_table->make_excel($result_array[0]->last_sql);
+
+if ($openfile = fopen($complete_path, 'w')) {
+    fwrite($openfile, $contents);
+    fclose($openfile);
+    echo $complete_path;
 }
 
 ?>
