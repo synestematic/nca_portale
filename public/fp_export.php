@@ -17,7 +17,8 @@ $result_array = $sql_table->select_from_where($requested_fields, $table, $wheres
 
 $filename = $table.'_'.strftime("%F_%H%M");
 if ( $table === 'all_vehicles' ) {
-    $filename = 'finproget_rawdata_'.strftime("%F_%H%M");
+    // $filename = 'finproget_rawdata_'.strftime("%F_%H%M");
+    $filename = 'Finproget_rawdata';
 }
 
 $complete_path = $logged_user->tmp_dir.$filename.'.xls';
