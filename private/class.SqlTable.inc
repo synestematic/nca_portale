@@ -7,6 +7,7 @@ class SqlTable {
 	public $sql_fields = array();
 	public $last_sql = "";
 	protected $sql_limit = '';
+	protected $order = '';
 	protected $where_string = '';
 	protected $database;
 
@@ -84,7 +85,7 @@ class SqlTable {
 			$field_string .= $field . ' , ' ;
 		}
 		$field_string = substr($field_string, 0, -2);
-		$object_array = $this->find_by_sql("SELECT $field_string FROM $table $this->where_string $this->sql_limit");
+		$object_array = $this->find_by_sql("SELECT $field_string FROM $table $this->where_string $this->order $this->sql_limit");
 		return $object_array;
 	}
 
@@ -181,6 +182,12 @@ class FpTable extends SqlTable {
 			global $fp_db;
 			$fp_db->open_connection();
 			$this->database = $fp_db;
+		}
+
+		public function select_from_where_order($column_array, $table, $where_array, $order) {
+			$this->order = $order;
+			$object_array = $this->select_from_where($column_array, $table, $where_array);
+			return $object_array;
 		}
 
 		public function select_from_where($column_array, $table, $where_array) {
