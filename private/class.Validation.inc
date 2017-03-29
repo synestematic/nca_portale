@@ -30,6 +30,31 @@ class Validation {
 	  }
 	}
 
+	public function check_stock_id($stock_id) {
+		if ( preg_match("/^[a-zA-Z]{2}[0-9]{5}$/", $stock_id ) ) {
+          return true;
+	  	} else {
+		  return false;
+	  	}
+	}
+
+	public function check_targa($targa) {
+		$ab = substr($targa ,0,2);
+		$num = substr($targa ,2,3);
+		$boh = substr($targa ,5,3);
+		if (!ctype_alpha($ab) || !is_numeric($num)) {
+          return false;
+	  	} else {
+			if (!is_numeric($boh) && strlen($targa) === 7) {
+				return true;
+			} else if (is_numeric($boh) && strlen($boh) > 1 && strlen($targa) < 9) {
+				return true;
+			} else {
+				return false;
+			}
+	  	}
+	}
+
 	public function check_for_allowed_get_values($key, $values = array()) {
 		$allowed_value_found = false ;
 		foreach ($values as $value) {

@@ -132,7 +132,6 @@ function validateBR() {
   var d = dataInserita.substr(8,2);
 
   var messaggio = "Dati mancanti:\n\n";
-
   if (stockidInserito === "") {
     messaggio += "   Stock ID\n";
   }
@@ -143,14 +142,17 @@ function validateBR() {
     alert(messaggio);
     return false;
   } else {
+    var messaggio = "Attenzione:\n\n";
+    if ( validateStockId(stockidInserito) === false ) {
+        messaggio += "- Lo Stock ID dev\'essere composto da 2 lettere seguiti da 5 numeri.\n";
+    }
+    if (validateTarga(targaInserita) === false) {
+        messaggio += "- La Targa inserita non è valida.\n"
+    }
 
-    var ab = stockidInserito.substr(0, 2);
-    var num = stockidInserito.substr(2, 5);
-    var length = stockidInserito.length;
-
-    if ( stockidInserito.length !== 7 || !/^[a-zA-Z]*$/g.test(ab) || isNaN(num) ) {
-      alert('Lo Stock ID dev\'essere composto da 2 lettere seguiti da 5 numeri.');
-      return false;
+    if (messaggio !== "Attenzione:\n\n") {
+        alert(messaggio);
+        return false;
     } else {
       var bar = "Confermi i seguenti dati?\n\n Stock ID = "+stockidInserito+"\n Targa = "+targaInserita+"\n Data = "+d+" / "+m+" / "+y;
       var foo = confirm(bar);
@@ -173,11 +175,11 @@ function validateAG() {
   var m = dataInserita.substr(5,2);
   var d = dataInserita.substr(8,2);
 
-  var messaggio = "";
-
   if (targaInserita === "") {
-    messaggio += "Inserisci una Targa.\n";
-    alert(messaggio);
+    alert("Inserisci una Targa.\n");
+    return false;
+  } else if (validateTarga(targaInserita) === false) {
+    alert("La Targa inserita non è valida.");
     return false;
   } else {
     var bar = "Confermi i seguenti dati?\n\n Targa = "+targaInserita+"\n Data = "+d+" / "+m+" / "+y;
@@ -190,29 +192,16 @@ function validateAG() {
   }
 }
 
-/////////////////////////// Validate Export submit ///////////////////////////
-function validateExport() {
-    alert('Nessun dato da esportare.');
-    return false;
-}
-/////////////////////////// Traffic Warning ///////////////////////////
-function trafficWarning() {
-    $foo = confirm('Questa funzione genera un\'elevata quantità di traffico...\nUsare con discrezione, grazie!');
-    return $foo;
-}
-
-setInputClassBehaviour('search_input_class');
-setInputClassBehaviour('block_input_class');
-
 /////////////////////////// Validate StockId ///////////////////////////
 function validateStockId(stockId) {
-  var regex = /[a-zA-Z]{2}[0-9]{5}/g;
+  var regex = /^[a-zA-Z]{2}[0-9]{5}$/g;
   var result = regex.test(stockId);
   return result;
 }
 /////////////////////////// Validate Targa ///////////////////////////
 function validateTarga(targa) {
-  var regex = /[a-zA-Z]{2}[0-9]{3}[a-zA-Z0-9]{2}[0-9]?/g;
+    // targa is probably best validated without a regex
+  var regex = /^[a-zA-Z]{2}[0-9]{3}[a-zA-Z0-9]{2}[0-9]?$/g;
   var result = regex.test(targa);
   return result;
 }
@@ -265,3 +254,13 @@ function verifyDate(date) {
     return true;
   }
 }
+
+/////////////////////////// Validate Export submit ///////////////////////////
+function validateExport() {
+    alert('Nessun dato da esportare.');
+    return false;
+}
+
+
+setInputClassBehaviour('search_input_class');
+setInputClassBehaviour('block_input_class');

@@ -11,11 +11,11 @@ Time::if_sunday_go_to('admin');
 
 $targa = 'Targa';
 $stockid = 'Stock ID';
-$correct_stockid = true; //defaults to true so Agencies pass validation even without the stock_id form field.
+$correct_stockid = true;
+$correct_targa = true;
 
 $data_richiesta = (isset($_GET['d'])) ? $data_richiesta = base64_decode($_GET["d"]) : strftime("%Y-%m-%d");
 // $correct_date = false;
-
 $data_normale = Time::inverse_date($data_richiesta);
 
 // NAS CONNECTION
@@ -34,20 +34,20 @@ $main_contents = $share->dir($logged_user->main_share);
 
 // POST handles File submits while GET handles day-view requests
 if ( isset($_POST['submit']) ) {
-// FILE SUBMITTED
+    // FILE SUBMITTED
     $targa = strtoupper($_POST['targa']);
     $stockid = (isset($_POST['stockid'])) ? strtoupper($_POST['stockid']) : $stockid ;
 
+    // this validation is also done client side thru main.js
     if ($logged_user->is_branch === true) {
-      // this if statement will rarely evaluate as validation is also done client side thru main.js
-      $ab = substr($_POST['stockid'] ,0,2);
-      $num = substr($_POST['stockid'] ,2,5);
-      if ( strlen($_POST['stockid']) !== 7 || !ctype_alpha($ab) || !is_numeric($num)) {
-        $correct_stockid = false;
-      }
+        $correct_stockid = $validation->check_stock_id($_POST['stockid']);
+        $correct_targa = $validation->check_targa($_POST['targa']);
+    }
+    if ($logged_user->is_agency === true) {
+        $correct_targa = $validation->check_targa($_POST['targa']);
     }
 
-    if ( $correct_stockid === true ) {
+    if ( $correct_stockid === true && $correct_targa === true) {
 
           $error = $_FILES['file_upload']['error'];
 
@@ -68,6 +68,10 @@ if ( isset($_POST['submit']) ) {
               }
           }
           // $_SESSION["message"] .= ' Richiesta POST eseguita.';
+    } else if ($correct_stockid === false) {
+      $_SESSION["message"] = 'Stock ID errrato.' ;
+    } else if ($correct_targa === false) {
+      $_SESSION["message"] = 'Targa errata.' ;
     } else {
       $_SESSION["message"] .= ( isset($_SESSION["message"]) ) ? '' : 'Richiesta POST non eseguita.' ;
     }
