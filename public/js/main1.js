@@ -201,9 +201,9 @@ function validateStockId(stockId) {
 /////////////////////////// Validate Targa ///////////////////////////
 function validateTarga(targa) {
     // targa is probably best validated without a regex
-  var regex = /^[a-zA-Z]{2}[0-9]{3}[a-zA-Z0-9]{2}[0-9]?$/g;
-  var result = regex.test(targa);
-  return result;
+    var regex = /(^[a-zA-Z]{2}[0-9]{3}[a-zA-Z0-9]{2}[0-9]?$)|(^[a-zA-Z]{3}[0-9]{5}$)/g;
+    var result = regex.test(targa);
+    return result;
 }
 /////////////////////////// Validate FormData for Targa & StockID ///////////////////////////
 function validateFormData(formData) {

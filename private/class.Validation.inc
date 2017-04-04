@@ -40,7 +40,7 @@ class Validation {
 
 	public function check_targa($targa) {
 		$ab = substr($targa ,0,2);
-		$num = substr($targa ,2,3);
+		$num = substr($targa ,3,2);
 		$boh = substr($targa ,5,3);
 		if (!ctype_alpha($ab) || !is_numeric($num)) {
           return false;
