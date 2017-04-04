@@ -1,5 +1,5 @@
 <?php
-require_once("../private/initialize.php");
+require_once("../../private/initialize.php");
 sleep(1);
 
 // print_r($_POST);

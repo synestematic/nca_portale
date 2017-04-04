@@ -1,5 +1,5 @@
 <?php
-require_once("../private/initialize.php");
+require_once("../../private/initialize.php");
 // print_r($_POST);
 if ( !isset($_SERVER['HTTP_X_REQUESTED_WITH']) ||
      $_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest' ) {
@@ -17,7 +17,7 @@ $result_array = $sql_table->select_from_where($requested_fields, $table, $wheres
 
 if (!empty($result_array)) {
     foreach ($result_array as $result) {
-        echo '<tr id="fp_table_data_row">';
+        echo '<tr class="fp_table_data_row">';
         foreach ($result->sql_fields as $key => $value) {
             echo '<td>';
             // echo $result->last_sql;

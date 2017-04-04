@@ -1,5 +1,5 @@
 <?php
-require_once("../private/initialize.php");
+require_once("../../private/initialize.php");
 // print_r($_POST);
 if ( !isset($_SERVER['HTTP_X_REQUESTED_WITH']) ||
      $_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest' ) {
@@ -21,7 +21,8 @@ if ( $table === 'all_vehicles' ) {
     $filename = 'Finproget_rawdata';
 }
 
-$complete_path = $logged_user->tmp_dir.$filename.'.xls';
+$complete_path = '../'.$logged_user->tmp_dir.$filename.'.xls';
+// $complete_path = $logged_user->tmp_dir.$filename.'.xls';
 $contents = $sql_table->make_excel($result_array[0]->last_sql);
 
 if ($openfile = fopen($complete_path, 'w')) {
