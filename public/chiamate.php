@@ -275,7 +275,7 @@ Al:
  </div>
  <div id="page">
   <h2>Chiamate Natterbox: <?php echo count($chiamata_set); ?> </h2>
-   <table id="tavola">
+   <table id="tavol">
     <tr>
      <th style="width:40px">ID</th>
      <th style="width:80px">Tipo<br>connessione</th>
