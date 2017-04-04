@@ -3,14 +3,37 @@ class Dept {
 
 	public $id;
 	public $reparto;
-	public $field;
+	private $orario = array(
+		'default' => array('apertura' => 9, 'chiusura' => 18,),
+	);
 
 	private static function instantiate($result) {
 		$object = new self;
 		isset($result["id"]) ? $object->id = $result["id"] : false ;
 		isset($result["reparto"]) ? $object->reparto = $result["reparto"] : false ;
-		isset($result["Field"]) ? $object->field = $result["Field"] : false ;
+		if ($object->reparto === 'inbound' || $object->reparto === 'outbound' ) {
+			$object->orario = array(
+				'default'	 => array('apertura' => 8, 'chiusura' => 21,),
+				'6'			 => array('apertura' => 9, 'chiusura' => 19,),
+				'7'			 => array('apertura' => 14,'chiusura' => 19,),
+			);
+		}
 		return $object;
+	}
+
+	public static function orario_apertura($dept = 'ops', $weekday) {
+		$object = self::find_by_reparto($dept);
+		if (!array_key_exists($weekday ,$object->orario)) {
+			$weekday = 'default';
+		}
+		return $object->orario[$weekday]['apertura'];
+	}
+	public static function orario_chiusura($dept = 'ops', $weekday) {
+		$object = self::find_by_reparto($dept);
+		if (!array_key_exists($weekday ,$object->orario)) {
+			$weekday = 'default';
+		}
+		return $object->orario[$weekday]['chiusura'];
 	}
 
 	public static function find_by_sql($sql="") {
@@ -70,6 +93,8 @@ class Dept {
 		}
 		echo '</select>';
 	}
+
+
 
 }
 ?>
