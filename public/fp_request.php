@@ -5,6 +5,7 @@ $logged_user = User::find_by_id($_SESSION["user_id"]);
 if ( !$logged_user->dept_id === "11" || !$logged_user->dept_id === "4" || !$logged_user->su === "1" ) {
 	 redirect("admin");
 }
+
 $allowed_pages = array('atti','merchants','warm','all', 'sospensioni');
 $valid_page = $validation->check_for_allowed_get_values('page', $allowed_pages);
 
@@ -13,7 +14,7 @@ if (!$_GET["page"] || !$valid_page) { redirect("admin"); }
 $search_menu = new Search();
 
 $filename = 'export';
-$action = 'fp_response';
+$action = 'ajax/fp_response';
 if ($_GET["page"] === 'atti') {
 		$requested_fields = array('targa', 'stockId', 'denominazione', 'dataSP', 'data_trascrizione', 'evento', 'dataEvento', 'note');
 		foreach ($requested_fields as $field) {
@@ -59,7 +60,7 @@ if ($_GET["page"] === 'sospensioni') {
 		foreach ($blocks as $block) {
 			$block_menu->text_input($block);
 		}
-		$action = 'fp_response_sosp';
+		$action = 'ajax/fp_response_sosp';
 }
 
 $sql_table = new FpTable();
@@ -71,7 +72,7 @@ $column_names = $sql_table->show_fields_from($requested_fields, $table);
  <div id="navigation">
   <?php include("../private/layouts/logout_link.php"); ?>
 	<a href="admin">&laquo; Torna indietro</a><br><br>
-	<?php echo (isset($block_menu)) ? $block_menu->rendered_form('block').'<br>' : '' ; ?>
+	<?php echo (isset($block_menu)) ? $block_menu->rendered_form('ajax/block').'<br>' : '' ; ?>
 	<?php echo $search_menu->rendered_form($action); ?>
   <ul class="pages">
  		<li><a href="">Ripristina</a></li>
