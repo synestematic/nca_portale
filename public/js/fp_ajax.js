@@ -12,19 +12,33 @@ var blockButton = document.getElementById("block_button");
         blockButton.addEventListener("click", blockPrac);
     }
 
-function setButtonBehaviour(buttonId) {
+function setSblockButtonBehaviour(buttonId) {
   var sblockButton = document.getElementById(buttonId);
   sblockButton.addEventListener("click", function(){
     sblockPrac(buttonId); // MUST use anon function in order to pass parameters to listener function !!!
   });
-  // console.log(buttonId + ' is listening for sblock.');
+  console.log(buttonId + ' is listening for sblock.');
 }
-function setButtonClassBehaviour(className) {
-  var inputs = document.getElementsByClassName(className);
-  for (n = 0; inputs[n]; n++) {
-      input = inputs[n];
-      setButtonBehaviour(input.id);
+function setSblockButtonClassBehaviour(className) {
+  var buttons = document.getElementsByClassName(className);
+  for (n = 0; buttons[n]; n++) {
+      button = buttons[n];
+      setSblockButtonBehaviour(button.id);
   }
+}
+
+function setNoteButtonBehaviour(buttonId) {
+    var noteButton = document.getElementById(buttonId);
+    noteButton.addEventListener("click", function(){
+        editNote(buttonId); // MUST use anon function in order to pass parameters to listener function !!!
+    });
+}
+function setNoteButtonClassBehaviour(className) {
+    var buttons = document.getElementsByClassName(className);
+    for (n = 0; buttons[n]; n++) {
+        button = buttons[n];
+        setNoteButtonBehaviour(button.id);
+    }
 }
 
 ////// forms + actions //////
@@ -63,7 +77,6 @@ function searchTable() {
   showSpinner();
   var xhr = new XMLHttpRequest();
   xhr.open('POST', action, true);
-  // xhr.open('POST', action, true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');   // ONLY when not pure FormData
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   xhr.onreadystatechange = function () {
@@ -72,9 +85,10 @@ function searchTable() {
         //   var json = JSON.parse(xhr.responseText);
         //   tBody.innerHTML = headerRow.outerHTML + json.table_contents;
           tBody.innerHTML = headerRow.outerHTML + xhr.responseText;
-          h2title.innerHTML = staticTitleName + ': ' + (tBody.getElementsByTagName('tr').length - 1);
+          h2title.innerHTML = staticTitleName + ': ' + (tBody.getElementsByClassName('fp_table_data_row').length);
           setInputClassBehaviour('sblock_input_class');
-          setButtonClassBehaviour('sblock_button_class');
+          setSblockButtonClassBehaviour('sblock_button_class');
+          setNoteButtonClassBehaviour('edit_note_button_class');
           getExportLink(data);
           hideSpinner();
       }
@@ -85,7 +99,7 @@ function searchTable() {
 
 function getExportLink(data) {
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'fp_export', true);
+  xhr.open('POST', 'ajax/fp_export', true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');   // ONLY when not pure FormData
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   xhr.onreadystatechange = function () {
@@ -120,6 +134,7 @@ function blockPrac() {
 
 function sblockPrac(buttonId) {
   showSpinner();
+  buttonId = buttonId.replace(/ /g,'');
   var stockId = buttonId.substring(buttonId.length - 7);
   var enteredDate = document.getElementById('sblock_input_'+stockId).value;
   var isDateCorrect = verifyDate(enteredDate);
@@ -134,7 +149,7 @@ function sblockPrac(buttonId) {
   var data = "StockID="+stockId+"&rilasciato="+sqlDate ;
 
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'sblock', true);
+  xhr.open('POST', 'ajax/sblock', true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //ONLY when NOT pure FormData
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   xhr.onreadystatechange = function () {
@@ -146,4 +161,23 @@ function sblockPrac(buttonId) {
   };
   xhr.send(data);
   // xhr.send("first_name=Bob&last_name=Smith");
+}
+
+function editNote(buttonId) {
+    showSpinner();
+    var stockId = buttonId.substring(buttonId.length - 7);
+    var note = document.getElementById('note_input_'+stockId).value;
+    var data = "StockID="+stockId+"&note="+note ;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'ajax/sblock', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //ONLY when NOT pure FormData
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.onreadystatechange = function () {
+      if ( xhr.readyState == 4 && xhr.status == 200 ) {
+          hideSpinner();
+          alert(xhr.responseText);
+          searchTable();
+      }
+    };
+    xhr.send(data);
 }
