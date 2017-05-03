@@ -289,8 +289,7 @@ height:30px;
 
 
 #table_div {
-    /*border: 1px solid #000000;*/
-    /*margin-top:50px;*/
+    display: inline-block;
     position:absolute;
     overflow: auto;
     height: 94%;
@@ -315,9 +314,11 @@ height:30px;
 #fp_table tr:nth-child(odd) {background-color: #ddd;}
 
 #table_header_row {
+    /*display: block;   /**/ this makes it scrollable in chrome but columns remain fixed size...*/
+    display: inherit;
     z-index: 5;
 }
-#fp_table_data_row {
+.fp_table_data_row {
     z-index: 2;
 }
 

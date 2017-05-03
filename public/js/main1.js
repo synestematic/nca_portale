@@ -200,10 +200,20 @@ function validateStockId(stockId) {
 }
 /////////////////////////// Validate Targa ///////////////////////////
 function validateTarga(targa) {
-    // targa is probably best validated without a regex
-    var regex = /(^[a-zA-Z]{2}[0-9]{3}[a-zA-Z0-9]{2}[0-9]?$)|(^[a-zA-Z]{3}[0-9]{5}$)/g;
-    var result = regex.test(targa);
-    return result;
+
+    var regexes = [
+        /^[a-zA-Z]{2}[0-9]{3}[a-zA-Z0-9]{2}[a-zA-Z]?$/g ,   // EL 432 PJ || RM 4 5 872L
+        /^[a-zA-Z]{3}[0-9]{5}$/g ,                          // GEE 69999
+        /^[a-zA-Z]{2}[0-9][a-zA-Z][0-9]{4}$/g ,             // RM 2 E 2426
+    ];
+
+    for (regex of regexes) {
+        var result = regex.test(targa) ;
+        if (result === true) {
+            return true ;
+        }
+    }
+    return false ;
 }
 /////////////////////////// Validate FormData for Targa & StockID ///////////////////////////
 function validateFormData(formData) {
