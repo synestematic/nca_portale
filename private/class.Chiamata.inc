@@ -95,7 +95,8 @@ class Chiamata {
 		$query .= "AND data_chiamata BETWEEN '$da_anno-$da_mese-$da_giorno' AND '$a_anno-$a_mese-$a_giorno' ";
 		$query .= ($simbolo_connesso == '*') ? "" : "AND tempo_connesso $simbolo_connesso $secs_connesso " ;
 		$query .= ($simbolo_squillo == '*') ? "" : "AND tempo_squillo $simbolo_squillo $secs_squillo " ;
-		$query .= "ORDER BY id DESC ";
+		// $query .= "ORDER BY id DESC ";
+		$query .= "ORDER BY orario_hangup DESC ";
 		return self::find_by_sql($query);
 	}
 
