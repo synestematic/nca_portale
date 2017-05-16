@@ -18,7 +18,7 @@ class User {
 	public $pwd;
 	public $hashed_pwd;
 	public $ddi;
-	public $admin = "0";
+	public $access = "0";
 	public $su = "0";
 	public $table;
 	public $field;
@@ -78,7 +78,7 @@ class User {
 		isset($result["hashed_pwd"]) ? $object->hashed_pwd = $result["hashed_pwd"] : false ;
 		//get password from hash?
 		isset($result["ddi"]) ? $object->ddi = $result["ddi"] : false ;
-		isset($result["admin"]) ? $object->admin = $result["admin"] : false ;
+		isset($result["access"]) ? $object->access = $result["access"] : false ;
 		isset($result["su"]) ? $object->su = $result["su"] : false ;
 		isset($result["Field"]) ? $object->field = $result["Field"] : false ;
 		$object->last_sql = $sql;
@@ -218,13 +218,13 @@ class User {
 		isset($this->dept) ? $this->set_dept_id_from_dept() : false ;
 
 		$sql =  "INSERT INTO users (";
-		$sql .= "branch_id,dept_id,email,full_name,admin,su,hashed_pwd";
+		$sql .= "branch_id,dept_id,email,full_name,access,su,hashed_pwd";
 		$sql .= ") VALUES (";
 		$sql .= "'".$local_db->escape_string($this->branch_id) ."',";
 		$sql .= "'".$local_db->escape_string($this->dept_id) ."',";
 		$sql .= "'".$local_db->escape_string($this->email) ."',";
 		$sql .= "'".$local_db->escape_string($this->full_name) ."',";
-		$sql .= $local_db->escape_string($this->admin) .",";
+		$sql .= $local_db->escape_string($this->access) .",";
 		$sql .= $local_db->escape_string($this->su) .",";
 		$sql .= "'".$this->hashed_pwd ."'";
 		$sql .= ")";
@@ -249,7 +249,7 @@ class User {
 		$sql .= "dept_id='". $local_db->escape_string($this->dept_id) . "',";
 		$sql .= "email='". $local_db->escape_string($this->email) . "',";
 		$sql .= "full_name='". $local_db->escape_string($this->full_name) . "',";
-		$sql .= "admin=". $local_db->escape_string($this->admin) . ",";
+		$sql .= "access=". $local_db->escape_string($this->access) . ",";
 		$sql .= "su=". $local_db->escape_string($this->su) . ", ";
 		$sql .= "hashed_pwd='". $this->hashed_pwd . "' ";
 		$sql .= "WHERE id=". $local_db->escape_string($this->id);

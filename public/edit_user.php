@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
       $to_be_edited_user->dept = $_POST["dept"];
       $to_be_edited_user->email = $_POST["email"];
       $to_be_edited_user->full_name = $_POST["nome"];
-      $to_be_edited_user->admin = "false";
+      $to_be_edited_user->access = "false";
       $to_be_edited_user->su = "false";
       $to_be_edited_user->pwd = $_POST["password"];
       $result = $to_be_edited_user->save();

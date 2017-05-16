@@ -18,7 +18,7 @@ $logged_user = User::find_by_id($_SESSION["user_id"]);
         <p>Scegli un'opzione:</p>
         <ul>
           <?php
-            echo ($logged_user->admin || $logged_user->dept === "ops" ) ? '<li><a href="chiamate">Chiamate Natterbox</a></li><br><br>' : '';
+            echo ($logged_user->dept === "ops" || $logged_user->dept === "inbound" || $logged_user->dept === "outbound" ) ? '<li><a href="chiamate">Chiamate Natterbox</a></li><br><br>' : '';
 
             echo ($logged_user->su || $logged_user->full_name === "Luca Shawawreh" || $logged_user->su || $logged_user->full_name === "Caterina Rosa" || $logged_user->full_name === "Mirela Ancuta" || $logged_user->full_name === "Alessio Calenda" || $logged_user->full_name === "Emilia Monita" || $logged_user->full_name === "Mattia Ruffoni") ? '<li><a href="fp_request?page=all"><b>FinProget:</b> Report All Vehicles</a></li><br>' : '';
 

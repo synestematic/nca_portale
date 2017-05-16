@@ -1,9 +1,7 @@
 <?php
 require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login"); }
-
 $logged_user = User::find_by_id($_SESSION["user_id"]);
-// if ($logged_user->admin == 0) { redirect("admin"); }
 
 if (isset($_POST["cerca"])) {
 	$stringa1 = $_POST["stringa1"];

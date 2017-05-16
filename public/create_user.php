@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     $to_be_created_user->dept = $_POST["dept"];
     $to_be_created_user->email = $_POST["email"];
     $to_be_created_user->full_name = $_POST["nome"];
-    $to_be_created_user->admin = 'false';
+    $to_be_created_user->access = 'false';
     $to_be_created_user->su = 'false';
     $to_be_created_user->pwd = $_POST["password"];
     $user_created = $to_be_created_user->save();
