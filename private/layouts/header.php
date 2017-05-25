@@ -5,9 +5,8 @@
 	<?php //$page = $_SERVER['PHP_SELF']; ?>
 <!--makes the page reload every minute <meta http-equiv="refresh" content="60;URL='<?php // echo $page?>'"> -->
   <title>NCA.it | Portale</title>
-  <link href="css/style.css" media="all" rel="stylesheet" type="text/css" />
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css" media="all" type="text/css" />
+  <link rel="favicon" href="favicon.ico" type="image/x-icon">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 			    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 			    crossorigin="anonymous"></script>
@@ -15,7 +14,7 @@
 </head>
  <body>
   <div id="header">
-    <img id="nca_logo" src='images/nca1.png'  style='display: inline' align='left';>
-    <img id="spinner" src='images/spinner_blu.gif' align='center';>
+    <img id="nca_logo" src='images/nca1.png'  style='display: inline' align='left'>
+    <img id="spinner" src='images/spinner_blu.gif' align='center'>
     <!-- <h1 align='center'><i>Portale NCA.it</i></h1> -->
     </div>
