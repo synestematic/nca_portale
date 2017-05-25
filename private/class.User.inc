@@ -205,7 +205,7 @@ class User {
 			// 	}
 			// }
 
-	//CRUD
+	//////////////// CRUD ////////////////
 	public function save() {
 		return isset($this->id) ? $this->update() : $this->create() ;
 	}
@@ -267,6 +267,18 @@ class User {
 		return ($local_db->affected_rows() == 1) ? true : false ;
 	}
 
+	//////////////// AUTHENTICATION ////////////////
+
+	public static function authenticate($email='', $password='') {
+		global $local_db;
+		$user = self::find_by_email($local_db->escape_string($email));
+		if ($user && $user->access === '1' && $user->password_check($local_db->escape_string($password))) {
+			return $user;
+		} else {
+			return false;
+		}
+	}
+
 	public static function generate_salt($length) {
 		// mtrand produces a random string
 		// uniqid produces a unique id
@@ -297,22 +309,6 @@ class User {
 	  } else {
 	    return false;
 	  }
-	}
-
-	public static function authenticate($email='', $password='') {
-		global $local_db;
-		$email = $local_db->escape_string($email);
-		$password = $local_db->escape_string($password);
-		$user = self::find_by_email($email);
-		if ($user) {
-			if ($user->password_check($password)) {
-					return $user;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
 	}
 
 }
