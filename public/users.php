@@ -25,8 +25,7 @@ include("../private/layouts/header.php");
   <div id="page">
     <?php
     echo $session->message();
-    // $dept_users = User::find_by_dept_id('11 ORDER BY full_name ASC');
-     $dept_users = User::find_all_order_by($requested_field, $order);
+     $dept_users = User::find_all($requested_field, $order);
     echo '<h2>Gestione '.count($dept_users).' Utenti</h2>';
     ?>
       <table id="usertable">

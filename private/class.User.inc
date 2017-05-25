@@ -99,12 +99,12 @@ class User {
 		return self::find_by_sql("DESCRIBE users");
 	}
 
-	public static function find_all() {
-		return self::find_by_sql("SELECT * FROM users");
+	public static function find_all($requested_field="id", $order="ASC") {
+		return self::find_by_sql("SELECT * FROM users ORDER BY $requested_field $order");
 	}
 
-	public static function find_all_order_by($requested_field="id", $order="ASC") {
-		return self::find_by_sql("SELECT * FROM users ORDER BY $requested_field $order");
+	public static function find_hr_users($requested_field="id", $order="ASC") {
+		return self::find_by_sql("SELECT * FROM users WHERE email NOT LIKE '%branch%' AND email NOT LIKE '%agency%' ORDER BY $requested_field $order");
 	}
 
 	public static function set_order($requested_field, $order, $existing_field) {
