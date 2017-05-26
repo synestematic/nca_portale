@@ -15,6 +15,7 @@ class User {
 
 	public $email;
 	public $full_name;
+	public $initials;
 	public $address = '';
 	public $pwd;
 	public $hashed_pwd;
@@ -180,6 +181,14 @@ class User {
 	protected function set_dept_id_from_dept() {
 		$user_dept = Dept::find_by_reparto($this->dept);
 		isset($user_dept->id) ? $this->dept_id = $user_dept->id : false ;
+	}
+
+	public function get_initials() {
+		$names = explode(" ", $this->full_name);
+		foreach ($names as $name) {
+		  $this->initials .= $name[0];
+		}
+		return $this->initials ;
 	}
 
 	public function set_upload_filename($stock_id="", $targa="", $day_contents) {
