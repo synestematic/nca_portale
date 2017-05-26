@@ -15,6 +15,7 @@ class User {
 
 	public $email;
 	public $full_name;
+	public $address = '';
 	public $pwd;
 	public $hashed_pwd;
 	public $ddi;
@@ -33,6 +34,8 @@ class User {
 		$object->tmp_dir = 'tmp'.DS.$object->id.DS;
 
 		$object->table = 'chiamate_bc';
+
+		isset($result["address"]) ? $object->address = $result["address"] : false ;
 
 		if (isset($result["branch_id"])) {
 			$object->branch_id = $result["branch_id"];
