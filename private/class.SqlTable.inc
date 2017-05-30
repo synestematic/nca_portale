@@ -140,40 +140,6 @@ class DbTable extends SqlTable {
 		$this->database = $local_db;
 	}
 
-	// public function select_from_where($field_array, $table, $field1, $value1, $field2, $value2, $id, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_h, $da_m, $a_h, $a_m, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo) {
-	//
-	// 	$field1 = $this->database->escape_string($field1);
-	// 	$value1 = $this->database->escape_string($value1);
-	// 	$field2 = $this->database->escape_string($field2);
-	// 	$value2 = $this->database->escape_string($value2);
-	// 	$da_anno = $this->database->escape_string($da_anno);
-	// 	$da_mese = $this->database->escape_string($da_mese);
-	// 	$da_giorno = $this->database->escape_string($da_giorno);
-	// 	$a_anno = $this->database->escape_string($a_anno);
-	// 	$a_mese = $this->database->escape_string($a_mese);
-	// 	$a_giorno = $this->database->escape_string($a_giorno);
-	// 	$da_h = $this->database->escape_string($da_h);
-	// 	$da_m = $this->database->escape_string($da_m);
-	// 	$a_h = $this->database->escape_string($a_h);
-	// 	$a_m = $this->database->escape_string($a_m);
-	// 	$simbolo_connesso = $this->database->escape_string($simbolo_connesso);
-	// 	$secs_connesso = $this->database->escape_string($secs_connesso);
-	// 	$simbolo_squillo = $this->database->escape_string($simbolo_squillo);
-	// 	$secs_squillo = $this->database->escape_string($secs_squillo);
-	//
-	// 	$this->where_string = "WHERE $field1 LIKE '%$value1%' ";
-	// 	$this->where_string .= "AND $field2 LIKE '%$value2%' ";
-	// 	$this->where_string .= "AND id >= $id ";
-	// 	$this->where_string .= "AND orario_chiamata BETWEEN '$da_h:$da_m:00' AND '$a_h:$a_m:00' ";
-	// 	$this->where_string .= "AND data_chiamata BETWEEN '$da_anno-$da_mese-$da_giorno' AND '$a_anno-$a_mese-$a_giorno' ";
-	// 	$this->where_string .= ($simbolo_connesso == '*') ? "" : "AND tempo_connesso $simbolo_connesso $secs_connesso " ;
-	// 	$this->where_string .= ($simbolo_squillo == '*') ? "" : "AND tempo_squillo $simbolo_squillo $secs_squillo " ;
-	// 	$this->where_string .= "ORDER BY id DESC ";
-	//
-	// 	$object_array = $this->select_from($field_array, $table);
-	// 	return $object_array;
-	// }
-
 }
 
 class FpTable extends SqlTable {
