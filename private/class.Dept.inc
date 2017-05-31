@@ -3,7 +3,7 @@ class Dept {
 
 	public $id;
 	public $reparto;
-	private $orario = array(
+	public $orario = array(
 		'default' => array('apertura' => 9, 'chiusura' => 18,),
 	);
 
@@ -11,7 +11,7 @@ class Dept {
 		$object = new self;
 		isset($result["id"]) ? $object->id = $result["id"] : false ;
 		isset($result["reparto"]) ? $object->reparto = $result["reparto"] : false ;
-		if ($object->reparto === 'inbound' || $object->reparto === 'outbound' ) {
+		if ($object->reparto === 'bc') {
 			$object->orario = array(
 				'default'	 => array('apertura' => 8, 'chiusura' => 21,),
 				'6'			 => array('apertura' => 9, 'chiusura' => 19,),

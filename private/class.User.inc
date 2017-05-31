@@ -30,7 +30,6 @@ class User {
 
 	private static function instantiate($result, $sql) {
 		$object = new self;
-		// use describe_table() to cycle thru fields
 		isset($result["id"]) ? $object->id = $result["id"] : false ;
 		$object->tmp_dir = 'tmp'.DS.$object->id.DS;
 
@@ -49,12 +48,6 @@ class User {
 			$object->dept_id = $result["dept_id"];
 			$user_dept = Dept::find_by_id($object->dept_id);
 			isset($user_dept->reparto) ? $object->dept = $user_dept->reparto : false ;
-			if (strpos($user_dept->reparto, 'hunter') !== false) {
-				$object->table = 'chiamate_sales';
-			}
-			if (strpos($user_dept->reparto, 'farmer') !== false) {
-				$object->table = 'chiamate_sales';
-			}
 			if (strpos($user_dept->reparto, 'ops') !== false) {
 				$object->table = 'chiamate_ops';
 			}
@@ -80,7 +73,6 @@ class User {
 
 		isset($result["full_name"]) ? $object->full_name = $result["full_name"] : false ;
 		isset($result["hashed_pwd"]) ? $object->hashed_pwd = $result["hashed_pwd"] : false ;
-		//get password from hash?
 		isset($result["ddi"]) ? $object->ddi = $result["ddi"] : false ;
 		isset($result["access"]) ? $object->access = $result["access"] : false ;
 		isset($result["su"]) ? $object->su = $result["su"] : false ;
@@ -306,7 +298,7 @@ class User {
 	}
 
 	private	function password_encrypt($password) {
-		$hash_format = "$2y$10$";	// Tells PHP to use Blowfish with a "cost" of 10
+		$hash_format = "$2y$10$";	// use Blowfish with a "cost" of 10
 		$salt_length = 22; 		// Blowfish salts should be 22-characters or more
 		$salt = self::generate_salt($salt_length);
 		$format_and_salt = $hash_format . $salt;

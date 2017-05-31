@@ -20,7 +20,7 @@ if (!empty($_GET)) {
 	    $table = '_ops';
 	} else if (strpos($_GET['z'], 'bc') !== false) {
 	    $direzione = call_direction();
-	    $reparto = $direzione;
+	    $reparto = 'bc';
 	    $table = '_bc';
 	}
 
