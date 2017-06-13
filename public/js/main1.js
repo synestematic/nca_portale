@@ -203,8 +203,9 @@ function validateTarga(targa) {
 
     var regexes = [
         /^[a-zA-Z]{2}[0-9]{3}[a-zA-Z0-9]{2}[a-zA-Z]?$/g ,   // EL 432 PJ || RM 4 5 872L
-        /^[a-zA-Z]{3}[0-9]{5}$/g ,                          // GEE 69999
         /^[a-zA-Z]{2}[0-9][a-zA-Z][0-9]{4}$/g ,             // RM 2 E 2426
+        /^[a-zA-Z]{3}[0-9]{5}$/g ,                          // GEE 69999
+        /^[a-zA-Z]{2}[0-9]{6}$/g ,                          // FG 420145
     ];
 
     for (regex of regexes) {

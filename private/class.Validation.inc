@@ -44,6 +44,7 @@ class Validation {
 			"/^[a-zA-Z]{2}[0-9]{5}[a-zA-Z]$/" ,				// RM 45872 L
 	        "/^[a-zA-Z]{3}[0-9]{5}$/" ,                     // GEE 69999
 	        "/^[a-zA-Z]{2}[0-9][a-zA-Z][0-9]{4}$/" ,        // RM 2 E 2426
+			"/^[a-zA-Z]{2}[0-9]{6}$/" ,                     // FG 420145
 	    );
 
 	    foreach ($regexes as $regex) {
