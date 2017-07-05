@@ -9,8 +9,7 @@ class Time {
 	public $year;
 
 	public static function inverse_date($date) {
-			$date_sections = explode("-", $date);
-			$inversed_date = $date_sections[2]."/".$date_sections[1]."/".$date_sections[0];
+			$inversed_date = date("d/m/Y", strtotime($date));
 			return $inversed_date;
 	}
 
@@ -20,7 +19,6 @@ class Time {
 		  $s = $secs % 60 ;
 			$output = ($H != 0) ? sprintf("%02d:%02d:%02d", $H, $i, $s) : sprintf("%02d:%02d", $i, $s) ;
 			echo $output;
-			// return $output;
 	}
 
 	public static function check_for_date($value) {
@@ -33,7 +31,7 @@ class Time {
 			$d1 = substr($value, '4', '1');
 			$d2 = substr($value, '7', '1');
 
-			if ( preg_match("/[0-9]{4}([-\/][0-9]{2}){2} /", $value ) && checkdate((int)$month, (int)$day, (int)$year) ) { 
+			if ( preg_match("/[0-9]{4}([-\/][0-9]{2}){2} /", $value ) && checkdate((int)$month, (int)$day, (int)$year) ) {
 				if (preg_match("/[0-9]{4}([-\/][0-9]{2}){2} 00:00:00/", $value))  {
 					$value = $day . '/' . $month . '/' . $year ;
 				} else {
