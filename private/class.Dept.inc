@@ -94,7 +94,5 @@ class Dept {
 		echo '</select>';
 	}
 
-
-
 }
 ?>

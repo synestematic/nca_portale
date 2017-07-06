@@ -49,7 +49,7 @@ class User {
 			$user_dept = Dept::find_by_id($object->dept_id);
 			isset($user_dept->reparto) ? $object->dept = $user_dept->reparto : false ;
 			if (strpos($user_dept->reparto, 'ops') !== false) {
-				$object->table = 'chiamate_ops';
+				$object->table = 'chiamate_as';
 			}
 		} else {
 			$object->dept = '';

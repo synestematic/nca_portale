@@ -277,7 +277,7 @@ Al:
     <tr>
      <th style="width:40px">ID</th>
      <th style="width:80px">Tipo<br>connessione</th>
-		 <?php echo ($logged_user->table == "chiamate_ops") ? '<th style="width:80px">Estensione</th>' : '' ; ?>
+		 <?php echo ($logged_user->table == "chiamate_as") ? '<th style="width:80px">Estensione</th>' : '' ; ?>
      <th style="width:80px">Utente</th>
      <th style="width:80px">Data<br>chiamata</th>
      <th style="width:60px">Orario<br>chiamata</th>
@@ -294,7 +294,7 @@ Al:
 			echo (strpos($chiamata->tipo_connessione, 'inbound') !== false) ? '<tr bgcolor="#f2f2f2">' : '<tr bgcolor="#cccccc">';
 				echo '<td>'.$chiamata->id.'</td>';
 				echo '<td>'.$chiamata->tipo_connessione.'</td>';
-				echo ($logged_user->table == "chiamate_ops") ? '<td>'.$chiamata->estensione.'</td>' : '' ;
+				echo ($logged_user->table == "chiamate_as") ? '<td>'.$chiamata->estensione.'</td>' : '' ;
 				echo '<td>'.$chiamata->utente.'</td>';
 				echo '<td>'.$chiamata->data_chiamata.'</td>';
 				echo '<td>'.$chiamata->orario_chiamata.'</td>';

@@ -14,20 +14,34 @@ if (!empty($_GET)) {
 	    return $direzione;
 	}
 
+	// $table is used to set the SQL table to use
+	// $reparto is used to set the opening/closing timetables of the department
+
 	if (strpos($_GET['z'], 'ops') !== false) {
 	    $direzione = call_direction();
 	    $reparto = 'ops';
 	    $table = '_ops';
+	} else if (strpos($_GET['z'], 'as') !== false) {
+	    $direzione = call_direction();
+	    $reparto = 'ops';
+	    $table = '_as';
 	} else if (strpos($_GET['z'], 'bc') !== false) {
 	    $direzione = call_direction();
 	    $reparto = 'bc';
 	    $table = '_bc';
+	} else if (strpos($_GET['z'], 'bqa') !== false) {
+	    $direzione = call_direction();
+	    $reparto = 'bqa';
+	    $table = '_bqa';
+	} else if (strpos($_GET['z'], 'zrt') !== false) {
+	    $direzione = call_direction();
+	    $reparto = 'zrt';
+	    $table = '_zrt';
 	}
 
 	$weekday_chiamata = strftime("%u", $_GET['a']);
 	$ora_chiamata = strftime("%H", $_GET['a']);
 	if ( ($ora_chiamata >= Dept::orario_apertura($reparto, $weekday_chiamata)) && ($ora_chiamata < Dept::orario_chiusura($reparto, $weekday_chiamata)) ) {
-	// if ( ($ora_chiamata >= Dept::orario_apertura($reparto)) && ($ora_chiamata < Dept::orario_chiusura($reparto)) ) {
 
 		$call = new Chiamata();
 
