@@ -135,7 +135,7 @@ div.message {
 }
 
 #giornata th, #filedim th  {
-    border: 2px solid #000000;
+    border: 2px solid #EEE4B9;
     padding: 1px;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -147,7 +147,7 @@ div.message {
 
 #giornata td, #filedim td {
     text-align: center;
-    border: 2px solid #000000;
+    border: 2px solid #EEE4B9;
     height:100%;
     padding: 2px;
 }
@@ -164,33 +164,33 @@ div.message {
 background-color: #e6eeff;
 }
 
-#tavol {
+.colored_table {
     border-collapse: collapse;
     width: 100%;
 }
 
-#tavol th {
+.colored_table th {
     padding-top: 3px;
     padding-bottom: 3px;
-    text-align: center;
     background-color: #8D0D19;
     height:38px;
     color: white;
 }
 
-#tavol td, #tavol th {
-    border: 2px solid #000000;
+.colored_table td, .colored_table th {
+    text-align: center;
+    border: 2px solid #EEE4B9;
     padding: 1px;
 }
 
-#tavol tr:nth-child(even){background-color: #f2f2f2;}
-#tavol tr:nth-child(odd) {background-color: #ddd;}
+.colored_table tr:nth-child(even){background-color: #f2f2f2;}
+.colored_table tr:nth-child(odd) {background-color: #ddd;}
 
-#tavol tr {
+.colored_table tr {
 height:33px;
 }
 
-#tavol tr:hover {
+.colored_table tr:hover {
 background-color: #e6eeff;
 }
 
@@ -205,12 +205,12 @@ background-color: #e6eeff;
     padding-top: 1px;
     padding-bottom: 1px;
     height:30px;
-    border: 2px solid #000000;
+    border: 2px solid #EEE4B9;
     background-color: #cccccc;
 }
 
 #usertable td {
-    border: 2px solid #000000;
+    border: 2px solid #EEE4B9;
     padding: 1px;
 }
 
@@ -260,8 +260,9 @@ height:30px;
 
 
 
-
-
+input {
+    /*width: 90%;*/
+}
 
 
 
@@ -314,7 +315,8 @@ height:30px;
 #fp_table tr:nth-child(odd) {background-color: #ddd;}
 
 #table_header_row {
-    /*display: block;   /**/ this makes it scrollable in chrome but columns remain fixed size...*/
+    /* this makes it scrollable in chrome but columns remain fixed size...*/
+    /*display: block; */
     display: inherit;
     z-index: 5;
 }
@@ -324,4 +326,21 @@ height:30px;
 
 #search_button{
     width: 80%;
+}
+
+#small_table {
+    width: 30%;
+}
+
+#small_table input {
+    width: 94%;
+}
+
+#small_table th {
+    height: 5%;
+}
+
+#small_table select {
+    text-align: left;
+    width: 97%;
 }

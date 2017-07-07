@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
       $to_be_edited_user->dept = $_POST["dept"];
       $to_be_edited_user->email = $_POST["email"];
       $to_be_edited_user->full_name = $_POST["nome"];
-      $to_be_edited_user->access = "false";
+      $to_be_edited_user->access = ($_POST["access"]) ? 'true' : 'false' ;
       $to_be_edited_user->su = "false";
       $to_be_edited_user->pwd = $_POST["password"];
       $result = $to_be_edited_user->save();
@@ -58,9 +58,15 @@ include("../private/layouts/header.php");
       echo $session->message();
       echo $validation->error_message();
     ?>
-    <h2>Modifica Utente:</h2>
+    <h2>Profilo Utente:</h2>
     <form action="edit_user?id=<?php echo urlencode($to_be_edited_user->id); ?>" method="post">
-      <table id="tavol"><tr><th></th><th></th></tr>
+      <table class="colored_table" id="small_table">
+        <tr>
+            <th><input type="submit" name="submit" value="Modifica Utente" />
+            </th>
+            <th>Accesso a Portale<input type="checkbox" name="access" <?php echo ($to_be_edited_user->access) ? 'checked="checked"' : '' ; ?>/>
+            </th>
+        </tr>
         <tr>
           <td>Filiale:</td>
           <td> <?php
@@ -76,7 +82,7 @@ include("../private/layouts/header.php");
            <td><input type="text" name="email" value="<?php echo $to_be_edited_user->email; ?>" /></td>
         </tr>
          <tr>
-           <td>Nome e Cognome:</td>
+           <td>Nome Completo:</td>
            <td><input type="text" name="nome" value="<?php echo $to_be_edited_user->full_name; ?>" /></td>
          </tr>
          <tr>
@@ -87,9 +93,8 @@ include("../private/layouts/header.php");
            <td>Conferma Password:</td>
            <td><input type="password" name="conferma_password" value="" /></td>
          </tr>
-      </table>
-      <br>
-      <input type="submit" name="submit" value="Modifica" />
+      </table><br>
+      <br><br>
     </form>
   </div>
 </div>

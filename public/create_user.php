@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     $to_be_created_user->dept = $_POST["dept"];
     $to_be_created_user->email = $_POST["email"];
     $to_be_created_user->full_name = $_POST["nome"];
-    $to_be_created_user->access = 'false';
+    $to_be_created_user->access = ($_POST["access"]) ? 'true' : 'false' ;
     $to_be_created_user->su = 'false';
     $to_be_created_user->pwd = $_POST["password"];
     $user_created = $to_be_created_user->save();
@@ -48,9 +48,17 @@ include("../private/layouts/header.php");
       echo $session->message();
       echo $validation->error_message();
     ?>
-    <h2>Crea un nuovo Utente:</h2>
+    <h2>Nuovo Utente:</h2>
     <form action="" method="post">
-      <table id="tavol"><tr><th></th><th></th></tr>
+      <table class="colored_table" id="small_table">
+          <tr>
+              <th>
+                  <input type="submit" name="submit" value="Crea Utente" />
+              </th>
+              <th>Accesso a Portale
+                  <input type="checkbox" name="access"/>
+              </th>
+          </tr>
         <tr>
           <td>Filiale:</td>
           <td> <?php Branch::branch_dropdown("branch"); ?> </td>
@@ -75,9 +83,7 @@ include("../private/layouts/header.php");
            <td>Conferma Password:</td>
            <td><input type="password" name="conferma_password" value="" /></td>
          </tr>
-      </table>
-      <br>
-      <input type="submit" name="submit" value="Crea" />
+     </table>
     </form>
   </div>
 </div>
