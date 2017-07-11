@@ -30,4 +30,5 @@ require_once(LIB_PATH.DS."class.Validation.inc");
 require_once(LIB_PATH.DS."class.Time.inc");
 require_once(LIB_PATH.DS."class.String.inc");
 
+require_once(LIB_PATH.DS."class.CellStats.inc");
 ?>
