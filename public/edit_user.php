@@ -58,7 +58,7 @@ include("../private/layouts/header.php");
       echo $session->message();
       echo $validation->error_message();
     ?>
-    <h2>Profilo Utente:</h2>
+    <h2>Profilo Utente: <?php echo $to_be_edited_user->full_name; ?></h2>
     <form action="edit_user?id=<?php echo urlencode($to_be_edited_user->id); ?>" method="post">
       <table class="colored_table" id="small_table">
         <tr>

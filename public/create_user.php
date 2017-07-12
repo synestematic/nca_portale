@@ -56,7 +56,7 @@ include("../private/layouts/header.php");
                   <input type="submit" name="submit" value="Crea Utente" />
               </th>
               <th>Accesso a Portale
-                  <input type="checkbox" name="access"/>
+                  <input type="checkbox" name="access" <?php echo (isset($_POST['access'])) ? 'checked="checked"' : '' ; ?>/>
               </th>
           </tr>
         <tr>
