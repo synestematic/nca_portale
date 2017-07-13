@@ -18,6 +18,11 @@ class Dept {
 				'7'			 => array('apertura' => 14,'chiusura' => 19,),
 			);
 		}
+		if ($object->reparto === 'bi') {
+			$object->orario = array(
+				'default'	 => array('apertura' => 9, 'chiusura' => 19,),
+			);
+		}
 		return $object;
 	}
 

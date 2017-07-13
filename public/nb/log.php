@@ -17,25 +17,25 @@ if (!empty($_GET)) {
 	// $table is used to set the SQL table to use
 	// $reparto is used to set the opening/closing timetables of the department
 
-	if (strpos($_GET['z'], 'ops') !== false) {
+	if ($_GET['z'] === 'bcops_in' || $_GET['z'] === 'bcops_out') {
 	    $direzione = call_direction();
-	    $reparto = 'ops';
-	    $table = '_ops';
+	    $reparto = 'bi'; // pogolsa
+	    $table = '_bcops';
 	} else if (strpos($_GET['z'], 'as') !== false) {
 	    $direzione = call_direction();
-	    $reparto = 'ops';
+	    $reparto = 'ops'; // todarello
 	    $table = '_as';
-	} else if (strpos($_GET['z'], 'bc') !== false) {
+	} else if ($_GET['z'] === 'bc_in' || $_GET['z'] === 'bc_out') {
 	    $direzione = call_direction();
-	    $reparto = 'bc';
+	    $reparto = 'bc'; // del-naia
 	    $table = '_bc';
 	} else if (strpos($_GET['z'], 'bqa') !== false) {
 	    $direzione = call_direction();
-	    $reparto = 'bqa';
+	    $reparto = 'bqa'; // pogolsa
 	    $table = '_bqa';
 	} else if (strpos($_GET['z'], 'zrt') !== false) {
 	    $direzione = call_direction();
-	    $reparto = 'zrt';
+	    $reparto = 'zrt'; // valentino
 	    $table = '_zrt';
 	}
 

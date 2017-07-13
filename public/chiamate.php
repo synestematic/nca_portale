@@ -3,6 +3,29 @@ require_once("../private/initialize.php");
 if (!$session->is_logged_in()) { redirect("login"); }
 $logged_user = User::find_by_id($_SESSION["user_id"]);
 
+$allowed_depts = array('as', 'bc', 'bqa', 'bcops', 'zrt');
+$correct_dept_selected = false;
+foreach ($allowed_depts as $dept) {
+	if ($_GET['dept'] === $dept ) {
+		$correct_dept_selected = true ;
+	}
+}
+if (!$correct_dept_selected) {
+	redirect("admin");
+}
+
+if ($_GET['dept'] === 'as' ) {
+	$title = 'Aftersales Help-Desk' ;
+} elseif ($_GET['dept'] === 'bc' ) {
+	$title = 'Booking Center' ;
+} elseif ($_GET['dept'] === 'bqa' ) {
+	$title = 'Branch Quality Assurance' ;
+} elseif ($_GET['dept'] === 'bcops' ) {
+	$title = 'Booking Center Operations' ;
+} elseif ($_GET['dept'] === 'zrt' ) {
+	$title = 'Zero-Risk Trading' ;
+}
+
 if (isset($_POST["cerca"])) {
 	$stringa1 = $_POST["stringa1"];
 	$field1 = $_POST["field1"];
@@ -51,7 +74,7 @@ if (isset($_POST["cerca"])) {
 	<a href="admin">&laquo; Torna indietro</a><br><br>
 	<fieldset>
       <legend>Ricerca:</legend>
-      <form action="" method="post">
+      <form action="?dept=<?php echo $_GET['dept']; ?>" method="post">
 			<table><tr>
 			<td style="text-align: center; height:10px">
 			  <input id="stringa" type="text" name="stringa1" value="<?php echo $stringa1; ?>"> </td>   </tr>
@@ -264,20 +287,25 @@ Al:
   <ul class="pages">
 		<?php
 			// call this statically?? Chiamata::select_records()
-			 $chiamata =	new Chiamata();
-			 $chiamata_set = $chiamata->select_records($logged_user->table, $field1, $stringa1, $field2, $stringa2, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_ora, $da_min, $a_ora, $a_min, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo);
+			 $chiamata = new Chiamata();
+			 $chiamata_set = $chiamata->select_records('chiamate_'.$_GET['dept'], $field1, $stringa1, $field2, $stringa2, $da_anno, $da_mese, $da_giorno, $a_anno, $a_mese, $a_giorno, $da_ora, $da_min, $a_ora, $a_min, $simbolo_connesso, $secs_connesso, $simbolo_squillo, $secs_squillo);
 		?>
  		<li><a href="">Ricarica</a></li>
     <li><a target="_blank" href="export?a=<?php echo (isset($chiamata_set[0])) ? base64_encode($chiamata_set[0]->last_sql) : '" onclick="return validateExport()' ; ?>">Esporta in Excel</a></li>
 	</ul>
  </div>
  <div id="page">
-  <h2>Chiamate Natterbox: <?php echo count($chiamata_set); ?> </h2>
-   <table id="tavol">
+<?php
+	echo '<h2>';
+	echo 'Chiamate '.$title.': ';
+	echo count($chiamata_set);
+	echo '</h2>';
+  ?>
+   <table class="colored_table">
     <tr>
      <th style="width:40px">ID</th>
      <th style="width:80px">Tipo<br>connessione</th>
-		 <?php echo ($logged_user->table == "chiamate_as") ? '<th style="width:80px">Estensione</th>' : '' ; ?>
+		 <?php echo ($_GET['dept'] == "as") ? '<th style="width:80px">Estensione</th>' : '' ; ?>
      <th style="width:80px">Utente</th>
      <th style="width:80px">Data<br>chiamata</th>
      <th style="width:60px">Orario<br>chiamata</th>
@@ -294,7 +322,7 @@ Al:
 			echo (strpos($chiamata->tipo_connessione, 'inbound') !== false) ? '<tr bgcolor="#f2f2f2">' : '<tr bgcolor="#cccccc">';
 				echo '<td>'.$chiamata->id.'</td>';
 				echo '<td>'.$chiamata->tipo_connessione.'</td>';
-				echo ($logged_user->table == "chiamate_as") ? '<td>'.$chiamata->estensione.'</td>' : '' ;
+				echo ($_GET['dept'] == "as") ? '<td>'.$chiamata->estensione.'</td>' : '' ;
 				echo '<td>'.$chiamata->utente.'</td>';
 				echo '<td>'.$chiamata->data_chiamata.'</td>';
 				echo '<td>'.$chiamata->orario_chiamata.'</td>';

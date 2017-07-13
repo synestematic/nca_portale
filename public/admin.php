@@ -18,28 +18,32 @@ $logged_user = User::find_by_id($_SESSION["user_id"]);
         <p>Scegli un'opzione:</p>
         <ul>
           <?php
-            echo ($logged_user->dept === "ops" || $logged_user->su === "1" || $logged_user->dept === "bc" ) ? '<li><a href="chiamate">Chiamate Natterbox</a></li><br><br>' : '';
+            echo ($logged_user->su === "1" || $logged_user->dept === "ops"  || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Berkan Limon' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="chiamate?dept=as">Chiamate Aftersales Help-Desk</a></li><br>' : '';
+            echo ($logged_user->su === "1" || $logged_user->dept === "bc"  || $logged_user->full_name === 'Berkan Limon' || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="chiamate?dept=bc">Chiamate Booking Center</a></li><br>' : '';
+            echo ($logged_user->su === "1"  || $logged_user->full_name === 'Berkan Limon'|| $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="chiamate?dept=bqa">Chiamate Branch Quality Assurance</a></li><br>' : '';
+            echo ($logged_user->su === "1" || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="chiamate?dept=bcops">Chiamate Booking Center Operations</a></li><br>' : '';
+            echo ($logged_user->su === "1" || $logged_user->full_name === 'Berkan Limon' || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="chiamate?dept=zrt">Chiamate Zero-Risk Trading</a></li><br>' : '';
 
-            echo ($logged_user->su || $logged_user->full_name === "Luca Shawawreh" || $logged_user->su || $logged_user->full_name === "Davide Tarizzo" || $logged_user->full_name === "Mirela Ancuta" || $logged_user->full_name === "Alessio Calenda" || $logged_user->full_name === "Emilia Monita" || $logged_user->full_name === "Mattia Ruffoni") ? '<li><a href="fp_request?page=all"><b>FinProget:</b> Report All Vehicles</a></li><br>' : '';
+            // echo ( $logged_user->su === "1" ) ? '<li><a href="chiamate_old">Chiamate Natterbox</a></li><br><br>' : '';
+            echo '<br>';
 
-            echo ($logged_user->dept === "ops" || $logged_user->dept === "bi" || $logged_user->su === "1") ? '<li><a href="fp_request?page=warm"><b>FinProget:</b> Report Warm Vehicles</a></li><br>' : '';
+            echo ($logged_user->su || $logged_user->full_name === 'Berkan Limon' || $logged_user->full_name === "Luca Shawawreh" || $logged_user->su || $logged_user->full_name === "Davide Tarizzo" || $logged_user->full_name === "Mirela Ancuta" || $logged_user->full_name === "Alessio Calenda" || $logged_user->full_name === "Emilia Monita" || $logged_user->full_name === "Mattia Ruffoni"  || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="fp_request?page=all"><b>FinProget:</b> Report All Vehicles</a></li><br>' : '';
 
-            echo ($logged_user->dept === "ops" || $logged_user->dept === "bi" || $logged_user->su === "1") ? '<li><a href="fp_request?page=merchants"><b>FinProget:</b> Indirizzi Merchants</a></li><br>' : '';
+            echo ($logged_user->dept === "ops" || $logged_user->full_name === 'Berkan Limon' || $logged_user->dept === "bi" || $logged_user->su === "1"  || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="fp_request?page=warm"><b>FinProget:</b> Report Warm Vehicles</a></li><br>' : '';
 
-            echo ($logged_user->dept === "ops" || $logged_user->dept === "bi" || $logged_user->su === "1") ? '<li><a href="fp_request?page=atti"><b>FinProget:</b> Atti Ricevuti</a></li><br><br>' : '';
+            echo ($logged_user->dept === "ops" || $logged_user->full_name === 'Berkan Limon' || $logged_user->dept === "bi" || $logged_user->su === "1"  || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="fp_request?page=merchants"><b>FinProget:</b> Indirizzi Merchants</a></li><br>' : '';
 
-            echo ($logged_user->su === "1" || $logged_user->full_name === "Alessio Calenda" || $logged_user->full_name === "Emilia Monita" || $logged_user->full_name === "Mattia Ruffoni") ? '<li><a href="fp_request?page=sospensioni"><b>FinProget:</b> Registro Sospensioni Pratiche</a></li><br>' : '';
+            echo ($logged_user->dept === "ops" || $logged_user->full_name === 'Berkan Limon' || $logged_user->dept === "bi" || $logged_user->su === "1"  || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="fp_request?page=atti"><b>FinProget:</b> Atti Ricevuti</a></li><br><br>' : '';
+
+            echo ($logged_user->su === "1" || $logged_user->full_name === 'Berkan Limon' || $logged_user->full_name === "Alessio Calenda" || $logged_user->full_name === "Emilia Monita" || $logged_user->full_name === "Mattia Ruffoni"  || $logged_user->full_name === 'Cristina Pogolsa' || $logged_user->full_name === 'Giuseppe Valentino') ? '<li><a href="fp_request?page=sospensioni"><b>FinProget:</b> Registro Sospensioni Pratiche</a></li><br>' : '';
 
             echo '<br>';
 
-            echo ($logged_user->dept === "agenzia" || $logged_user->dept === "filiale" || $logged_user->su === "1") ? '<li><a href="upload?d='.base64_encode(strftime("%Y-%m-%d")).'">Gestione Documenti</a></li><br>' : '';
-            echo '<br>';
+            echo ($logged_user->dept === "agenzia" || $logged_user->dept === "filiale" || $logged_user->su === "1") ? '<li><a href="upload?d='.base64_encode(strftime("%Y-%m-%d")).'">Gestione Documenti</a></li>' : '';
 
             echo '<br>';
 
-            echo ($logged_user->su) ? '<li><a href="users">Gestione Utenti</a></li><br>' : '';
-
-            echo ($logged_user->su) ? '<li><a href="edit_user?id='.urlencode($_SESSION["user_id"]).'">Impostazioni di profilo</a></li><br>' : '' ;
+            echo ($logged_user->su) ? '<li><a href="users">Gestione Utenti</a></li>' : '';
           ?>
         </ul>
       </div>
