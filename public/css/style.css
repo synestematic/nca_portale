@@ -315,9 +315,8 @@ input {
 #fp_table tr:nth-child(odd) {background-color: #ddd;}
 
 #table_header_row {
-    /* this makes it scrollable in chrome but columns remain fixed size...*/
+    /* this makes it scrollable in chrome BUT columns remain fixed size...*/
     /*display: block; */
-    display: inherit;
     z-index: 5;
 }
 .fp_table_data_row {
