@@ -296,8 +296,10 @@ input {
     height: 94%;
     width: 96%;
 }
-#fp_table th {
+#fp_table {
     text-align: center;
+}
+#fp_table th {
     background-color: #8D0D19;
     color: white;
 }

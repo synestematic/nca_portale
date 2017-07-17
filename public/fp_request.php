@@ -39,9 +39,9 @@ if ($_GET["page"] === 'warm') {
 }
 if ($_GET["page"] === 'all') {
 		if ($logged_user->full_name === "Emilia Monita" ) {
-				$requested_fields = array('Targa', 'StockID', 'EventoConclusivo', 'DataCdP', 'DataCdC');
+			$requested_fields = array('Targa', 'StockID', 'EventoConclusivo', 'DataCdP', 'DataCdC');
 		} else {
-				$requested_fields = array('Targa', 'StockID', 'EventoConclusivo', 'Data_Evento', 'TT2120', 'DataCdc', 'DataTarghe');
+			$requested_fields = array('Targa', 'StockID', 'EventoConclusivo', 'Data_Evento', 'TT2120', 'DataCdc', 'DataTarghe', 'DataSpedizione', 'DataConsegna', 'Consegna_a_mano');
 		}
 		foreach ($requested_fields as $field) {
 			$search_menu->text_input($field);
