@@ -35,7 +35,7 @@ include("../private/layouts/header.php");
           echo '<th style="width: 200px;"><a href="?rf=email&ef='.$requested_field.'&o='.$order.'">E-MAIL<a/></th>';
           echo '<th style="width: 200px;"><a href="?rf=branch_id&ef='.$requested_field.'&o='.$order.'">FILIALE<a/></th>';
           echo '<th style="width: 200px;"><a href="?rf=dept_id&ef='.$requested_field.'&o='.$order.'">DIPARTIMENTO<a/></th>';
-          echo '<th style="width: 80px;"><a href="?rf=access&ef='.$requested_field.'&o='.$order.'">ACCESSO<a/></th>';
+          echo '<th style="width: 80px;"><a href="?rf=access&ef='.$requested_field.'&o='.$order.'">ACCESS<a/></th>';
           echo '<th style="width: 80px;"><a href="?rf=su&ef='.$requested_field.'&o='.$order.'">SUPER<a/></th>';
           echo '<th colspan="2" style="width: 50px;">AZIONE</th>';
           echo '</tr>';

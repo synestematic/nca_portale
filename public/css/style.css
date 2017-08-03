@@ -1,12 +1,9 @@
 /* Site Colors:
   #094e7a - nca blue
-
   #083b69 - nca blue2
   #e55d11 - nca2 orange
-
   #689DC1 - light blue
   #D4E6F4 - very light blue
-
   #EEE4B9 - light tan
   #8D0D19 - burgundy
 */
@@ -34,7 +31,6 @@ button {
 fieldset {
     width:90%;
 }
-
 
 #spinner {
   display: none;
@@ -250,31 +246,9 @@ height:30px;
  font-size: 12px;
 }
 
-
-
-
-
-
-
-
-
-
-
 input {
     /*width: 90%;*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .search_input_class {
   color: grey;
@@ -287,7 +261,6 @@ input {
     text-align: center;
     color: grey;
 }
-
 
 #table_div {
     display: inline-block;
@@ -344,4 +317,8 @@ input {
 #small_table select {
     text-align: left;
     width: 97%;
+}
+
+#no_border {
+    border: 0px solid #000000;
 }

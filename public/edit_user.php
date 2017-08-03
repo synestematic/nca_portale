@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
       $to_be_edited_user->email = $_POST["email"];
       $to_be_edited_user->full_name = $_POST["nome"];
       $to_be_edited_user->access = ($_POST["access"]) ? 'true' : 'false' ;
-      $to_be_edited_user->su = "false";
+      $to_be_edited_user->su = ($_POST["su"]) ? 'true' : 'false' ;
       $to_be_edited_user->pwd = $_POST["password"];
       $result = $to_be_edited_user->save();
 
@@ -64,7 +64,11 @@ include("../private/layouts/header.php");
         <tr>
             <th><input type="submit" name="submit" value="Modifica Utente" />
             </th>
-            <th>Accesso a Portale<input type="checkbox" name="access" <?php echo ($to_be_edited_user->access) ? 'checked="checked"' : '' ; ?>/>
+            <th>
+                <table><tr>
+                    <th id="no_border">Access<input id="access_input" type="checkbox" name="access" <?php echo ($to_be_edited_user->access) ? 'checked="checked"' : ''; ?>/></th>
+                    <th id="no_border">Super<input id="super_input" type="checkbox" name="su" <?php echo ($to_be_edited_user->su) ? 'checked="checked"' : ''; ?>/></th>
+                </tr></table>
             </th>
         </tr>
         <tr>

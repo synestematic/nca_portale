@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
     $to_be_created_user->email = $_POST["email"];
     $to_be_created_user->full_name = $_POST["nome"];
     $to_be_created_user->access = ($_POST["access"]) ? 'true' : 'false' ;
-    $to_be_created_user->su = 'false';
+    $to_be_created_user->su = ($_POST["su"]) ? 'true' : 'false' ;
     $to_be_created_user->pwd = $_POST["password"];
     $user_created = $to_be_created_user->save();
 
@@ -55,8 +55,11 @@ include("../private/layouts/header.php");
               <th>
                   <input type="submit" name="submit" value="Crea Utente" />
               </th>
-              <th>Accesso a Portale
-                  <input type="checkbox" name="access" <?php echo (isset($_POST['access'])) ? 'checked="checked"' : '' ; ?>/>
+              <th>
+                  <table><tr>
+                      <th id="no_border">Access<input id="access_input" type="checkbox" name="access" <?php echo (isset($_POST['access'])) ? 'checked="checked"' : ''; ?>/></th>
+                      <th id="no_border">Super<input id="super_input" type="checkbox" name="su" <?php echo (isset($_POST['su'])) ? 'checked="checked"' : ''; ?>/></th>
+                  </tr></table>
               </th>
           </tr>
         <tr>
